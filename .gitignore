@@ -1,0 +1,4 @@
+#ignore list
+
+/src/BAPsync/node_modules/*
+/src/BAPsync/obj/*
