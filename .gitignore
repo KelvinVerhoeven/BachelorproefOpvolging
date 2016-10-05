@@ -2,3 +2,4 @@
 
 /src/BAPsync/node_modules/*
 /src/BAPsync/obj/*
+/src/BAPsync/typings/*
