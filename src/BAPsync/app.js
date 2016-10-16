@@ -13,7 +13,11 @@ console.log('required everything');
 
 //variables
 var token = "";
+var debug = true;
 
+//use
+app.use(express.static(path.join(__dirname, "html")));
+app.use(bodyParser.json());
 
 
 var github = new GitHubApi({
@@ -34,13 +38,16 @@ var authenticateUser = function () {
 
     github.authenticate({
         type: "token",
-        token: token,
+        token: "d8a9b9598608b5398bed06b58380637a1555c2c8"
     });
 
     github.users.getFollowingForUser({
         user: "jonathan2266"
     }, function (err, res) {
-        console.log(JSON.stringify(res));
+        if (debug) {
+            console.log(JSON.stringify(res));
+            fs.writeFile("./debug/contentRepo.txt", JSON.stringify(res));
+        }
     });
 
 }

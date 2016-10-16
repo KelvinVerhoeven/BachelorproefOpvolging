@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="routes\users.js" />
     <Content Include="key.txt" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
@@ -40,6 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+    <Folder Include="html\" />
+    <Folder Include="debug\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
