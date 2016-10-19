@@ -77,6 +77,8 @@ app.post("/login", function (req, res) {
     var password = req.body.password;
 
     authenticateUser(username, password);
+
+    res.redirect("./mainPage"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
 });
 
 
