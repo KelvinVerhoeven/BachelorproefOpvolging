@@ -1,6 +1,6 @@
 ﻿//contains functions for mongoDB
 var mongoose = require("mongoose");
-var config = require("./imports/config.js");
+var config = require("./config.js");
 
 mongoose.connect(config.db.link);
 console.log("made db connection");

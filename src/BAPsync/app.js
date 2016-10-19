@@ -36,12 +36,13 @@ app.get("/login", function (req, res) {
 app.post("/login", function (req, res) {
     if (debug) {
         console.log("got post /login request");
+        fs.writeFile("./debug/LoginPost.txt", JSON.stringify(req.body));
     }
 
     git.authenticateUser(req.body.username, req.body.password);
     username = req.body.username;
 
-    res.redirect("./mainPage"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
+    res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
 });
 
 

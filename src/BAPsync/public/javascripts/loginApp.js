@@ -1,6 +1,6 @@
 var app = angular.module('loginApp', []);
 
-app.controller('wifiCtrl', function($scope, $http) {
+app.controller('wifiCtrl', function($scope, $http, $window) {
     
     $scope.response = [];
 	$scope.login = function (username, password) {
@@ -18,8 +18,10 @@ app.controller('wifiCtrl', function($scope, $http) {
 
 	    $http.post("/login", dataToSend, config)
         .success(function (data,status,headers,config) {
-            console.log("recieved");
-            $scope.response = data;
+            console.log("recieved loginPost: " + data);
+            var host = $window.location.host;
+            var result = "https://" + host + data;
+            $window.location.href = result;
         })
         .error(function (data,status,header,config) {
             console.log("Failed " + data);
