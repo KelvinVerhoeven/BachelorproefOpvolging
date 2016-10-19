@@ -31,9 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="public\javascripts\loginApp.js" />
+    <Content Include="html\login.html" />
     <Content Include="key.txt" />
+    <Content Include="openSSL\cert.pem" />
+    <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
-    <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="typings.json" />
   </ItemGroup>
@@ -41,6 +44,7 @@
     <Folder Include="bin\" />
     <Folder Include="html\" />
     <Folder Include="debug\" />
+    <Folder Include="openSSL\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />

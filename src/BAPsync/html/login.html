@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Hot-Wifi-Spots</title>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+    <meta charset="utf-8">   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="/javascripts/loginApp.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="loginApp" ng-controller="wifiCtrl">
+    <h1>login to github</h1>
+    <input type="text" ng-model="username" />
+    <input type="text" ng-model="password" />
+    <button type="button" ng-click="login(username, password)">LOGIN</button>
+</body>
+</html>

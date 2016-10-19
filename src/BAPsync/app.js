@@ -6,17 +6,17 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieparser = require('cookie-parser');
 var GitHubApi = require("github");
+var https = require("https");
 
 var app = express();
 
 console.log('required everything');
 
 //variables
-var token = "";
 var debug = true;
 
 //use
-app.use(express.static(path.join(__dirname, "html")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
 
@@ -32,13 +32,12 @@ var github = new GitHubApi({
     timeout: 5000
 });
 
-var authenticateUser = function () {
-
-    token = fs.readFileSync("key.txt").toString();
+var authenticateUser = function (username, password) {
 
     github.authenticate({
-        type: "token",
-        token: "d8a9b9598608b5398bed06b58380637a1555c2c8"
+        type: "basic",
+        username: username,
+        password: password
     });
 
     github.users.getFollowingForUser({
@@ -46,20 +45,44 @@ var authenticateUser = function () {
     }, function (err, res) {
         if (debug) {
             console.log(JSON.stringify(res));
-            fs.writeFile("./debug/contentRepo.txt", JSON.stringify(res));
+            fs.writeFile("./debug/contentRepo.txt", res);
         }
-    });
+        });
+    github.repos.getAll({
 
+    }, function (err, res) {
+        if (debug) {
+            console.log(JSON.stringify(res));
+            fs.writeFile("./debug/getAll.txt", JSON.stringify(res), null, 4);
+        }
+        });
+
+    if (debug) {
+        console.log("user: " + username + " authenticated");
+    }
 }
 
-
-
-
-
-
-
-app.listen(process.env.NODEJS_PORT || 3541, function () {
-    console.log('Server running ' + (process.env.NODEJS_PORT || 3541));
+app.get("/login", function (req, res) {
+    if (debug) {
+        console.log("got get /login request");
+    }
+    res.sendFile(path.join(__dirname, "./html/login.html"));
 });
 
-authenticateUser();
+app.post("/login", function (req, res) {
+    if (debug) {
+        console.log("got post /login request");
+    }
+    var username = req.body.username;
+    var password = req.body.password;
+
+    authenticateUser(username, password);
+});
+
+
+
+
+https.createServer({
+    key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))
+}, app).listen(3541)
