@@ -7,10 +7,19 @@ var bodyParser = require('body-parser');
 var cookieparser = require('cookie-parser');
 var GitHubApi = require("github");
 var https = require("https");
+var mongoose = require("mongoose");
 
 var app = express();
 
+//require user made
+var config = require("./imports/config.js");
+var mongoDB = require("./imports/mongoDB.js");
+
 console.log('required everything');
+
+//database
+mongoose.connect(config.db.link);
+console.log("made db connection");
 
 //variables
 var debug = true;
@@ -73,10 +82,8 @@ app.post("/login", function (req, res) {
     if (debug) {
         console.log("got post /login request");
     }
-    var username = req.body.username;
-    var password = req.body.password;
 
-    authenticateUser(username, password);
+    authenticateUser(req.body.username, req.body.password);
 
     res.redirect("./mainPage"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
 });

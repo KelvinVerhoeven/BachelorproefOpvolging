@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="imports\config.js" />
+    <Compile Include="imports\mongoDB.js" />
     <Compile Include="public\javascripts\loginApp.js" />
     <Content Include="html\login.html" />
     <Content Include="key.txt" />
@@ -44,12 +46,12 @@
     <Folder Include="bin\" />
     <Folder Include="html\" />
     <Folder Include="debug\" />
+    <Folder Include="imports\" />
     <Folder Include="openSSL\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
-    <Folder Include="routes\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />
     <Folder Include="typings\globals\bluebird\" />
@@ -61,6 +63,7 @@
     <Folder Include="typings\globals\express\" />
     <Folder Include="typings\globals\jade\" />
     <Folder Include="typings\globals\mime\" />
+    <Folder Include="typings\globals\mongoose\" />
     <Folder Include="typings\globals\morgan\" />
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\serve-favicon\" />
@@ -78,6 +81,7 @@
     <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\mime\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mongoose\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\morgan\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\serve-favicon\index.d.ts" />
