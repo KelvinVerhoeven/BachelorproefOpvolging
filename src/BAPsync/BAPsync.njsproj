@@ -32,10 +32,10 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="imports\config.js" />
+    <Compile Include="imports\git.js" />
     <Compile Include="imports\mongoDB.js" />
     <Compile Include="public\javascripts\loginApp.js" />
     <Content Include="html\login.html" />
-    <Content Include="key.txt" />
     <Content Include="openSSL\cert.pem" />
     <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
