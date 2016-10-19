@@ -6,7 +6,6 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieparser = require('cookie-parser');
 var https = require("https");
-var mongoose = require("mongoose");
 
 var app = express();
 
@@ -17,12 +16,10 @@ var git = require("./imports/git.js");
 
 console.log('required everything');
 
-//database
-mongoose.connect(config.db.link);
-console.log("made db connection");
 
 //variables
 var debug = true;
+var username;
 
 //use
 app.use(express.static(path.join(__dirname, "public")));
@@ -42,6 +39,7 @@ app.post("/login", function (req, res) {
     }
 
     git.authenticateUser(req.body.username, req.body.password);
+    username = req.body.username;
 
     res.redirect("./mainPage"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
 });
