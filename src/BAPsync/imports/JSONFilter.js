@@ -1,4 +1,5 @@
 ﻿var config = require("./config.js");
+var fs = require("fs");
 
 var debug = config.debug;
 var BAPRepoFilterWord = config.BAP.filter;
@@ -10,9 +11,9 @@ module.exports = {
 
         if (debug) {
             console.log("starting to filter the repos on name");
+            fs.writeFile("././debug/reposAP.txt", JSON.stringify(repoList, null, "\n"));
         }
         for (var repo in repoList) {
-            console.log(repoList[repo].name);
             if (typeof repoList[repo] != "undefined" && repo != "meta") {
                 var repoName = repoList[repo].name;
                 var index = repoName.indexOf(BAPRepoFilterWord);
@@ -20,6 +21,9 @@ module.exports = {
                     results.push(repoList[repo]);
                 }
             }
+        }
+        if (debug) {
+            console.log("parsed " + results.length + " repositories");
         }
         callback(results);
     }

@@ -1,10 +1,7 @@
 ﻿var express = require('express');
 var fs = require("fs");
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
 var bodyParser = require('body-parser');
-var cookieparser = require('cookie-parser');
 var https = require("https");
 
 var app = express();
@@ -30,6 +27,7 @@ var init = function () {
     
     var bachelorList = git.GetBachelorRepos(function (bList) {
         JSONFilter.FilterBAPS(bList, function (filtered) {
+            //this list should be put into the database or updated
             return filtered;
         });
     });
@@ -46,12 +44,11 @@ app.get("/login", function (req, res) {
 app.post("/login", function (req, res) {
     if (debug) {
         console.log("got post /login request");
-        fs.writeFile("./debug/LoginPost.txt", JSON.stringify(req.body));
     }
 
-    var ok = git.authenticateUser(req.body.username, req.body.password);
+    var ok = git.authenticateUser(req.body.username, req.body.password); //add redirect here?
 
-    if (ok) {
+    if (ok) { //gegevens met de database checken of de docent al studenten onder zijn naam heeft staan. if True redirect main alse redirect add students.
         username = req.body.username;
         res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
     } else {

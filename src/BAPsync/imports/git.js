@@ -8,7 +8,7 @@ var debug = config.debug;
 
 
 var github = new GitHubApi({
-    debug: true,
+    debug: debug,
     protocol: "https",
     host: "api.github.com",
     headers: {
@@ -45,10 +45,10 @@ module.exports = {
             console.log("done")
             });
     },
-    GetBachelorRepos: function (callback) {
+    GetBachelorRepos: function (callback) { //test repo we got can't be seen by filtering the AP repo
 
         var g = new GitHubApi({
-            debug: true,
+            debug: debug,
             protocol: "https",
             host: "api.github.com",
             headers: {
