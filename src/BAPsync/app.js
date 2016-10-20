@@ -13,6 +13,7 @@ var app = express();
 var config = require("./imports/config.js");
 var mongoDB = require("./imports/mongoDB.js");
 var git = require("./imports/git.js");
+var JSONFilter = require("./imports/JSONFilter.js");
 
 console.log('required everything');
 
@@ -26,8 +27,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
 var init = function () {
-    var bachelorList = git.GetBachelorRepos();
-    //filter
+    
+    var bachelorList = git.GetBachelorRepos(function (bList) {
+        JSONFilter.FilterBAPS(bList, function (filtered) {
+            return filtered;
+        });
+    });
 
 }
 

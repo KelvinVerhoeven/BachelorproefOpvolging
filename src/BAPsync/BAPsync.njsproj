@@ -33,6 +33,7 @@
     <Compile Include="app.js" />
     <Compile Include="imports\config.js" />
     <Compile Include="imports\git.js" />
+    <Compile Include="imports\JSONFilter.js" />
     <Compile Include="imports\mongoDB.js" />
     <Compile Include="public\javascripts\loginApp.js" />
     <Content Include="html\login.html" />

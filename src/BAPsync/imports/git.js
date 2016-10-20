@@ -45,7 +45,7 @@ module.exports = {
             console.log("done")
             });
     },
-    GetBachelorRepos: function () {
+    GetBachelorRepos: function (callback) {
 
         var g = new GitHubApi({
             debug: true,
@@ -61,21 +61,20 @@ module.exports = {
 
         g.authenticate({
             type: "token",
-            token: JSON.stringify(id)
+            token: "5cadf8d107f738ade37c3d53186f4920436e112a"
         }, function (err, res) {
             if (err != null) {
                 console.log("bot login with token error: " + err);
             }
             });
 
-        console.log("getting org repos with bot");
         g.repos.getForOrg({
             org: "AP-Elektronica-ICT"
         }, function (err, res) {
             if (debug) {
                 fs.writeFileSync("././debug/orgList.txt", JSON.stringify(res, null, "\n"));
             }
-            return res;
+            callback(res);
         }); 
     }
 };
