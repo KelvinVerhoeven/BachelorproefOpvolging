@@ -1,7 +1,8 @@
 # Setup:
 
-install nodeJS 
-https://nodejs.org/en/
+## NPM
+
+install nodeJS https://nodejs.org/en/
 
 install packages with npm install <package_name>:
 
@@ -41,4 +42,10 @@ install packages with npm install <package_name>:
 
  If you have the server running on a different computer you can change the config.db.link value [here](https://github.com/KelvinVerhoeven/BachelorproefOpvolging/blob/master/src/BAPsync/imports/config.js)
 
+# config
 
+Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOpvolging/blob/master/src/BAPsync/imports/config.js)
+
+- config.debug enables extra debugging messages on the console and writes down dumps in the debug map.
+- config.db.link let you set the address of the database.
+- config.bot.gitToken sets the token used for reading the student repositories.
