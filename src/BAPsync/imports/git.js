@@ -2,7 +2,6 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
-var id = require("./key.js");
 
 var debug = config.debug;
 
