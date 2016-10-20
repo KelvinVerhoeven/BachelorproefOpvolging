@@ -63,4 +63,4 @@ https.createServer({
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))
 }, app).listen(3541)
 
-//init(); reading the token from the file seems to be a problem and never works o.O
+init();

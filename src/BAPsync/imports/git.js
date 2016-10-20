@@ -2,6 +2,7 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
+var id = require("./key.js");
 
 var debug = config.debug;
 
@@ -46,8 +47,6 @@ module.exports = {
     },
     GetBachelorRepos: function () {
 
-        var t = fs.readFileSync("./key.js");
-
         var g = new GitHubApi({
             debug: true,
             protocol: "https",
@@ -60,10 +59,9 @@ module.exports = {
             timeout: 5000
         });
 
-        console.log("starting auth with bot");
         g.authenticate({
             type: "token",
-            token: t
+            token: JSON.stringify(id)
         }, function (err, res) {
             if (err != null) {
                 console.log("bot login with token error: " + err);
