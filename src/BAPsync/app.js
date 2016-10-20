@@ -18,13 +18,18 @@ console.log('required everything');
 
 
 //variables
-var debug = true;
+var debug = config.debug;
 var username;
 
 //use
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
+var init = function () {
+    var bachelorList = git.GetBachelorRepos();
+    //filter
+
+}
 
 app.get("/login", function (req, res) {
     if (debug) {
@@ -39,10 +44,15 @@ app.post("/login", function (req, res) {
         fs.writeFile("./debug/LoginPost.txt", JSON.stringify(req.body));
     }
 
-    git.authenticateUser(req.body.username, req.body.password);
-    username = req.body.username;
+    var ok = git.authenticateUser(req.body.username, req.body.password);
 
-    res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
+    if (ok) {
+        username = req.body.username;
+        res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
+    } else {
+        console.log("login with username: " + req.body.username + " failed");
+    }
+
 });
 
 
@@ -52,3 +62,5 @@ https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))
 }, app).listen(3541)
+
+//init(); reading the token from the file seems to be a problem and never works o.O

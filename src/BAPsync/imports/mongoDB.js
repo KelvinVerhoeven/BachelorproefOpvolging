@@ -2,6 +2,8 @@
 var mongoose = require("mongoose");
 var config = require("./config.js");
 
+var debug = config.debug;
+
 mongoose.connect(config.db.link);
 console.log("made db connection");
 
