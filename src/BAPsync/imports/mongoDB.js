@@ -29,24 +29,33 @@ module.exports = {
     },
     updateStudentList: function (studentRepos) {
 
-        var currentlyInDB = StudentDB.find(function (err, res) {
+
+        StudentDB.find(function (err, res) {
             if (err != null) {
                 console.log("error in retrieving studentsList from database: " + err);
             } else {
-                return res;
+                var currentlyInDB = res;
+
+                for (var student in studentRepos) {
+
+                    var match = false;
+                    for (var DB in currentlyInDB) {
+                        if (studentRepos[student].name == currentlyInDB[DB].repo) {
+                            match = true;
+                        }
+                    }
+                    if (!match) {
+                        StudentDB.create({
+                            owner: studentRepos[student].owner.login,
+                            repo: studentRepos[student].name
+                        }, function (err, stud) {
+                            if (err) {
+                                console.log("err in saving student to database: " + err);
+                            }
+                        });
+                    }
+                }
             }
         });
-
-        //for (var student in studentRepos) {
-
-        //    StudentDB.create({
-        //        owner: studentRepos[student].owner.login,
-        //        repo: studentRepos[student].name
-        //    }, function (err, stud) {
-        //        if (err) {
-        //            console.log("err in saving student to database: " + err);
-        //        }
-        //    });
-        //}
     }
 };
