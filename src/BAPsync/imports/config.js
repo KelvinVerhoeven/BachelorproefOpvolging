@@ -8,9 +8,11 @@ config.debug = true;
 
 config.db.link = "mongodb://localhost/BAPSync";
 
-config.bot.gitToken = ""; 
+config.bot.gitToken = "36800d93a615fa2344f4d682aff3f1ff309df00f"; 
 
 config.BAP.filter = "bachelorproef"; //moet normaal iets in de zin zijn van bachelorproefopvolging2016-...
 config.BAP.organisatie = "AP-Elektronica-ICT";
 
 module.exports = config;
+
+// database reset option
