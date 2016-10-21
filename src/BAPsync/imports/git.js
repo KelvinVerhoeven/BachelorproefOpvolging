@@ -4,7 +4,8 @@ var fs = require("fs");
 var config = require("./config.js");
 
 var debug = config.debug;
-
+var tok = config.bot.gitToken;
+var organisatie = config.BAP.organisatie;
 
 var github = new GitHubApi({
     debug: debug,
@@ -60,20 +61,32 @@ module.exports = {
 
         g.authenticate({
             type: "token",
-            token: "5cadf8d107f738ade37c3d53186f4920436e112a"
+            token: tok
         }, function (err, res) {
             if (err != null) {
                 console.log("bot login with token error: " + err);
             }
             });
 
-        g.repos.getForOrg({
-            org: "AP-Elektronica-ICT"
-        }, function (err, res) {
-            if (debug) {
-                fs.writeFileSync("././debug/orgList.txt", JSON.stringify(res, null, "\n"));
-            }
+        //g.users.getTeams({ //finding my team id
+        //}, function (err, res) {
+        //    fs.writeFile("././debug/getTeams.txt", JSON.stringify(res, null, "\n"));
+        //    })
+
+        g.orgs.getTeamRepos({ // getting my team repo
+            id: "2138835" //private team id containg the test repo
+        }, function(err, res) {
+            fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
             callback(res);
-        }); 
+            })
+
+        //g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
+        //    org: organisatie
+        //}, function (err, res) {
+        //    if (debug) {
+        //        fs.writeFile("././debug/orgList.txt", JSON.stringify(res, null, "\n"));
+        //    }
+        //    callback(res);
+        //}); 
     }
 };
