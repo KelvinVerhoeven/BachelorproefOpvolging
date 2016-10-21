@@ -6,17 +6,17 @@ install nodeJS https://nodejs.org/en/
 
 install packages with npm install <package_name>:
 
-*    "bluebird": "^3.4.6",
-*    "body-parser": "~1.8.1",
-*    "cookie-parser": "~1.3.3",
-*    "debug": "~2.0.0",
-*    "express": "~4.9.0",
-*    "github": "^5.2.2",
-*    "jade": "~1.6.0",
+*   "bluebird": "^3.4.6",
+*   "body-parser": "~1.8.1",
+*   "cookie-parser": "~1.3.3",
+*   "debug": "~2.0.0",
+*   "express": "~4.9.0",
+*   "github": "^5.2.2",
+*   "jade": "~1.6.0",
 *   "mongoose": "^4.6.4",
-*    "morgan": "~1.3.0",
-*    "serve-favicon": "~2.1.3",
-*    "stylus": "0.42.3"
+*   "morgan": "~1.3.0",
+*   "serve-favicon": "~2.1.3",
+*   "stylus": "0.42.3"
  
  If the package.json is in that directory that version will be installed. We are developing the application using visual studio.
  With the **nodeJS** extension provided by microsoft, **web essential 2015.3** and a **markdown** extension.
@@ -49,3 +49,5 @@ Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOp
 - config.debug enables extra debugging messages on the console and writes down dumps in the debug map.
 - config.db.link let you set the address of the database.
 - config.bot.gitToken sets the token used for reading the student repositories.
+- config.BAP.filter filters out the repositories we need. 
+- config.BAP.organisatie: Sets the organisation where too look for repositories.
