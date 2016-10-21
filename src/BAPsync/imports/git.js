@@ -74,11 +74,19 @@ module.exports = {
         //    })
 
         g.orgs.getTeamRepos({ // getting my team repo
-            id: "2138835" //private team id containg the test repo
-        }, function(err, res) {
+            id: "2138835" //private team id containing the test repo
+        }, function (err, res) {
             fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
+
+            //g.repos.get({
+            //    owner: res.owner.login,
+            //    repos: res.name
+            //}, function (err, res) {
+            //    fs.writeFile("././debug/getRepoforuser.txt", JSON.stringify(res, null, "\n"));
+            //});
+
             callback(res);
-            })
+        });
 
         //g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
         //    org: organisatie

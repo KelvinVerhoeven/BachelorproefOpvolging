@@ -25,11 +25,9 @@ app.use(bodyParser.json());
 
 var init = function () {
     
-    var bachelorList = git.GetBachelorRepos(function (bList) {
+    git.GetBachelorRepos(function (bList) {
         JSONFilter.FilterBAPS(bList, function (filtered) {
-            //this list should be put into the database or updated
-            fs.writeFile("./debug/filtered.txt", JSON.stringify(filtered, null, "\n"));
-            return filtered;
+            mongoDB.updateStudentList(filtered);
         });
     });
 
