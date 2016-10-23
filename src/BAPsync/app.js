@@ -45,8 +45,10 @@ app.post("/login", function (req, res) {
         console.log("got post /login request");
     }
 
-    git.authenticateUser(req.body.username, req.body.password, function (auth) {
+    git.authenticateUser(req.body.username, req.body.password);
+    git.checkIfLoggedIn(function (auth) {
         if (auth) {
+            console.log("login with username: " + req.body.username + " successful");
             username = req.body.username;
             mongoDB.updateDocentList(req.body.username, function (hadEntry) {
                 if (hadEntry) {

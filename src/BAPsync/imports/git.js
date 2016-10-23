@@ -20,25 +20,25 @@ var github = new GitHubApi({
 });
 
 module.exports = {
-    authenticateUser: function (username, password, callback) {
-        var auth = false;
+    authenticateUser: function (username, password) {
 
-        github.authenticate({
+        github.authenticate({ //runs in sync
             type: "basic",
             username: username,
             password: password
-        }, function (err, res) {
-            if (err != null) {
-                auth = false;
-            } else {
-                auth = true;
-            }
-            });
+        });
+    },
+    checkIfLoggedIn: function(callback) {
+        github.authorization.getAll({
 
-        if (debug) {
-            console.log("user: " + username + " authenticated");
-        }
-        callback(auth);
+        }, function (err, res) {
+            var loggedIn;
+            if (err != null) {
+                callback(false);
+            } else {
+                callback(true);
+            }
+        });
     },
     searchRepos: function (term) {
         github.search.repos({
