@@ -15,6 +15,14 @@ var studentSchema = new mongoose.Schema({
 //create model from it
 var StudentDB = mongoose.model("student", studentSchema);
 
+//create schema for docents
+var docentSchema = new mongoose.Schema({
+    docent: String
+});
+//create model from it
+var DocentDB = mongoose.model("docent", docentSchema);
+
+
 console.log("made database schemas and models");
 
 module.exports = {
@@ -29,33 +37,41 @@ module.exports = {
     },
     updateStudentList: function (studentRepos) {
 
-
-        StudentDB.find(function (err, res) {
-            if (err != null) {
-                console.log("error in retrieving studentsList from database: " + err);
-            } else {
-                var currentlyInDB = res;
-
-                for (var student in studentRepos) {
-
-                    var match = false;
-                    for (var DB in currentlyInDB) {
-                        if (studentRepos[student].name == currentlyInDB[DB].repo) {
-                            match = true;
+        for (var student in studentRepos) {
+            StudentDB.findOne({ "repo": studentRepos[student].name }, "owner repo", function (err, res) {
+                if (err) {
+                    console.log("error in retrieving studentsList from database: " + err);
+                } else if (res == null){
+                    StudentDB.create({
+                        owner: studentRepos[student].owner.login,
+                        repo: studentRepos[student].name
+                    }, function (err, stud) {
+                        if (err) {
+                            console.log("err in saving student to database: " + err);
                         }
-                    }
-                    if (!match) {
-                        StudentDB.create({
-                            owner: studentRepos[student].owner.login,
-                            repo: studentRepos[student].name
-                        }, function (err, stud) {
-                            if (err) {
-                                console.log("err in saving student to database: " + err);
-                            }
-                        });
-                    }
+                    });
                 }
+            });
+        }
+    },
+    updateDocentList: function (docent, callback) {
+
+        var hadEntry = true;
+
+        DocentDB.findOne({ "docent": docent }, "docent", function (err, res) {
+            if (err) {
+                console.log("err in retrieving docentList from database");
+            } else if (res == null) {
+                hadEntry = false;
+                DocentDB.create({
+                    docent: docent
+                }, function (err, res) {
+                    if (err) {
+                        console.log("err in saving docent to database: " + err);
+                    }
+                });
             }
         });
+        callback(hadEntry);
     }
 };

@@ -45,15 +45,20 @@ app.post("/login", function (req, res) {
         console.log("got post /login request");
     }
 
-    var ok = git.authenticateUser(req.body.username, req.body.password); //add redirect here?
-
-    if (ok) { //gegevens met de database checken of de docent al studenten onder zijn naam heeft staan. if True redirect main alse redirect add students.
-        username = req.body.username;
-        res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
-    } else {
-        console.log("login with username: " + req.body.username + " failed");
-    }
-
+    git.authenticateUser(req.body.username, req.body.password, function (auth) {
+        if (auth) {
+            username = req.body.username;
+            mongoDB.updateDocentList(req.body.username, function (hadEntry) {
+                if (hadEntry) {
+                    res.redirect("./main");
+                } else {
+                    res.redirect("./updateStudentList");
+                }
+            });
+        } else {
+            console.log("login with username: " + req.body.username + " failed");
+        }
+    });
 });
 
 
