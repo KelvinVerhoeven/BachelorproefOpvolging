@@ -12,7 +12,7 @@ module.exports = {
 
         if (debug) {
             console.log("starting to filter the repos on name");
-            fs.writeFile(path.join(__dirname, "././debug/reposAP.txt"), JSON.stringify(repoList, null, "\n"));
+            fs.writeFile("././debug/reposAP.txt", JSON.stringify(repoList, null, "\n"));
         }
         for (var repo in repoList) {
             if (typeof repoList[repo] != "undefined" && repo != "meta") {

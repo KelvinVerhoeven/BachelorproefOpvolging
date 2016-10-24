@@ -80,7 +80,7 @@ module.exports = {
         g.orgs.getTeamRepos({ // getting my team repo
             id: "2138835" //private team id containing the test repo
         }, function (err, res) {
-            fs.writeFile(path.join(__dirname, "././debug/getTeamRepos.txt"), JSON.stringify(res, null, "\n"));
+            fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
 
             //g.repos.get({
             //    owner: res.owner.login,
