@@ -51,11 +51,13 @@ app.post("/login", function (req, res) {
             console.log("login with username: " + req.body.username + " successful");
             username = req.body.username;
             mongoDB.updateDocentList(req.body.username, function (hadEntry) {
-                if (hadEntry) {
-                    res.redirect("./main");
-                } else {
-                    res.redirect("./updateStudentList");
-                }
+                mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
+                    if (newHadEntry) {
+                        res.redirect("./main");
+                    } else {
+                        res.redirect("./updateStudentList");
+                    }
+                });
             });
         } else {
             console.log("login with username: " + req.body.username + " failed");

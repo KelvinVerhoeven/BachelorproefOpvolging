@@ -42,6 +42,19 @@ module.exports = {
     RemoveFromSubscriptionList: function (username, studentRepo) {
 
     },
+    CheckSubscriptionList: function (docent, hadEntry, callback) {
+
+        DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving DocStudLink from database");
+            } else if (res == null) {
+                hadEntry = false;
+                callback(hadEntry);
+            } else if (res != null) {
+                callback(hadEntry);
+            }
+        }); 
+    },
     updateStudentList: function (studentRepos) {
 
         for (var student in studentRepos) {
@@ -71,6 +84,7 @@ module.exports = {
                 console.log("err in retrieving docentList from database");
             } else if (res == null) {
                 hadEntry = false;
+                callback(hadEntry);
                 DocentDB.create({
                     docent: docent
                 }, function (err, res) {
@@ -78,17 +92,11 @@ module.exports = {
                         console.log("err in saving docent to database: " + err);
                     }
                 });
+            } else if (res != null) {
+                callback(hadEntry);
             }
         });
 
-        DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
-            if (err) {
-                console.log("err in retrieving DocStudLink from database");
-            } else if (res == null){
-                hadEntry = false;
-            }
-        });
-
-        callback(hadEntry);
+        
     }
 };
