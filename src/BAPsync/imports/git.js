@@ -2,7 +2,7 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
-var tok = require("./key.js");
+var path = require('path');
 
 var debug = config.debug;
 var organisatie = config.BAP.organisatie;
@@ -79,7 +79,7 @@ module.exports = {
         g.orgs.getTeamRepos({ // getting my team repo
             id: "2138835" //private team id containing the test repo
         }, function (err, res) {
-            fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
+            fs.writeFile(path.join(__dirname, "././debug/getTeamRepos.txt"), JSON.stringify(res, null, "\n"));
 
             //g.repos.get({
             //    owner: res.owner.login,

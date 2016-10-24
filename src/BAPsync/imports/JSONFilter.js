@@ -1,5 +1,6 @@
 ﻿var config = require("./config.js");
 var fs = require("fs");
+var path = require("path");
 
 var debug = config.debug;
 var BAPRepoFilterWord = config.BAP.filter;
@@ -11,7 +12,7 @@ module.exports = {
 
         if (debug) {
             console.log("starting to filter the repos on name");
-            fs.writeFile("././debug/reposAP.txt", JSON.stringify(repoList, null, "\n"));
+            fs.writeFile(path.join(__dirname, "././debug/reposAP.txt"), JSON.stringify(repoList, null, "\n"));
         }
         for (var repo in repoList) {
             if (typeof repoList[repo] != "undefined" && repo != "meta") {
