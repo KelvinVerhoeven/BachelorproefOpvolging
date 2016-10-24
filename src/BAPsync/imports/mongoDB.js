@@ -68,21 +68,7 @@ module.exports = {
     updateStudentList: function (studentRepos) {
 
         for (var student in studentRepos) {
-            StudentDB.findOne({ "full": studentRepos[student].owner.login + "/" + studentRepos[student].name }, "full owner repo", function (err, res) {
-                if (err) {
-                    console.log("error in retrieving studentsList from database: " + err);
-                } else if (res == null){
-                    StudentDB.create({
-                        full: studentRepos[student].owner.login + "/" + studentRepos[student].name,
-                        owner: studentRepos[student].owner.login,
-                        repo: studentRepos[student].name
-                    }, function (err, stud) {
-                        if (err) {
-                            console.log("err in saving student to database: " + err);
-                        }
-                    });
-                }
-            });
+            CheckStudentListAgainstDB(studentRepos[student]);
         }
     },
     updateDocentList: function (docent, callback) {
@@ -117,3 +103,24 @@ module.exports = {
         });
     }
 };
+
+//privates
+var CheckStudentListAgainstDB = function (student) {
+    StudentDB.findOne({ "full": student.owner.login + "/" + student.name }, "full owner repo", function (err, res) {
+        if (err) {
+            console.log("error in retrieving studentsList from database: " + err);
+        } else if (res == null) {
+            StudentDB.create({
+                full: student.owner.login + "/" + student.name,
+                owner: student.owner.login,
+                repo: student.name
+            }, function (err, res) {
+                if (err) {
+                    console.log("err in saving student to database: " + err);
+                } else {
+                    console.log("inserted new student in DB: " + student.owner.login + "/" + student.name)
+                }
+            });
+        }
+    });
+}
