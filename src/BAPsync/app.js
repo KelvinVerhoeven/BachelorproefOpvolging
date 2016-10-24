@@ -63,7 +63,9 @@ app.post("/login", function (req, res) {
     });
 });
 
-
+app.post("/student/add", function (req, res) {
+    mongoDB.AddToSubscriptionList(username, req.body.student);
+});
 
 
 https.createServer({

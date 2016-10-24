@@ -2,9 +2,9 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
+var tok = require("./key.js");
 
 var debug = config.debug;
-var tok = config.bot.gitToken;
 var organisatie = config.BAP.organisatie;
 
 var github = new GitHubApi({
