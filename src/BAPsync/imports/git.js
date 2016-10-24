@@ -72,25 +72,34 @@ module.exports = {
             }
             });
 
+        g.repos.getForUser({
+            user: "jonathan2266"
+        }, function (err, res) {
+            if (err) {
+                console.log("err in GetBachelorRepos: " + err);
+            } else {
+                callback(res);
+            }
+            });
         //g.users.getTeams({ //finding my team id
         //}, function (err, res) {
         //    fs.writeFile("././debug/getTeams.txt", JSON.stringify(res, null, "\n"));
         //    })
 
-        g.orgs.getTeamRepos({ // getting my team repo
-            id: "2138835" //private team id containing the test repo
-        }, function (err, res) {
-            fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
+        //g.orgs.getTeamRepos({ // getting my team repo
+        //    id: "2138835" //private team id containing the test repo
+        //}, function (err, res) {
+        //    fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
 
-            //g.repos.get({
-            //    owner: res.owner.login,
-            //    repos: res.name
-            //}, function (err, res) {
-            //    fs.writeFile("././debug/getRepoforuser.txt", JSON.stringify(res, null, "\n"));
-            //});
+        //    //g.repos.get({
+        //    //    owner: res.owner.login,
+        //    //    repos: res.name
+        //    //}, function (err, res) {
+        //    //    fs.writeFile("././debug/getRepoforuser.txt", JSON.stringify(res, null, "\n"));
+        //    //});
 
-            callback(res);
-        });
+        //    callback(res);
+        //});
 
         //g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
         //    org: organisatie

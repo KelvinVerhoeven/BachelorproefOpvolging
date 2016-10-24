@@ -36,8 +36,18 @@ module.exports = {
     GetSubscriptionList: function (username) {
         //db insert
     },
-    AddToSubscriptionList: function (username, studentRepo) {
-
+    AddToSubscriptionList: function (username, studentRepo, callback) {
+        DocStudLinkDB.create({
+            docent: username,
+            studentRepo: studentRepo
+        }, function (err, res) {
+            if (err != null) {
+                console.log("Database AddToSubscriptionList failed: " + err);
+                callback(false);
+            } else {
+                callback(true);
+            }
+            });
     },
     RemoveFromSubscriptionList: function (username, studentRepo) {
 
@@ -96,7 +106,14 @@ module.exports = {
                 callback(hadEntry);
             }
         });
-
-        
+    },
+    GetStudentRepos: function (callback) { //callback is a json
+        StudentDB.find({}, function (err, res) {
+            if (err) {
+                console.log("Database error in GetStudentRepos: " + err);
+            } else {
+                callback(res);
+            }
+        });
     }
 };

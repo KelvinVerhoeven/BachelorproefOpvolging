@@ -65,8 +65,17 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.post("/student/add", function (req, res) {
-    mongoDB.AddToSubscriptionList(username, req.body.student);
+app.get("/studentList", function (req, res) {
+    mongoDB.GetStudentRepos(function (students) {
+        res.json(students);
+    });
+});
+
+app.post("/studentList/add", function (req, res) {
+    mongoDB.AddToSubscriptionList(username, req.body.studentRepo, function (ok) {
+        res.json({ "done": ok });
+        res.json
+    }); //studentRepo needs to be like jonathan2266/myRepo
 });
 
 
