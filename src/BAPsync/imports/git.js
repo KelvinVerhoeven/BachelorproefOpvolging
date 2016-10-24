@@ -2,6 +2,7 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
+var tok = require("key.js")
 var path = require('path');
 
 var debug = config.debug;
