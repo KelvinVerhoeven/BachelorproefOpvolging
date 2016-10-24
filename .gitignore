@@ -6,3 +6,5 @@
 /src/BAPsync/debug/*
 
 key.txt
+
+/src/BAPsync/imports/config.js
