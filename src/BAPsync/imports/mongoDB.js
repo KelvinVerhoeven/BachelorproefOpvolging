@@ -9,6 +9,7 @@ console.log("made db connection");
 
 //create schema for students
 var studentSchema = new mongoose.Schema({
+    full: String,
     owner: String,
     repo: String
 });
@@ -22,6 +23,12 @@ var docentSchema = new mongoose.Schema({
 //create model from it
 var DocentDB = mongoose.model("docent", docentSchema);
 
+var DocStudLinkSchema = new mongoose.Schema({
+    docent: String,
+    studentRepo: String
+});
+
+var DocStudLinkDB = mongoose.model("DocStudLink", DocStudLinkSchema);
 
 console.log("made database schemas and models");
 
@@ -29,20 +36,21 @@ module.exports = {
     GetSubscriptionList: function (username) {
         //db insert
     },
-    AddToSubscriptionList: function (username, student) {
+    AddToSubscriptionList: function (username, studentRepo) {
 
     },
-    RemoveFromSubscriptionList: function (username, student) {
+    RemoveFromSubscriptionList: function (username, studentRepo) {
 
     },
     updateStudentList: function (studentRepos) {
 
         for (var student in studentRepos) {
-            StudentDB.findOne({ "repo": studentRepos[student].name }, "owner repo", function (err, res) {
+            StudentDB.findOne({ "full": studentRepos[student].owner.login + "/" + studentRepos[student].name }, "full owner repo", function (err, res) {
                 if (err) {
                     console.log("error in retrieving studentsList from database: " + err);
                 } else if (res == null){
                     StudentDB.create({
+                        full: studentRepos[student].owner.login + "/" + studentRepos[student].name,
                         owner: studentRepos[student].owner.login,
                         repo: studentRepos[student].name
                     }, function (err, stud) {
@@ -72,6 +80,15 @@ module.exports = {
                 });
             }
         });
+
+        DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving DocStudLink from database");
+            } else if (res == null){
+                hadEntry = false;
+            }
+        });
+
         callback(hadEntry);
     }
 };
