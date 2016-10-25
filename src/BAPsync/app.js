@@ -22,6 +22,8 @@ var username;
 //use
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
+//http://blog.modulus.io/nodejs-and-express-sessions
+//http://maffrigby.com/maintaining-session-info-in-angularjs-when-you-refresh-the-page/
 
 var init = function () {
     

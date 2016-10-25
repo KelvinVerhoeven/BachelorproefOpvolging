@@ -32,11 +32,17 @@ var DocStudLinkDB = mongoose.model("DocStudLink", DocStudLinkSchema);
 
 console.log("made database schemas and models");
 
-module.exports = {
-    GetSubscriptionList: function (username) {
-        //db insert
+module.exports = { //needs testing
+    GetSubscriptionList: function (username, callback) {
+        DocStudLinkDB.findOne({ "docent": docentSchema }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving subscription list from database: " + err);
+            } else {
+                callback(res);
+            }
+        });
     },
-    AddToSubscriptionList: function (username, studentRepo, callback) {
+    AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
         DocStudLinkDB.create({
             docent: username,
             studentRepo: studentRepo
@@ -49,10 +55,14 @@ module.exports = {
             }
             });
     },
-    RemoveFromSubscriptionList: function (username, studentRepo) {
-
+    RemoveFromSubscriptionList: function (username, studentRepo) { //needs testing
+        DocStudLinkDB.remove({ "docent": username, "studentRepo": studentRepo }, function (err, res) {
+            if (err) {
+                console.log("err in removing students from subscription list");
+            }
+        });
     },
-    CheckSubscriptionList: function (docent, hadEntry, callback) {
+    CheckSubscriptionList: function (docent, hadEntry, callback) { //needs tesing
 
         DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
             if (err) {
