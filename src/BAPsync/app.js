@@ -22,6 +22,8 @@ var username;
 //use
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
+//http://blog.modulus.io/nodejs-and-express-sessions
+//http://maffrigby.com/maintaining-session-info-in-angularjs-when-you-refresh-the-page/
 
 var init = function () {
     
@@ -45,18 +47,41 @@ app.post("/login", function (req, res) {
         console.log("got post /login request");
     }
 
-    var ok = git.authenticateUser(req.body.username, req.body.password); //add redirect here?
-
-    if (ok) { //gegevens met de database checken of de docent al studenten onder zijn naam heeft staan. if True redirect main alse redirect add students.
-        username = req.body.username;
-        res.redirect("./main"); //bestaat nog niet ook mischien een redirect afhankelijk of de user al een userlist heeft op de database of niet
-    } else {
-        console.log("login with username: " + req.body.username + " failed");
-    }
-
+    git.authenticateUser(req.body.username, req.body.password);
+    git.checkIfLoggedIn(function (auth) {
+        if (auth) {
+            console.log("login with username: " + req.body.username + " successful");
+            username = req.body.username;
+            mongoDB.updateDocentList(req.body.username, function (hadEntry) {
+                mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
+                    if (newHadEntry) {
+                        res.redirect("./main");
+                    } else {
+                        res.redirect("./updateStudentList");
+                    }
+                });
+            });
+        } else {
+            console.log("login with username: " + req.body.username + " failed");
+        }
+    });
 });
 
+app.get("/studentList", function (req, res) {
+    mongoDB.GetStudentRepos(function (students) {
+        if (debug) {
+            fs.writeFile("./debug/getStudentsListFromDB.txt", res);
+        }
+        res.json(students);
+    });
+});
 
+app.post("/studentList/add", function (req, res) {
+    mongoDB.AddToSubscriptionList(username, req.body.studentRepo, function (ok) {
+        res.json({ "done": ok });
+        res.json
+    }); //studentRepo needs to be like jonathan2266/myRepo
+});
 
 
 https.createServer({

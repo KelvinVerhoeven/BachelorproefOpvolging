@@ -1,5 +1,6 @@
 ﻿var config = require("./config.js");
 var fs = require("fs");
+var path = require("path");
 
 var debug = config.debug;
 var BAPRepoFilterWord = config.BAP.filter;

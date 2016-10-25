@@ -2,9 +2,10 @@
 var GitHubApi = require("github");
 var fs = require("fs");
 var config = require("./config.js");
+var tok = require("./key.js")
+var path = require('path');
 
 var debug = config.debug;
-var tok = config.bot.gitToken;
 var organisatie = config.BAP.organisatie;
 
 var github = new GitHubApi({
@@ -21,21 +22,24 @@ var github = new GitHubApi({
 
 module.exports = {
     authenticateUser: function (username, password) {
-        github.authenticate({
+
+        github.authenticate({ //runs in sync
             type: "basic",
             username: username,
             password: password
-        }, function (err, res) {
-            if (err != null) {
-                return false;
-            } else {
-                return true;
-            }
-            });
+        });
+    },
+    checkIfLoggedIn: function(callback) {
+        github.authorization.getAll({
 
-        if (debug) {
-            console.log("user: " + username + " authenticated");
-        }
+        }, function (err, res) {
+            var loggedIn;
+            if (err != null) {
+                callback(false);
+            } else {
+                callback(true);
+            }
+        });
     },
     searchRepos: function (term) {
         github.search.repos({
@@ -68,25 +72,34 @@ module.exports = {
             }
             });
 
+        g.repos.getForUser({
+            user: "jonathan2266"
+        }, function (err, res) {
+            if (err) {
+                console.log("err in GetBachelorRepos: " + err);
+            } else {
+                callback(res);
+            }
+            });
         //g.users.getTeams({ //finding my team id
         //}, function (err, res) {
         //    fs.writeFile("././debug/getTeams.txt", JSON.stringify(res, null, "\n"));
         //    })
 
-        g.orgs.getTeamRepos({ // getting my team repo
-            id: "2138835" //private team id containing the test repo
-        }, function (err, res) {
-            fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
+        //g.orgs.getTeamRepos({ // getting my team repo
+        //    id: "2138835" //private team id containing the test repo
+        //}, function (err, res) {
+        //    fs.writeFile("././debug/getTeamRepos.txt", JSON.stringify(res, null, "\n"));
 
-            //g.repos.get({
-            //    owner: res.owner.login,
-            //    repos: res.name
-            //}, function (err, res) {
-            //    fs.writeFile("././debug/getRepoforuser.txt", JSON.stringify(res, null, "\n"));
-            //});
+        //    //g.repos.get({
+        //    //    owner: res.owner.login,
+        //    //    repos: res.name
+        //    //}, function (err, res) {
+        //    //    fs.writeFile("././debug/getRepoforuser.txt", JSON.stringify(res, null, "\n"));
+        //    //});
 
-            callback(res);
-        });
+        //    callback(res);
+        //});
 
         //g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
         //    org: organisatie

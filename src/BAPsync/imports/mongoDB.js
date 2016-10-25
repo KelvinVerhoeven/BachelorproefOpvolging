@@ -9,44 +9,128 @@ console.log("made db connection");
 
 //create schema for students
 var studentSchema = new mongoose.Schema({
+    full: String,
     owner: String,
     repo: String
 });
 //create model from it
 var StudentDB = mongoose.model("student", studentSchema);
 
+//create schema for docents
+var docentSchema = new mongoose.Schema({
+    docent: String
+});
+//create model from it
+var DocentDB = mongoose.model("docent", docentSchema);
+
+var DocStudLinkSchema = new mongoose.Schema({
+    docent: String,
+    studentRepo: String
+});
+
+var DocStudLinkDB = mongoose.model("DocStudLink", DocStudLinkSchema);
+
 console.log("made database schemas and models");
 
-module.exports = {
-    GetSubscriptionList: function (username) {
-        //db insert
+module.exports = { //needs testing
+    GetSubscriptionList: function (username, callback) {
+        DocStudLinkDB.findOne({ "docent": docentSchema }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving subscription list from database: " + err);
+            } else {
+                callback(res);
+            }
+        });
     },
-    AddToSubscriptionList: function (username, student) {
-
+    AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
+        DocStudLinkDB.create({
+            docent: username,
+            studentRepo: studentRepo
+        }, function (err, res) {
+            if (err != null) {
+                console.log("Database AddToSubscriptionList failed: " + err);
+                callback(false);
+            } else {
+                callback(true);
+            }
+            });
     },
-    RemoveFromSubscriptionList: function (username, student) {
+    RemoveFromSubscriptionList: function (username, studentRepo) { //needs testing
+        DocStudLinkDB.remove({ "docent": username, "studentRepo": studentRepo }, function (err, res) {
+            if (err) {
+                console.log("err in removing students from subscription list");
+            }
+        });
+    },
+    CheckSubscriptionList: function (docent, hadEntry, callback) { //needs tesing
 
+        DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving DocStudLink from database");
+            } else if (res == null) {
+                hadEntry = false;
+                callback(hadEntry);
+            } else if (res != null) {
+                callback(hadEntry);
+            }
+        }); 
     },
     updateStudentList: function (studentRepos) {
 
-        var currentlyInDB = StudentDB.find(function (err, res) {
-            if (err != null) {
-                console.log("error in retrieving studentsList from database: " + err);
-            } else {
-                return res;
+        for (var student in studentRepos) {
+            CheckStudentListAgainstDB(studentRepos[student]);
+        }
+    },
+    updateDocentList: function (docent, callback) {
+
+        var hadEntry = true;
+
+        DocentDB.findOne({ "docent": docent }, "docent", function (err, res) {
+            if (err) {
+                console.log("err in retrieving docentList from database");
+            } else if (res == null) {
+                hadEntry = false;
+                callback(hadEntry);
+                DocentDB.create({
+                    docent: docent
+                }, function (err, res) {
+                    if (err) {
+                        console.log("err in saving docent to database: " + err);
+                    }
+                });
+            } else if (res != null) {
+                callback(hadEntry);
             }
         });
-
-        //for (var student in studentRepos) {
-
-        //    StudentDB.create({
-        //        owner: studentRepos[student].owner.login,
-        //        repo: studentRepos[student].name
-        //    }, function (err, stud) {
-        //        if (err) {
-        //            console.log("err in saving student to database: " + err);
-        //        }
-        //    });
-        //}
+    },
+    GetStudentRepos: function (callback) { //callback is a json
+        StudentDB.find({}, function (err, res) {
+            if (err) {
+                console.log("Database error in GetStudentRepos: " + err);
+            } else {
+                callback(res);
+            }
+        });
     }
 };
+
+//privates
+var CheckStudentListAgainstDB = function (student) {
+    StudentDB.findOne({ "full": student.owner.login + "/" + student.name }, "full owner repo", function (err, res) {
+        if (err) {
+            console.log("error in retrieving studentsList from database: " + err);
+        } else if (res == null) {
+            StudentDB.create({
+                full: student.owner.login + "/" + student.name,
+                owner: student.owner.login,
+                repo: student.name
+            }, function (err, res) {
+                if (err) {
+                    console.log("err in saving student to database: " + err);
+                } else {
+                    console.log("inserted new student in DB: " + student.owner.login + "/" + student.name)
+                }
+            });
+        }
+    });
+}
