@@ -1,8 +1,8 @@
-﻿var express = require('express');
-var fs = require("fs");
+var express = require('express');
+var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
-var https = require("https");
+var https = require('https');
 
 var app = express();
 
@@ -12,7 +12,7 @@ var mongoDB = require("./imports/mongoDB.js");
 var git = require("./imports/git.js");
 var JSONFilter = require("./imports/JSONFilter.js");
 
-console.log('required everything');
+console.log('aquired everything');
 
 
 //variables
@@ -87,6 +87,6 @@ app.post("/studentList/add", function (req, res) {
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))
-}, app).listen(3541)
+}, app).listen(3541);
 
 init();
