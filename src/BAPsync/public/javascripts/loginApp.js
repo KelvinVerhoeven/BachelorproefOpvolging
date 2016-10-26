@@ -1,31 +1,38 @@
-var app = angular.module('loginApp', []);
+var app = angular.module('loginApp', ['ngCookies']);
 
-app.controller('wifiCtrl', function($scope, $http, $window) {
-    
-    $scope.response = [];
-	$scope.login = function (username, password) {
-        console.log("logging in: " + username);
-	    var dataToSend = JSON.stringify({
+
+
+app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+
+    $scope.login = function (username, password) {
+        var dataToSend = JSON.stringify({
             "username": username,
             "password": password
-	    });
+        });
 
-	    var config = {
-	        headers: {
-	            'Content-Type': 'application/json'
-	        }
-	    }
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
-	    $http.post("/login", dataToSend, config)
-        .success(function (data,status,headers,config) {
-            console.log("recieved loginPost: " + data);
-            var host = $window.location.host;
-            var result = "https://" + host + data;
-            $window.location.href = result;
-        })
-        .error(function (data,status,header,config) {
-            console.log("Failed " + data);
-            response = data;
-        })
-	}
-});
+        $http.post("/login", dataToSend, config)
+            .success(function (data, status, headers, config) {
+
+                if (data.auth == true) {
+                    //cookie
+                    $cookies.put("username", username, ["secure", "true"]);
+                    $cookies.put("password", password, ["secure", "true"]);
+
+                    //redirect
+                    var host = $window.location.host;
+                    var result = "https://" + host + data.redirect;
+                    $window.location.href = result;
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("Failed " + data);
+                response = data;
+            })
+    }
+}]);

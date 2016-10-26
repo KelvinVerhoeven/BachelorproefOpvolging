@@ -17,13 +17,10 @@ console.log('aquired everything');
 
 //variables
 var debug = config.debug;
-var username;
 
 //use
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
-//http://blog.modulus.io/nodejs-and-express-sessions
-//http://maffrigby.com/maintaining-session-info-in-angularjs-when-you-refresh-the-page/
 
 var init = function () {
     
@@ -46,25 +43,28 @@ app.post("/login", function (req, res) {
     if (debug) {
         console.log("got post /login request");
     }
+    var username = req.body.username;
+    var pass = req.body.password;
 
-    git.authenticateUser(req.body.username, req.body.password);
-    git.checkIfLoggedIn(function (auth) {
-        if (auth) {
-            console.log("login with username: " + req.body.username + " successful");
-            username = req.body.username;
-            mongoDB.updateDocentList(req.body.username, function (hadEntry) {
-                mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
-                    if (newHadEntry) {
-                        res.redirect("./main");
-                    } else {
-                        res.redirect("./updateStudentList");
-                    }
+    if (username != undefined && pass != undefined) {
+        git.authenticateUser(req.body.username, req.body.password);
+        git.checkIfLoggedIn(function (auth) {
+            if (auth) {
+                console.log("login with username: " + req.body.username + " successful");
+                mongoDB.updateDocentList(req.body.username, function (hadEntry) {
+                    mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
+                        if (newHadEntry) {
+                            res.json({ auth: true , redirect: "./main" });
+                        } else {
+                            res.json({ auth: true , redirect: "/studentList" });
+                        }
+                    });
                 });
-            });
-        } else {
-            console.log("login with username: " + req.body.username + " failed");
-        }
-    });
+            } else {
+                console.log("login with username: " + req.body.username + " failed");
+            }
+        });
+    }
 });
 
 app.get("/studentList", function (req, res) {
@@ -77,9 +77,8 @@ app.get("/studentList", function (req, res) {
 });
 
 app.post("/studentList/add", function (req, res) {
-    mongoDB.AddToSubscriptionList(username, req.body.studentRepo, function (ok) {
+    mongoDB.AddToSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
         res.json({ "done": ok });
-        res.json
     }); //studentRepo needs to be like jonathan2266/myRepo
 });
 
