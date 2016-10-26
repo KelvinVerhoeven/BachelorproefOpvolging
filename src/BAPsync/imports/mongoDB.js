@@ -34,7 +34,7 @@ console.log("made database schemas and models");
 
 module.exports = { //needs testing
     GetSubscriptionList: function (username, callback) {
-        DocStudLinkDB.findOne({ "docent": docentSchema }, "docent studentRepo", function (err, res) {
+        DocStudLinkDB.findOne({ "docent": username }, "docent studentRepo", function (err, res) {
             if (err) {
                 console.log("err in retrieving subscription list from database: " + err);
             } else {
