@@ -84,6 +84,9 @@ app.post("/studentsList/get", function (req, res) {
 });
 
 app.post("/studentList/add", function (req, res) {
+    if (debug) {
+        console.log("got post /studentList/add request");
+    }
     mongoDB.AddToSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
         res.json({ "done": true });
     }); //studentRepo needs to be like jonathan2266/myRepo

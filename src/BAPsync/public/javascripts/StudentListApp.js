@@ -14,25 +14,17 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
     }
     $scope.selectStudent = function (fullLink) {
 
-        var students = $scope.students;
-
-        for (student in students) {
-            if (students[student].full == fullLink) {
-                var sub = students[student].subbed;
+        for (student in $scope.students) {
+            if ($scope.students[student].full == fullLink) {
+                var sub = $scope.students[student].subbed;
                 if (sub == "subscriped") {
 
-                    students[student].subbed = "unsubscriped";
+                    $scope.students[student].subbed = "unsubscriped";
                     //do Post
                     break;
                 } else {
 
-                    var done = subscriptionListAdd(fullLink);
-                    if (done) {
-                        students[student].subbed = "subscriped";
-                    }
-                    students[student].subbed = "subscriped";
-                    //students[student].subbed = "subscriped";
-                    //do post
+                    subscriptionListAdd(student, fullLink);
                     break;
                 }
             }
@@ -73,8 +65,9 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
 
         $http.post("/subscriptionList", dataToSend, config)
             .success(function (data, status, headers, config) {
-
-                checkSubs(studentsDB, data);
+                var temp = []; //to make it an array
+                temp.push(data);
+                checkSubs(studentsDB, temp);
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);
@@ -85,8 +78,8 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
 
         for (stud in studentsDB) {
             var sub = false;
-            for (sub in currentSubList) {
-                if (studentsDB[stud].full == currentSubList[sub].studentRepo) {
+            for (currentsub in currentSubList) {
+                if (studentsDB[stud].full == currentSubList[currentsub].studentRepo) {
                     sub = true;
                 }
             }
@@ -105,7 +98,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
 
     }
 
-    var subscriptionListAdd = function (studentRepo) {
+    var subscriptionListAdd = function (student, studentRepo) {
 
         var config = {
             headers: {
@@ -117,7 +110,10 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
         $http.post("/studentList/add", dataToSend, config)
             .success(function (data, status, headers, config) {
 
-                return data.done;
+                if (data.done) {
+                    $scope.students[student].subbed = "subscriped";
+                }
+                
                 
             })
             .error(function (data, status, header, config) {
