@@ -25,7 +25,7 @@
     </div>
 
     <div class="studentsContainer">
-        <div class="panel panel-info studentRepeatDIV" ng-repeat="student in students">
+        <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
             <h3 class="studentRepeatH3">{{student.full}}</h3>
             <ul class="studentRepeatUL">
                 <li>

@@ -8,6 +8,7 @@
 .buttonNormal{
     background-color: white;
 }
+/*ng-repeat studentsList*/
 .studentRepeatUL{
     list-style-type: none;
     margin-left: 2%;
@@ -19,5 +20,11 @@
 .studentRepeatDIV {
     margin-left: 2%;
     width: 50%;
+}
+.subscriped {
+    background-color: #0094ff;
+}
+.unsubscriped {
+    background-color: white;
 }
 

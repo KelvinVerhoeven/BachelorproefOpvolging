@@ -85,10 +85,14 @@ app.post("/studentsList/get", function (req, res) {
 
 app.post("/studentList/add", function (req, res) {
     mongoDB.AddToSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
-        res.json({ "done": ok });
+        res.json({ "done": true });
     }); //studentRepo needs to be like jonathan2266/myRepo
 });
-
+app.post("/subscriptionList", function (req, res) {
+    mongoDB.GetSubscriptionList(req.body.username, function (list) {
+        res.json(list);
+    });
+});
 
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
