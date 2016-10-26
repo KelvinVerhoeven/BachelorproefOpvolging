@@ -68,9 +68,16 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/studentList", function (req, res) {
+    if (debug) {
+        console.log("got get /studentList request");
+    }
+    res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+});
+
+app.post("/studentsList/get", function (req, res) {
     mongoDB.GetStudentRepos(function (students) {
         if (debug) {
-            fs.writeFile("./debug/getStudentsListFromDB.txt", res);
+            fs.writeFile("./debug/getStudentsListFromDB.txt", JSON.stringify(students, null, "\n"));
         }
         res.json(students);
     });
