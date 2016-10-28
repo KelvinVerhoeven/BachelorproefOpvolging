@@ -34,7 +34,7 @@ console.log("made database schemas and models");
 
 module.exports = { //needs testing
     GetSubscriptionList: function (username, callback) {
-        DocStudLinkDB.findOne({ "docent": username }, "docent studentRepo", function (err, res) {
+        DocStudLinkDB.find({ "docent": username }, "docent studentRepo", function (err, res) {
             if (err) {
                 console.log("err in retrieving subscription list from database: " + err);
             } else {
@@ -43,22 +43,31 @@ module.exports = { //needs testing
         });
     },
     AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
-        DocStudLinkDB.create({
-            docent: username,
-            studentRepo: studentRepo
-        }, function (err, res) {
-            if (err != null) {
-                console.log("Database AddToSubscriptionList failed: " + err);
-                callback(false);
-            } else {
-                callback(true);
+        DocStudLinkDB.findOne({ "docent": username, "studentRepo": studentRepo }, "docent studentRepo", function (err, res) {
+            if (err) {
+                console.log("err in retrieving subscription list from databese: " + err);
+            } else if (res == null) {
+                DocStudLinkDB.create({
+                    docent: username,
+                    studentRepo: studentRepo
+                }, function (err, res) {
+                    if (err != null) {
+                        console.log("Database AddToSubscriptionList failed: " + err);
+                        callback(false);
+                    } else {
+                        callback(true);
+                    }
+                });
             }
-            });
+        });
     },
-    RemoveFromSubscriptionList: function (username, studentRepo) { //needs testing
+    RemoveFromSubscriptionList: function (username, studentRepo, callback) { //needs testing
         DocStudLinkDB.remove({ "docent": username, "studentRepo": studentRepo }, function (err, res) {
             if (err) {
                 console.log("err in removing students from subscription list");
+                callback(false);
+            } else {
+                callback(true);
             }
         });
     },

@@ -29,7 +29,6 @@ var init = function () {
             mongoDB.updateStudentList(filtered);
         });
     });
-
 }
 
 app.get("/login", function (req, res) {
@@ -54,7 +53,7 @@ app.post("/login", function (req, res) {
                 mongoDB.updateDocentList(req.body.username, function (hadEntry) {
                     mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
                         if (newHadEntry) {
-                            res.json({ auth: true , redirect: "./main" });
+                            res.json({ auth: true , redirect: "/main" });
                         } else {
                             res.json({ auth: true , redirect: "/studentList" });
                         }
@@ -68,20 +67,50 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/studentList", function (req, res) {
+    if (debug) {
+        console.log("got get /studentList request");
+    }
+    res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+});
+
+app.post("/studentsList/get", function (req, res) {
+    if (debug) {
+        console.log("got post /studentsList/get request");
+    }
     mongoDB.GetStudentRepos(function (students) {
         if (debug) {
-            fs.writeFile("./debug/getStudentsListFromDB.txt", res);
+            fs.writeFile("./debug/getStudentsListFromDB.txt", JSON.stringify(students, null, "\n"));
         }
         res.json(students);
     });
 });
 
 app.post("/studentList/add", function (req, res) {
+    if (debug) {
+        console.log("got post /studentList/add request");
+    }
     mongoDB.AddToSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
         res.json({ "done": ok });
     }); //studentRepo needs to be like jonathan2266/myRepo
 });
 
+app.post("/studentList/remove", function (req, res) {
+    if (debug) {
+        console.log("got post /studentList/remove request");
+    }
+    mongoDB.RemoveFromSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
+        res.json({ "done": ok });
+    });
+});
+
+app.post("/subscriptionList", function (req, res) {
+    if (debug) {
+        console.log("got post /subscriptionList request");
+    }
+    mongoDB.GetSubscriptionList(req.body.username, function (list) {
+        res.json(list);
+    });
+});
 
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
