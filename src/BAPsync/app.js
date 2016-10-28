@@ -53,7 +53,7 @@ app.post("/login", function (req, res) {
                 mongoDB.updateDocentList(req.body.username, function (hadEntry) {
                     mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
                         if (newHadEntry) {
-                            res.json({ auth: true , redirect: "./main" });
+                            res.json({ auth: true , redirect: "/main" });
                         } else {
                             res.json({ auth: true , redirect: "/studentList" });
                         }

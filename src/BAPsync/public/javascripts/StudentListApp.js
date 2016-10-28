@@ -4,6 +4,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
 
     //scopes var
     $scope.students = [];
+    $scope.docent;
     //$scope.currentSubList = [];
 
     //scope functions
@@ -38,6 +39,8 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
             var result = "https://" + host + "/login";
             $window.location.href = result;
         }
+
+        $scope.docent = $cookies.get("username");
 
         var config = {
             headers: {

@@ -1,7 +1,6 @@
 ﻿body{
     width: 100%;
 }
-
 .buttonClicked {
     background-color: #0094ff;
 }
@@ -20,6 +19,12 @@
 .studentRepeatDIV {
     margin-left: 2%;
     width: 50%;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 .subscriped {
     background-color: #0094ff;
