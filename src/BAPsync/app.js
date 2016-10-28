@@ -93,12 +93,20 @@ app.post("/studentList/add", function (req, res) {
         res.json({ "done": ok });
     }); //studentRepo needs to be like jonathan2266/myRepo
 });
+
 app.post("/studentList/remove", function (req, res) {
+    if (debug) {
+        console.log("got post /studentList/remove request");
+    }
     mongoDB.RemoveFromSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
         res.json({ "done": ok });
     });
 });
+
 app.post("/subscriptionList", function (req, res) {
+    if (debug) {
+        console.log("got post /subscriptionList request");
+    }
     mongoDB.GetSubscriptionList(req.body.username, function (list) {
         res.json(list);
     });
