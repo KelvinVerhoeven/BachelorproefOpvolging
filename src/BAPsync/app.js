@@ -29,7 +29,6 @@ var init = function () {
             mongoDB.updateStudentList(filtered);
         });
     });
-
 }
 
 app.get("/login", function (req, res) {
