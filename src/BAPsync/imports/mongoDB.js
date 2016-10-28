@@ -34,7 +34,7 @@ console.log("made database schemas and models");
 
 module.exports = { //needs testing
     GetSubscriptionList: function (username, callback) {
-        DocStudLinkDB.findOne({ "docent": username }, "docent studentRepo", function (err, res) {
+        DocStudLinkDB.find({ "docent": username }, "docent studentRepo", function (err, res) {
             if (err) {
                 console.log("err in retrieving subscription list from database: " + err);
             } else {
@@ -61,10 +61,13 @@ module.exports = { //needs testing
             }
         });
     },
-    RemoveFromSubscriptionList: function (username, studentRepo) { //needs testing
+    RemoveFromSubscriptionList: function (username, studentRepo, callback) { //needs testing
         DocStudLinkDB.remove({ "docent": username, "studentRepo": studentRepo }, function (err, res) {
             if (err) {
                 console.log("err in removing students from subscription list");
+                callback(false);
+            } else {
+                callback(true);
             }
         });
     },

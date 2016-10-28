@@ -19,8 +19,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 var sub = $scope.students[student].subbed;
                 if (sub == "subscriped") {
 
-                    $scope.students[student].subbed = "unsubscriped";
-                    //do Post
+                    subscriptionListRemove(student, fullLink);
                     break;
                 } else {
 
@@ -29,11 +28,16 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 }
             }
         }
-        $scope.students = students;
     }
 
     //functions
     var init = function () {
+
+        if ($cookies.get("username") == undefined) {
+            var host = $window.location.host;
+            var result = "https://" + host + "/login";
+            $window.location.href = result;
+        }
 
         var config = {
             headers: {
@@ -65,8 +69,9 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
 
         $http.post("/subscriptionList", dataToSend, config)
             .success(function (data, status, headers, config) {
-                var temp = []; //to make it an array
-                temp.push(data);
+                var temp; //to make it an array
+                temp = data;
+                //temp.push(data);
                 checkSubs(studentsDB, temp);
             })
             .error(function (data, status, header, config) {
@@ -79,8 +84,10 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
         for (stud in studentsDB) {
             var sub = false;
             for (currentsub in currentSubList) {
-                if (studentsDB[stud].full == currentSubList[currentsub].studentRepo) {
-                    sub = true;
+                if (currentSubList[currentsub] != null) {
+                    if (studentsDB[stud].full == currentSubList[currentsub].studentRepo) {
+                        sub = true;
+                    }
                 }
             }
 
@@ -119,6 +126,23 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);
             })
+    }
+
+    var subscriptionListRemove = function (student, studentRepo) {
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        var dataToSend = { username: $cookies.get("username"), studentRepo: studentRepo };
+
+        $http.post("/studentList/remove", dataToSend, config)
+            .success(function (data, status, headers, config) {
+                if (data.done) {
+                    $scope.students[student].subbed = "unsubscriped";
+                }
+            });
 
     }
 

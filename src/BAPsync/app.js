@@ -74,6 +74,9 @@ app.get("/studentList", function (req, res) {
 });
 
 app.post("/studentsList/get", function (req, res) {
+    if (debug) {
+        console.log("got post /studentsList/get request");
+    }
     mongoDB.GetStudentRepos(function (students) {
         if (debug) {
             fs.writeFile("./debug/getStudentsListFromDB.txt", JSON.stringify(students, null, "\n"));
@@ -87,8 +90,13 @@ app.post("/studentList/add", function (req, res) {
         console.log("got post /studentList/add request");
     }
     mongoDB.AddToSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
-        res.json({ "done": true });
+        res.json({ "done": ok });
     }); //studentRepo needs to be like jonathan2266/myRepo
+});
+app.post("/studentList/remove", function (req, res) {
+    mongoDB.RemoveFromSubscriptionList(req.body.username, req.body.studentRepo, function (ok) {
+        res.json({ "done": ok });
+    });
 });
 app.post("/subscriptionList", function (req, res) {
     mongoDB.GetSubscriptionList(req.body.username, function (list) {
