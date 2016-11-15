@@ -132,12 +132,17 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
 });
 
 app.post("/issues/close", function (req, res) {
-
+    if (debug) {
+        console.log("got post /issues/close request")
+    }
+    git.CloseIssue(req.body.yolo, function (ok) {
+        res.json({ "done": ok });
+    });
 });
 
 app.post("/issues/create", function (req, res) {
     if (debug) {
-        console.log("got post /issuescreate request");
+        console.log("got post /issues/create request");
     }
     git.CreateIssue(req.body.issue, function (call) {
         res.json({ "done": call });

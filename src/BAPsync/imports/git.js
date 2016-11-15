@@ -163,7 +163,39 @@ module.exports = {
                 callback(true);
             }
             });
+    },
+    CloseIssue: function (dataToClose, callback) {
 
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
 
+        g.authenticate({
+            type: "basic",
+            username: issueBodyLogin.username,
+            password: issueBodyLogin.password
+        });
+
+        g.issues.edit({
+            owner: dataToClose.owner,
+            repo: dataToClose.repo,
+            number: dataToClose.number,
+            state: dataToClose.state
+        }, function (err, res) {
+            if (err != null) {
+                console.log("error in closing issue: " + err);
+                callback(false);
+            } else {
+                callback(true);
+            }
+            });
     }
 };
