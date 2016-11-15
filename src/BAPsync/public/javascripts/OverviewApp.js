@@ -6,7 +6,6 @@ app.controller("overviewCtrl",
 
         $scope.students = [];
         $scope.docent;
-        $scope.lol = "4";
 
         $scope.navigation = function(link) {
             var host = $window.location.host;
@@ -31,7 +30,7 @@ app.controller("overviewCtrl",
             var dataToSend = {};
 
             $http.post("overview/get", dataToSend, config)
-                .SUCCESS(function(data, status, headers, config) {
+                .success(function(data, status, headers, config) {
                     getOverview(data);
                 })
                 .error(function(data, status, header, config) {
