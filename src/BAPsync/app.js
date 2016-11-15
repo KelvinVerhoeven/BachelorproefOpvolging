@@ -30,6 +30,12 @@ var init = function () {
         });
     });
 }
+app.get("/", function (req, res) {
+    if (debug) {
+        console.log("got get on root");
+    }
+    res.redirect("/login");
+});
 
 app.get("/login", function (req, res) {
     if (debug) {
@@ -110,6 +116,12 @@ app.post("/subscriptionList", function (req, res) {
     mongoDB.GetSubscriptionList(req.body.username, function (list) {
         res.json(list);
     });
+});
+
+app.get("/issues", function (req, res) {
+    if (debug) {
+        console.log("got get issues request");
+    }
 });
 
 app.post("/issues/get", function (req, res) { // needs testing only one at a time
