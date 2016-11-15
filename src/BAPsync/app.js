@@ -73,6 +73,27 @@ app.get("/studentList", function (req, res) {
     res.sendFile(path.join(__dirname, "./html/StudentList.html"));
 });
 
+app.get("/overview",
+    function (req, res) {
+        if (debug) {
+            console.log("got get /overview request");
+        }
+        res.sendFile(path.join(__dirname, "./html/overview.html"));
+});
+
+app.post("/overview/get",
+    function(req, res) {
+        if (debug) {
+            console.log("got post /overview/get request");
+        }
+        mongoDB.GetStudentRepos(function(students) {
+            if (debug) {
+
+            }
+            res.json(students);
+        });
+    });
+
 app.post("/studentsList/get", function (req, res) {
     if (debug) {
         console.log("got post /studentsList/get request");
