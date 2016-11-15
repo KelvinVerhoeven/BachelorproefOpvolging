@@ -1,2 +1,34 @@
-﻿body {
+﻿body{
+    width: 100%;
+}
+.buttonClicked {
+    background-color: #0094ff;
+}
+.buttonNormal{
+    background-color: white;
+}
+/*ng-repeat studentsList*/
+.studentRepeatUL{
+    list-style-type: none;
+    margin-left: 2%;
+    padding-left: 0%;
+}
+.studentRepeatH3{
+    margin-left: 2%;
+}
+.studentRepeatDIV {
+    margin-left: 2%;
+    width: 50%;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+.subscriped {
+    background-color: #0094ff;
+}
+.unsubscriped {
+    background-color: white;
 }

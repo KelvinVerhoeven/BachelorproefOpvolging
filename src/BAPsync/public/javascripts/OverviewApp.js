@@ -1,42 +1,62 @@
 ﻿var app = angular.module('OverviewApp', ['ngCookies']);
 
-app.controller("overviewCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {       
+app.controller("overviewCtrl",
+[
+    "$cookies", "$scope", "$http", "$window", function($cookies, $scope, $http, $window) {
 
-    $scope.students = [];
+        $scope.students = [];
+        $scope.docent;
+        $scope.lol = "4";
 
-    $scope.navigation = function (link) {
-        var host              = $window.location.host;
-        var result            = "https://" + host + "/" + link;
-        $window.location.href = result;
-    }
-
-    var init = function () {
-        if ($cookies.get("username") == undefined) {
+        $scope.navigation = function(link) {
             var host = $window.location.host;
-            var result = "https://" + host + "/login";
+            var result = "https://" + host + "/" + link;
             $window.location.href = result;
         }
 
-        $scope.docent = $cookies.get("username");
-
-        var config = {
-            headers: {
-                'Content-Type': 'application/json'
+        var init = function() {
+            if ($cookies.get("username") == undefined) {
+                var host = $window.location.host;
+                var result = "https://" + host + "/login";
+                $window.location.href = result;
             }
-        }
-        var dataToSend = {};
 
-        $http.post
-    }
+            $scope.docent = $cookies.get("username");
 
-    var getOverview = function () {
-        var config = {
-            headers: {
-                'Content-Type': 'application/json'
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
+            var dataToSend = {};
+
+            $http.post("overview/get", dataToSend, config)
+                .SUCCESS(function(data, status, headers, config) {
+                    getOverview(data);
+                })
+                .error(function(data, status, header, config) {
+                    console.log("Failed " + data);
+                });
         }
-        var dataToSend = { username: $cookies.get("username") };
 
+        var getOverview = function(studentsDB) {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            var dataToSend = { username: $cookies.get("username") };
 
-    }
-}])
+            $http.post("/overview/get", dataToSend, config)
+                .success(function(data, status, headers, config) {
+                    
+                })
+                .error(function(data, status, header, config) {
+                    console.log("Failed " + data);
+                });
+        }
+
+        
+
+        init();
+}]);
