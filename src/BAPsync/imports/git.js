@@ -109,5 +109,20 @@ module.exports = {
         //    }
         //    callback(res);
         //}); 
+    },
+    GetIssues: function (repo, callback) {
+
+        var result;
+
+        github.issues.getForRepo({
+            owner: repo.owner,
+            repo: repo.repo
+        }, function (err, res) {
+            result.issues = res;
+            result.full = repo.full;
+            result.owner = repo.owner;
+            result.repo = repo.repo;
+            callback(result);
+        });
     }
 };

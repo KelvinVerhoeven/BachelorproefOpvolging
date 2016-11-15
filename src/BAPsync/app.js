@@ -112,6 +112,25 @@ app.post("/subscriptionList", function (req, res) {
     });
 });
 
+app.post("/issues/get", function (req, res) { // needs testing only one at a time
+    if (debug) {
+        console.log("got post /issues/get request");
+    }
+    mongoDB.GetSubscriptionList(req.body.username, function (list) {
+        mongoDB.GetStudentRepos(function (fullStudRepos) {
+            for (var fullStudRepo in fullStudRepos) {
+                for (var repo in list) {
+                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full) {
+                        git.GetIssues(fullStudRepos[fullStudRepo], function (issues) {
+                            res.json(issues);
+                        });
+                    }
+                }
+            }
+        });
+    });
+});
+
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))
