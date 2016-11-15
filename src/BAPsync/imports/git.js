@@ -118,11 +118,52 @@ module.exports = {
             owner: repo.owner,
             repo: repo.repo
         }, function (err, res) {
-            result.issues = res;
-            result.full = repo.full;
-            result.owner = repo.owner;
-            result.repo = repo.repo;
-            callback(result);
+            if (err != null) {
+                console.log("err in getIssues: " + err);
+                callback("");
+            } else {
+                result.issues = res;
+                result.full = repo.full;
+                result.owner = repo.owner;
+                result.repo = repo.repo;
+                callback(result);
+            }
         });
+    },
+    CreateIssue: function (issueBodyLogin, callback) {
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: issueBodyLogin.username,
+            password: issueBodyLogin.password
+        });
+
+        g.issues.create({
+            owner: issueBodyLogin.owner,
+            repo: issueBodyLogin.repo,
+            title: issueBodyLogin.title,
+            body: issueBodyLogin.body
+        }, function (err, res) {
+            if (err != null) {
+                console.log("err in issues.create: " + err);
+                callback(false);
+            } else {
+                callback(true);
+            }
+            });
+
+
     }
 };
