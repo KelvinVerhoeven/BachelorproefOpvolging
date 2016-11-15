@@ -70,7 +70,7 @@ app.get("/studentList", function (req, res) {
     if (debug) {
         console.log("got get /studentList request");
     }
-    res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+     res.sendFile(path.join(__dirname, "./html/StudentList.html"));
 });
 
 app.post("/studentsList/get", function (req, res) {
@@ -129,6 +129,10 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
             }
         });
     });
+});
+
+app.post("issues/close", function (req, res) {
+
 });
 
 https.createServer({
