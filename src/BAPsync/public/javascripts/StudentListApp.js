@@ -20,7 +20,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 var sub = $scope.students[student].subbed;
                 if (sub == "subscriped") {
 
-                    subscriptionListRemove(student, fullLink);
+                    subscriptionListRemove(student, fullLink); 
                     break;
                 } else {
 

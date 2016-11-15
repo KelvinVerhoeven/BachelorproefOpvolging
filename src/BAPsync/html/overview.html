@@ -9,34 +9,37 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
-    <script type="text/javascript" src="/javascripts/StudentListApp.js"></script>
-    <link rel="stylesheet" href="/stylesheets/StudentList.css"/>
+    <script type="text/javascript" src="/javascripts/OverviewApp.js"></script>
+    <link rel="stylesheet" href="/stylesheets/Overview.css" />
 </head>
-<body ng-app="studentListApp" ng-controller="studentListCtrl">
+<body ng-app="OverviewApp" ng-controller="overviewCtrl">
     <div>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
                     <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
-                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">StudentList</button>
-                    <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
+                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
+                    <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonClicked">Overview</button>
                     <p class="navbar-text navbar-right">Signed in as {{docent}}</p>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="studentsContainer">
-        <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
-            <h3 class="studentRepeatH3">{{student.full}}</h3>
-            <ul class="studentRepeatUL">
-                <li>
-                    <p>Owner: {{student.owner}}</p>
-                </li>
-                <li>
-                    <p>Repository: {{student.repo}}</p>
-                </li>
-            </ul>
+
+    <div class="overviewContainer">
+        <div class="container-fluid">
+            <div class="row fluid">
+                <div class="span 2">
+                    <!-- sidebar content -->
+
+                </div>
+                <div class="span 10">
+                    <!-- body content -->
+
+                </div>
+            </div>
         </div>
     </div>
+
 </body>
 </html>
