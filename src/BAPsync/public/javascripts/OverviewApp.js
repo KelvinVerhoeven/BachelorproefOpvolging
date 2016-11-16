@@ -13,7 +13,30 @@ app.controller("overviewCtrl",
             $window.location.href = result;
         }
 
-        var init = function() {
+        /*
+
+        var getSubList = function(studentsDB) {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            var dataToSend = { username: $cookies.get("username") };
+
+            $http.post("/overview/get", dataToSend, config)
+                .success(function (data, status, headers, config) {
+                    var temp = data;
+                    //temp.push(data);
+                    checkSubs(studentsDB, temp);
+                })
+                .error(function (data, status, header, config) {
+                    console.log("Failed " + data);
+                })
+        }*/
+
+        
+
+        var init = function () {
             if ($cookies.get("username") == undefined) {
                 var host = $window.location.host;
                 var result = "https://" + host + "/login";
@@ -27,35 +50,17 @@ app.controller("overviewCtrl",
                     'Content-Type': 'application/json'
                 }
             }
-            var dataToSend = {};
-
-            $http.post("overview/get", dataToSend, config)
-                .success(function(data, status, headers, config) {
-                    getOverview(data);
-                })
-                .error(function(data, status, header, config) {
-                    console.log("Failed " + data);
-                });
-        }
-
-        var getOverview = function(studentsDB) {
-            var config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
             var dataToSend = { username: $cookies.get("username") };
 
-            $http.post("/overview/get", dataToSend, config)
-                .success(function(data, status, headers, config) {
-                    
+            $http.post("/subscriptionList", dataToSend, config)
+                .success(function (data, status, headers, config) {
+                    $scope.students = data;
+                    console.log("lel");
                 })
-                .error(function(data, status, header, config) {
+                .error(function (data, status, header, config) {
                     console.log("Failed " + data);
                 });
         }
-
-        
 
         init();
 }]);

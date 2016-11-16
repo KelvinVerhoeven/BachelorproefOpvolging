@@ -13,33 +13,41 @@
     <link rel="stylesheet" href="/stylesheets/Overview.css" />
 </head>
 <body ng-app="OverviewApp" ng-controller="overviewCtrl">
-    <div>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
-                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
-                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
-                    <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonClicked">Overview</button>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }}</p>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div class="overviewContainer">
+<div>
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="row fluid">
-                <div class="span 2">
-                    <!-- sidebar content -->
-                    <p></p>
-                </div>
-                <div class="span 10">
-                    <!-- body content -->
-                    <p></p>
-                </div>
+            <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
+                <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
+                <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
+                <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonClicked">Overview</button>
+                <p class="navbar-text navbar-right">Signed in as {{ docent }}</p>
             </div>
         </div>
+    </nav>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class=""panel-heading">
+                            <a data-toggle="collapse" href="#">Select student</a>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="student in students">{{student.studentRepo}}</li>
+                            </ul>
+                            <div class="panel-footer">Footer</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="span10">
+            <p>test lololololsdffffffffffffffffffffffffffffff</p>
+        </div>
     </div>
+</div>
 
 </body>
 </html>

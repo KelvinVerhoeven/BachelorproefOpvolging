@@ -87,9 +87,6 @@ app.post("/overview/get",
             console.log("got post /overview/get request");
         }
         mongoDB.GetStudentRepos(function(students) {
-            if (debug) {
-
-            }
             res.json(students);
         });
     });
