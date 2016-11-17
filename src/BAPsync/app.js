@@ -118,7 +118,7 @@ app.post("/subscriptionList", function (req, res) {
     });
 });
 
-app.get("/issues", function (req, res) {
+app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");
     }
@@ -147,7 +147,7 @@ app.post("/issues/close", function (req, res) {
     if (debug) {
         console.log("got post /issues/close request")
     }
-    git.CloseIssue(req.body.yolo, function (ok) {
+    git.CloseIssue(req.body.issue, function (ok) {
         res.json({ "done": ok });
     });
 });
