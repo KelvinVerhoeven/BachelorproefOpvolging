@@ -30,6 +30,12 @@ var init = function () {
         });
     });
 }
+app.get("/", function (req, res) {
+    if (debug) {
+        console.log("got get on root");
+    }
+    res.redirect("/login");
+});
 
 app.get("/login", function (req, res) {
     if (debug) {
@@ -70,7 +76,7 @@ app.get("/studentList", function (req, res) {
     if (debug) {
         console.log("got get /studentList request");
     }
-    res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+     res.sendFile(path.join(__dirname, "./html/StudentList.html"));
 });
 
 app.get("/overview",
@@ -128,6 +134,50 @@ app.post("/subscriptionList", function (req, res) {
     mongoDB.GetSubscriptionList(req.body.username, function (list) {
         res.json(list);
     });
+});
+
+app.get("/issues", function (req, res) { //issues webpage
+    if (debug) {
+        console.log("got get issues request");
+    }
+});
+
+app.post("/issues/get", function (req, res) { // needs testing only one at a time
+    if (debug) {
+        console.log("got post /issues/get request");
+    }
+    mongoDB.GetSubscriptionList(req.body.username, function (list) {
+        mongoDB.GetStudentRepos(function (fullStudRepos) {
+            for (var fullStudRepo in fullStudRepos) {
+                for (var repo in list) {
+                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full) {
+                        git.GetIssues(fullStudRepos[fullStudRepo], function (issues) {
+                            res.json(issues);
+                        });
+                    }
+                }
+            }
+        });
+    });
+});
+
+app.post("/issues/close", function (req, res) {
+    if (debug) {
+        console.log("got post /issues/close request")
+    }
+    git.CloseIssue(req.body.issue, function (ok) {
+        res.json({ "done": ok });
+    });
+});
+
+app.post("/issues/create", function (req, res) {
+    if (debug) {
+        console.log("got post /issues/create request");
+    }
+    git.CreateIssue(req.body.issue, function (call) {
+        res.json({ "done": call });
+    });
+
 });
 
 https.createServer({
