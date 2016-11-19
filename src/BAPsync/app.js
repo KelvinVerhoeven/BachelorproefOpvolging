@@ -143,6 +143,13 @@ app.get("/issues", function (req, res) { //issues webpage
     res.sendFile(path.join(__dirname, "./html/issues.html"));
 });
 
+app.get("/issues/form", function (req, res) {
+    if (debug) {
+        console.log("got get issues/form request");
+    }
+    res.sendFile(path.join(__dirname, "./html/issuesForm.html"));
+});
+
 app.post("/issues/get", function (req, res) { // needs testing only one at a time
     if (debug) {
         console.log("got post /issues/get request");
