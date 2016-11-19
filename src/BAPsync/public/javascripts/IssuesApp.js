@@ -11,16 +11,16 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
         $window.location.href = result;
     }
 
-    $scope.newComment = function (number) {
+    $scope.newComment = function (number, commentText) {
 
         var config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number, state: "closed" };
+        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number, body: commentText };
 
-        $http.post("/issues/close", dataToSend, config)
+        $http.post("/comments/new", dataToSend, config)
             .success(function (data, status, headers, config) {
                 if (data.done == true) {
                     init();
@@ -28,6 +28,8 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);
+                confirm("update failed");
+                init();
             })
 
     }

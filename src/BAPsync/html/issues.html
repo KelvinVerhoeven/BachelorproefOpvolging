@@ -37,9 +37,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <textarea rows="3" type="text" class="form-control"></textarea>
+                        <textarea ng-model="commentText" rows="3" type="text" class="form-control"></textarea>
                         <span class="input-group-btn">
-                            <button ng-click=newComment(issue.number) class="btn btn-default" type="button">Comment</button>
+                            <button ng-click="newComment(issue.number, commentText)" class="btn btn-default" type="button">Comment</button>
                         </span>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->

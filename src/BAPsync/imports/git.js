@@ -165,7 +165,7 @@ module.exports = {
         g.authenticate({
             type: "basic",
             username: username,
-            password: .password
+            password: password
         });
 
         g.issues.create({
@@ -245,6 +245,40 @@ module.exports = {
                 console.log("error in getComments: " + err);
             } else {
                 callback(res);
+            }
+        });
+    },
+    createComment: function (username, password, owner, repo, number, body, callback) {
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.createComment({
+            owner: owner,
+            repo: repo,
+            number: number,
+            body: body
+        }, function (err, res) {
+            if (err != null) {
+                callback(false);
+                console.log("error in createComments: " + err);
+            } else {
+                callback(true);
             }
         });
     }
