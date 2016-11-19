@@ -169,7 +169,7 @@ app.post("/issues/close", function (req, res) {
     if (debug) {
         console.log("got post /issues/close request")
     }
-    git.CloseIssue(req.body.issue, function (ok) {
+    git.CloseIssue(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, req.body.state, function (ok) {
         res.json({ "done": ok });
     });
 });
@@ -178,7 +178,7 @@ app.post("/issues/create", function (req, res) {
     if (debug) {
         console.log("got post /issues/create request");
     }
-    git.CreateIssue(req.body.issue, function (call) {
+    git.CreateIssue(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.title, req.body.body, function (call) {
         res.json({ "done": call });
     });
 

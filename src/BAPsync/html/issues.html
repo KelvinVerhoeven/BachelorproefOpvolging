@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="/javascripts/IssuesApp.js"></script>
     <!--<link rel="stylesheet" href="/stylesheets/StudentList.css" />-->
+
 </head>
 <body ng-app="issuesApp" ng-controller="IssuesCtrl">
     <div>
@@ -27,9 +28,23 @@
     </div>
     <div>
         <div ng-repeat="issue in issues">
-            <h3>{{issue.title}} {{issue.user.login}}</h3>
+            <h3>{{issue.user.login}} {{issue.title}}</h3>
             <p class="issueBody">{{issue.body}}</p>
-            <div ng-bind-html="{{issue.getComments}}"></div>
+            <div ng-repeat="comment in issue.gotComments">
+                <p>{{comment.user.login}}</p>
+                <p>{{comment.body}}</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <textarea rows="3" type="text" class="form-control"></textarea>
+                        <span class="input-group-btn">
+                            <button ng-click=newComment(issue.number) class="btn btn-default" type="button">Comment</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <button ng-click=closeIssue(issue.number) type="button" class="btn btn-default">Close issue</button>
         </div>
     </div>
 </body>
