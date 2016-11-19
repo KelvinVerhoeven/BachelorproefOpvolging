@@ -1,0 +1,31 @@
+﻿body{
+    width: 100%;
+}
+.buttonClicked {
+    background-color: #0094ff;
+}
+.buttonNormal{
+    background-color: white;
+}
+
+.issueRepeatDiv {
+    margin: auto;
+    margin-bottom: 2%;
+    width: 80%;
+    
+}
+.commentRepeat {
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 0.5%;
+}
+.commentUserRepeat {
+    margin-bottom: 0%;
+}
+.commentBodyRepeat {
+    margin-bottom: 0%;
+}
+.closeButtonRepeat {
+    margin-top: 0.5%;
+}

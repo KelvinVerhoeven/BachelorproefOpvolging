@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="/javascripts/IssuesApp.js"></script>
-    <!--<link rel="stylesheet" href="/stylesheets/StudentList.css" />-->
+    <link rel="stylesheet" href="/stylesheets/issues.css" />
 
 </head>
 <body ng-app="issuesApp" ng-controller="IssuesCtrl">
@@ -19,32 +19,37 @@
             <div class="container-fluid">
                 <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
                     <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
-                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">StudentList</button>
+                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
                     <p class="navbar-text navbar-right">Signed in as {{docent}}</p>
+                    <button ng-click=navigation("issue") type="button" class="btn btn-default navbar-btn buttonNormal">Create issue</button>
                 </div>
             </div>
         </nav>
     </div>
     <div>
-        <div ng-repeat="issue in issues">
-            <h3>{{issue.user.login}} {{issue.title}}</h3>
-            <p class="issueBody">{{issue.body}}</p>
-            <div ng-repeat="comment in issue.gotComments">
-                <p>{{comment.user.login}}</p>
-                <p>{{comment.body}}</p>
+        <div class="issueRepeatDiv panel panel-primary" ng-repeat="issue in issues">
+            <div class="panel-heading"><h3 class="titleRepeat panel-title">{{issue.title}}</h3></div>
+            <div class="panel-body">
+                <p class="issueBody">{{issue.body}}</p>
+                <div ng-repeat="comment in issue.gotComments" class="panel-default commentRepeat">
+                    <div class="panel-heading"><p class="commentUserRepeat">{{comment.user.login}}</p></div>
+                    <div class="panel-body">
+                        <p class="commentBodyRepeat">{{comment.body}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <textarea ng-model="commentText" rows="3" type="text" class="form-control"></textarea>
+                            <span class="input-group-btn">
+                                <button ng-click="newComment(issue.number, commentText)" class="btn btn-default" type="button">Comment</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+                <button ng-click=closeIssue(issue.number) type="button" class="btn btn-default closeButtonRepeat">Close issue</button>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <textarea ng-model="commentText" rows="3" type="text" class="form-control"></textarea>
-                        <span class="input-group-btn">
-                            <button ng-click="newComment(issue.number, commentText)" class="btn btn-default" type="button">Comment</button>
-                        </span>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
-            <button ng-click=closeIssue(issue.number) type="button" class="btn btn-default">Close issue</button>
         </div>
     </div>
 </body>

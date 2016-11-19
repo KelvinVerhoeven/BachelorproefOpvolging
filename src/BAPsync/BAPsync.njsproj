@@ -48,6 +48,7 @@
     <Content Include="openSSL\cert.pem" />
     <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
+    <Content Include="public\stylesheets\issues.css" />
     <Content Include="public\stylesheets\Overview.css" />
     <Content Include="public\stylesheets\StudentList.css" />
     <Content Include="README.md" />
