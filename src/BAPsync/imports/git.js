@@ -110,11 +110,29 @@ module.exports = {
         //    callback(res);
         //}); 
     },
-    GetIssues: function (repo, callback) {
+    GetIssues: function (username, password, repo, callback) {
 
-        var result;
+        var result = [];
 
-        github.issues.getForRepo({
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.getForRepo({
             owner: repo.owner,
             repo: repo.repo
         }, function (err, res) {
@@ -197,5 +215,37 @@ module.exports = {
                 callback(true);
             }
             });
+    },
+    getComments: function (username, password, owner, repo, number, callback) {
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.getComments({
+            owner: owner,
+            repo: repo,
+            number: number
+        }, function (err, res) {
+            if (err != null) {
+                console.log("error in getComments: " + err);
+            } else {
+                callback(res);
+            }
+        });
     }
 };

@@ -59,7 +59,7 @@ app.post("/login", function (req, res) {
                 mongoDB.updateDocentList(req.body.username, function (hadEntry) {
                     mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
                         if (newHadEntry) {
-                            res.json({ auth: true , redirect: "/main" });
+                            res.json({ auth: true, redirect: "/overview" });
                         } else {
                             res.json({ auth: true , redirect: "/studentList" });
                         }
@@ -140,6 +140,7 @@ app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");
     }
+    res.sendFile(path.join(__dirname, "./html/issues.html"));
 });
 
 app.post("/issues/get", function (req, res) { // needs testing only one at a time
@@ -150,9 +151,12 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
         mongoDB.GetStudentRepos(function (fullStudRepos) {
             for (var fullStudRepo in fullStudRepos) {
                 for (var repo in list) {
-                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full) {
-                        git.GetIssues(fullStudRepos[fullStudRepo], function (issues) {
-                            res.json(issues);
+                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == "bachelorproef-test1") { // ye 
+                        git.GetIssues(req.body.username, req.body.password, fullStudRepos[fullStudRepo], function (issues) {
+                            if (debug) {
+                                fs.writeFile("./debug/issues.txt", JSON.stringify(issues.issues, null, "\n"));
+                            }
+                            res.json(issues.issues);
                         });
                     }
                 }
@@ -178,6 +182,18 @@ app.post("/issues/create", function (req, res) {
         res.json({ "done": call });
     });
 
+});
+
+app.post("/comments", function (req, res) {
+    if (debug) {
+        console.log("got post /comments request");
+    }
+    git.getComments(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, function (call) {
+        if (debug) {
+            fs.writeFile("./debug/comments.txt", JSON.stringify(call, null, "\n"));
+        }
+        res.json(call);
+    });
 });
 
 https.createServer({
