@@ -37,15 +37,15 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li class="list-group-item" ng-click="getName(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</li>
+                    <li class="list-group-item" ng-click="chooseStudent(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</li>
                 </ul>
             </div>
             <!-- dropdown end -->
 
         </div>
         <div class="span10">
-            <div class="alert alert-info">Naam van de student: </div>
-            <div class="alert alert-warning">Laatste commit: <button type="button" class="btn btn-success">View</button></div>
+            <div class="alert alert-info">Naam van de student: {{ name }}</div>
+            <div class="alert alert-warning">Laatste commit: {{ laatsteCommit }} <button type="button" class="btn btn-success">View</button></div>
             <div class="alert alert-info">Open issues: <button type="button" class="btn btn-success">View</button></div>
             <div class="alert alert-info">Repo link: </div>
         </div>
