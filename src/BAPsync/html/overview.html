@@ -37,7 +37,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li class="list-group-item" ng-repeat="student in students">{{student.studentRepo}}</li>
+                    <li class="list-group-item" ng-click="getName(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</li>
                 </ul>
             </div>
             <!-- dropdown end -->

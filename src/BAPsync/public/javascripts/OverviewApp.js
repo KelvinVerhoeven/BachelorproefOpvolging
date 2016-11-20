@@ -13,8 +13,8 @@ app.controller("overviewCtrl",
             $window.location.href = result;
         }
 
-        $scope.getName = function() {
-            
+        $scope.getName = function(iets) {
+            console.log(iets);
         }
 
         var init = function () {
