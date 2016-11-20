@@ -5,7 +5,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>BAPsync</Name>
     <RootNamespace>BAPsync</RootNamespace>
-    <LaunchUrl>https://localhost:3541/login</LaunchUrl>
+    <LaunchUrl>https://localhost:3541/issues</LaunchUrl>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -37,15 +37,21 @@
     <Compile Include="imports\JSONFilter.js" />
     <Compile Include="imports\key.js" />
     <Compile Include="imports\mongoDB.js" />
+    <Compile Include="public\javascripts\IssuesApp.js" />
+    <Compile Include="public\javascripts\issuesFormApp.js" />
     <Compile Include="public\javascripts\loginApp.js" />
     <Compile Include="public\javascripts\OverviewApp.js" />
     <Compile Include="public\javascripts\StudentListApp.js" />
+    <Content Include="html\issues.html" />
+    <Content Include="html\issuesForm.html" />
     <Content Include="html\login.html" />
     <Content Include="html\overview.html" />
     <Content Include="html\StudentList.html" />
     <Content Include="openSSL\cert.pem" />
     <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
+    <Content Include="public\stylesheets\issues.css" />
+    <Content Include="public\stylesheets\issuesForm.css" />
     <Content Include="public\stylesheets\Overview.css" />
     <Content Include="public\stylesheets\StudentList.css" />
     <Content Include="README.md" />

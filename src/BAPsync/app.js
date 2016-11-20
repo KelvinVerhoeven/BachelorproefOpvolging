@@ -59,7 +59,7 @@ app.post("/login", function (req, res) {
                 mongoDB.updateDocentList(req.body.username, function (hadEntry) {
                     mongoDB.CheckSubscriptionList(req.body.username, hadEntry, function (newHadEntry) {
                         if (newHadEntry) {
-                            res.json({ auth: true , redirect: "/main" });
+                            res.json({ auth: true, redirect: "/overview" });
                         } else {
                             res.json({ auth: true , redirect: "/studentList" });
                         }
@@ -140,6 +140,14 @@ app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");
     }
+    res.sendFile(path.join(__dirname, "./html/issues.html"));
+});
+
+app.get("/issues/form", function (req, res) {
+    if (debug) {
+        console.log("got get issues/form request");
+    }
+    res.sendFile(path.join(__dirname, "./html/issuesForm.html"));
 });
 
 app.post("/issues/get", function (req, res) { // needs testing only one at a time
@@ -150,9 +158,12 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
         mongoDB.GetStudentRepos(function (fullStudRepos) {
             for (var fullStudRepo in fullStudRepos) {
                 for (var repo in list) {
-                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full) {
-                        git.GetIssues(fullStudRepos[fullStudRepo], function (issues) {
-                            res.json(issues);
+                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == "bachelorproef-test1") { // ye 
+                        git.GetIssues(req.body.username, req.body.password, fullStudRepos[fullStudRepo], function (issues) {
+                            if (debug) {
+                                fs.writeFile("./debug/issues.txt", JSON.stringify(issues.issues, null, "\n"));
+                            }
+                            res.json(issues.issues);
                         });
                     }
                 }
@@ -165,7 +176,7 @@ app.post("/issues/close", function (req, res) {
     if (debug) {
         console.log("got post /issues/close request")
     }
-    git.CloseIssue(req.body.issue, function (ok) {
+    git.CloseIssue(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, req.body.state, function (ok) {
         res.json({ "done": ok });
     });
 });
@@ -174,10 +185,31 @@ app.post("/issues/create", function (req, res) {
     if (debug) {
         console.log("got post /issues/create request");
     }
-    git.CreateIssue(req.body.issue, function (call) {
+    git.CreateIssue(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.title, req.body.body, function (call) {
         res.json({ "done": call });
     });
 
+});
+
+app.post("/comments", function (req, res) {
+    if (debug) {
+        console.log("got post /comments request");
+    }
+    git.getComments(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, function (call) {
+        if (debug) {
+            fs.writeFile("./debug/comments.txt", JSON.stringify(call, null, "\n"));
+        }
+        res.json(call);
+    });
+});
+
+app.post("/comments/new", function (req, res) {
+    if (debug) {
+        console.log("got post /comments/new request");
+    }
+    git.createComment(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, req.body.body, function (call) {
+        res.json({ "done": call });
+    });
 });
 
 https.createServer({

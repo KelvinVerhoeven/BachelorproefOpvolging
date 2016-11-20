@@ -110,11 +110,29 @@ module.exports = {
         //    callback(res);
         //}); 
     },
-    GetIssues: function (repo, callback) {
+    GetIssues: function (username, password, repo, callback) {
 
-        var result;
+        var result = [];
 
-        github.issues.getForRepo({
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.getForRepo({
             owner: repo.owner,
             repo: repo.repo
         }, function (err, res) {
@@ -130,7 +148,7 @@ module.exports = {
             }
         });
     },
-    CreateIssue: function (issueBodyLogin, callback) {
+    CreateIssue: function (username, password, owner, repo, title, body, callback) {
 
         var g = new GitHubApi({
             debug: debug,
@@ -146,15 +164,15 @@ module.exports = {
 
         g.authenticate({
             type: "basic",
-            username: issueBodyLogin.username,
-            password: issueBodyLogin.password
+            username: username,
+            password: password
         });
 
         g.issues.create({
-            owner: issueBodyLogin.owner,
-            repo: issueBodyLogin.repo,
-            title: issueBodyLogin.title,
-            body: issueBodyLogin.body
+            owner: owner,
+            repo: repo,
+            title: title,
+            body: body
         }, function (err, res) {
             if (err != null) {
                 console.log("err in issues.create: " + err);
@@ -164,7 +182,7 @@ module.exports = {
             }
             });
     },
-    CloseIssue: function (dataToClose, callback) {
+    CloseIssue: function (username, password, owner, repo, number, state, callback) {
 
         var g = new GitHubApi({
             debug: debug,
@@ -180,15 +198,15 @@ module.exports = {
 
         g.authenticate({
             type: "basic",
-            username: issueBodyLogin.username,
-            password: issueBodyLogin.password
+            username: username,
+            password: password
         });
 
         g.issues.edit({
-            owner: dataToClose.owner,
-            repo: dataToClose.repo,
-            number: dataToClose.number,
-            state: dataToClose.state
+            owner: owner,
+            repo: repo,
+            number: number,
+            state: state
         }, function (err, res) {
             if (err != null) {
                 console.log("error in closing issue: " + err);
@@ -197,5 +215,71 @@ module.exports = {
                 callback(true);
             }
             });
+    },
+    getComments: function (username, password, owner, repo, number, callback) {
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.getComments({
+            owner: owner,
+            repo: repo,
+            number: number
+        }, function (err, res) {
+            if (err != null) {
+                console.log("error in getComments: " + err);
+            } else {
+                callback(res);
+            }
+        });
+    },
+    createComment: function (username, password, owner, repo, number, body, callback) {
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.issues.createComment({
+            owner: owner,
+            repo: repo,
+            number: number,
+            body: body
+        }, function (err, res) {
+            if (err != null) {
+                callback(false);
+                console.log("error in createComments: " + err);
+            } else {
+                callback(true);
+            }
+        });
     }
 };
