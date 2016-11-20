@@ -158,6 +158,21 @@ app.post("/subscriptionList", function (req, res) {
     });
 });
 
+//testing one sub
+app.post("/onesub",
+    function(req, res) {
+        if (debug) {
+            console.log("got post /onesub request");
+        } else {
+            console.log("oeps");
+        }
+        mongoDB.GetOneSub(req.body.username,
+            req.body.student,
+            function(list) {
+                res.json(list);
+            });
+    });
+
 app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");

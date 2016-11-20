@@ -42,6 +42,20 @@ module.exports = { //needs testing
             }
         });
     },
+
+    //testing
+    GetOneSub: function(username, student, callback) {
+        DocStudLinkDB.find({ "docent": username, "studentRepo": student },
+            "docent studentRepo", "student studentRepo",
+            function(err, res) {
+                if (err) {
+                    console.log("err in retrieving subscription list from database: " + err);
+                } else {
+                    callback(res);
+                }
+            });
+    },
+
     AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
         DocStudLinkDB.findOne({ "docent": username, "studentRepo": studentRepo }, "docent studentRepo", function (err, res) {
             if (err) {
@@ -121,6 +135,7 @@ module.exports = { //needs testing
             }
         });
     }
+    
 };
 
 //privates
