@@ -29,22 +29,25 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span2">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class=""panel-heading">
-                            <a data-toggle="collapse" href="#">Select student</a>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="student in students">{{student.studentRepo}}</li>
-                            </ul>
-                            <div class="panel-footer">Footer</div>
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- dropdown begin -->
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Choose a student
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="list-group-item" ng-repeat="student in students">{{student.studentRepo}}</li>
+                </ul>
+            </div>
+            <!-- dropdown end -->
+
         </div>
         <div class="span10">
-            <p>test lololololsdffffffffffffffffffffffffffffff</p>
+            <div class="alert alert-info">Naam van de student: </div>
+            <div class="alert alert-warning">Laatste commit: <button type="button" class="btn btn-success">View</button></div>
+            <div class="alert alert-info">Open issues: <button type="button" class="btn btn-success">View</button></div>
+            <div class="alert alert-info">Repo link: </div>
         </div>
     </div>
 </div>

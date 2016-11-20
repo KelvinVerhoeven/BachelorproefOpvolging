@@ -13,28 +13,9 @@ app.controller("overviewCtrl",
             $window.location.href = result;
         }
 
-        /*
-
-        var getSubList = function(studentsDB) {
-            var config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            var dataToSend = { username: $cookies.get("username") };
-
-            $http.post("/overview/get", dataToSend, config)
-                .success(function (data, status, headers, config) {
-                    var temp = data;
-                    //temp.push(data);
-                    checkSubs(studentsDB, temp);
-                })
-                .error(function (data, status, header, config) {
-                    console.log("Failed " + data);
-                })
-        }*/
-
-        
+        $scope.getName = function() {
+            
+        }
 
         var init = function () {
             if ($cookies.get("username") == undefined) {
@@ -55,12 +36,18 @@ app.controller("overviewCtrl",
             $http.post("/subscriptionList", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.students = data;
-                    console.log("lel");
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
                 });
+
+           
+
         }
+
+        
+
+        
 
         init();
 }]);

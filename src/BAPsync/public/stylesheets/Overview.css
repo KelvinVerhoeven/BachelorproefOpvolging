@@ -9,9 +9,16 @@
 }
 .span2 {
     width: 25%;
+    display: inline-block;
+    margin-left: 20px;
+    
 }
 .span10 {
     width: 60%;
     float: right;
+    margin-right: 10%;
 
+}
+.btn-success {
+    float: right;
 }
