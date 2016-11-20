@@ -38,10 +38,12 @@
     <Compile Include="imports\key.js" />
     <Compile Include="imports\mongoDB.js" />
     <Compile Include="public\javascripts\IssuesApp.js" />
+    <Compile Include="public\javascripts\issuesFormApp.js" />
     <Compile Include="public\javascripts\loginApp.js" />
     <Compile Include="public\javascripts\OverviewApp.js" />
     <Compile Include="public\javascripts\StudentListApp.js" />
     <Content Include="html\issues.html" />
+    <Content Include="html\issuesForm.html" />
     <Content Include="html\login.html" />
     <Content Include="html\overview.html" />
     <Content Include="html\StudentList.html" />
@@ -49,6 +51,7 @@
     <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\issues.css" />
+    <Content Include="public\stylesheets\issuesForm.css" />
     <Content Include="public\stylesheets\Overview.css" />
     <Content Include="public\stylesheets\StudentList.css" />
     <Content Include="README.md" />

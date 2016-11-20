@@ -11,7 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="/javascripts/IssuesApp.js"></script>
     <link rel="stylesheet" href="/stylesheets/issues.css" />
-
 </head>
 <body ng-app="issuesApp" ng-controller="IssuesCtrl">
     <div>
@@ -22,7 +21,7 @@
                     <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
                     <p class="navbar-text navbar-right">Signed in as {{docent}}</p>
-                    <button ng-click=navigation("/issues/create") type="button" class="btn btn-default navbar-btn buttonNormal">Create issue</button>
+                    <button ng-click=navigation("issues/form") type="button" class="btn btn-default navbar-btn buttonNormal">Create issue</button>
                 </div>
             </div>
         </nav>
