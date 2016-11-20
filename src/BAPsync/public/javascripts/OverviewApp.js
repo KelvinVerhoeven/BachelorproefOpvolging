@@ -13,9 +13,33 @@ app.controller("overviewCtrl",
             $window.location.href = result;
         }
 
-        $scope.getName = function(iets) {
+        var subscriptionListAdd = function (student, studentRepo) {
+
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            var dataToSend = { username: $cookies.get("username"), studentRepo: studentRepo };
+
+            $http.post("/studentList/add", dataToSend, config)
+                .success(function (data, status, headers, config) {
+
+                    if (data.done) {
+                        $scope.students[student].subbed = "subscribed";
+                    }
+
+
+                })
+                .error(function (data, status, header, config) {
+                    console.log("Failed " + data);
+                });
+        }
+        $scope.chooseStudent = function(fullLink) {
             console.log(iets);
         }
+
+        
 
         var init = function () {
             if ($cookies.get("username") == undefined) {
@@ -44,10 +68,6 @@ app.controller("overviewCtrl",
            
 
         }
-
-        
-
-        
 
         init();
 }]);

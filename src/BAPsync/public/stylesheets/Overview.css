@@ -22,3 +22,9 @@
 .btn-success {
     float: right;
 }
+.subscribed {
+    background-color: #0094ff;
+}
+.unsubscribed {
+    background-color: white;
+}
