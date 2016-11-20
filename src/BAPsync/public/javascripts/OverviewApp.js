@@ -19,16 +19,14 @@ app.controller("overviewCtrl",
                     'Content-Type': 'application/json'
                 }
             }
-            //testing student onesub
-            var dataToSend = { username: $cookies.get("username"), student: "jonathan2266/bachelorproef-test1" };
+            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), owner: $cookies.get("currentStudent") };
 
-            $http.post("/onesub", dataToSend, config)
-                .success(function(data, status, headers, config) {
+            $http.post("/repos/get", dataToSend, config)
+                .success(function(data, status, header, config) {
                     $scope.name = data;
-
                 })
                 .error(function(data, status, header, config) {
-                    console.log("Failed :( " + data);
+                    console.log("Failed! " + data);
                 });
         }
 

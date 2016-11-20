@@ -110,6 +110,43 @@ module.exports = {
         //    callback(res);
         //}); 
     },
+    GetUserRepo: function(username, password, owner, repo, callback) {
+        var result = [];
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.repos.getForRepo({
+            owner: repo.owner,
+            repo: repo.repo
+        }, function(err, res) {
+            if (err != null) {
+                console.log("err in getUserData: " + err);
+                callback("");
+            } else {
+                result.user = res;
+                result.full = repo.full;
+                result.owner = repo.owner;
+                result.repo = repo.repo;
+                callback(result);
+            }
+        });
+    },
     GetIssues: function (username, password, repo, callback) {
 
         var result = [];

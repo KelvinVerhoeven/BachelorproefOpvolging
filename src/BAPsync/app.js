@@ -158,18 +158,16 @@ app.post("/subscriptionList", function (req, res) {
     });
 });
 
-//testing one sub
-app.post("/onesub",
+app.post("/repos/get",
     function(req, res) {
         if (debug) {
-            console.log("got post /onesub request");
-        } else {
-            console.log("oeps");
+            console.log("got get /repos/get request");
         }
-        mongoDB.GetOneSub(req.body.username,
-            req.body.student,
-            function(list) {
-                res.json(list);
+        git.GetUserRepo(req.body.username,
+            req.body.password, req.body.owner,
+            req.body.repo,
+            function(call) {
+                res.json({ "done": call });
             });
     });
 
