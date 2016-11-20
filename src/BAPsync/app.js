@@ -137,6 +137,18 @@ app.post("/studentList/remove", function (req, res) {
     });
 });
 
+app.post("/studentList/refresh", function (req, res) {
+    if (debug) {
+        console.log("got post /studentList/refresh request");
+    }
+    git.GetBachelorRepos(function (bList) {
+        JSONFilter.FilterBAPS(bList, function (filtered) {
+            mongoDB.updateStudentList(filtered);
+            res.json();
+        });
+    });
+});
+
 app.post("/subscriptionList", function (req, res) {
     if (debug) {
         console.log("got post /subscriptionList request");

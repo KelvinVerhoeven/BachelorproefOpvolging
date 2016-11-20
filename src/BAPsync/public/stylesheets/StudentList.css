@@ -7,6 +7,9 @@
 .buttonNormal{
     background-color: white;
 }
+.buttonSpecial {
+    background-color: red;
+}
 /*ng-repeat studentsList*/
 .studentRepeatUL{
     list-style-type: none;

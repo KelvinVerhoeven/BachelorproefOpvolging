@@ -31,8 +31,28 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
         }
     }
 
+    $scope.special = function (link) {
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        var dataToSend = {};
+
+        $http.post(link, dataToSend, config)
+            .success(function (data, status, headers, config) {
+                $scope.students = [];
+                init();
+            })
+            .error(function (data, status, header, config) {
+                console.log("Failed " + data);
+            })
+    }
+
     //functions
     var init = function () {
+        console.log("called init");
 
         if ($cookies.get("username") == undefined) {
             var host = $window.location.host;

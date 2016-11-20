@@ -7,6 +7,9 @@
 .buttonNormal{
     background-color: white;
 }
+.buttonSpecial {
+    background-color: red;
+}
 
 .issueRepeatDiv {
     margin: auto;
