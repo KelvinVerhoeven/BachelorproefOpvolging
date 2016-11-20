@@ -22,6 +22,16 @@ var debug = config.debug;
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
+var updateStudentList = setInterval(function () {
+
+    git.GetBachelorRepos(function (bList) {
+        JSONFilter.FilterBAPS(bList, function (filtered) {
+            mongoDB.updateStudentList(filtered);
+        });
+    });
+
+}, 600000);
+
 var init = function () {
     
     git.GetBachelorRepos(function (bList) {
