@@ -78,7 +78,7 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent") };
+        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
         $http.post("/issues/get", dataToSend, config)
             .success(function (data, status, headers, config) {

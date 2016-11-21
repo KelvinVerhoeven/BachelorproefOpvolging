@@ -192,7 +192,7 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
         mongoDB.GetStudentRepos(function (fullStudRepos) {
             for (var fullStudRepo in fullStudRepos) {
                 for (var repo in list) {
-                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == "bachelorproef-test1") { // ye 
+                    if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == req.body.repo) { // ye 
                         git.GetIssues(req.body.username, req.body.password, fullStudRepos[fullStudRepo], function (issues) {
                             if (debug) {
                                 fs.writeFile("./debug/issues.txt", JSON.stringify(issues.issues, null, "\n"));
