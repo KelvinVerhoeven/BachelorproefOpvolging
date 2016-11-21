@@ -70,6 +70,10 @@ app.controller("overviewCtrl",
             $window.location.href = "/issues";
         }
 
+        $scope.opencommits = function() {
+            $window.location.href = "/commit";
+        }
+
         var chooseStudent = function (full) {
             var config = {
                 headers: {

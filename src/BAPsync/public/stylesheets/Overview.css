@@ -7,18 +7,26 @@
 .buttonNormal{
     background-color: white;
 }
+.page {
+    width: 75%;
+    margin: auto;
+}
 .span2 {
-    width: 15%;
+    width: 20%;
     display: inline-block;
     margin-left: 20px;
     
 }
 .span10 {
-    width: 70%;
+    width: 65%;
     float: right;
     margin-right: 10%;
 
 }
 .btn-success {
     float: right;
+}
+.problemspan {
+    color: red;
+    font-weight: bold;
 }
