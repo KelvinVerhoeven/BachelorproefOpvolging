@@ -107,7 +107,12 @@ app.controller("overviewCtrl",
             $http.post("/subscriptionList", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.students = data;
-                    chooseStudent($scope.students[0].studentRepo);
+                    if ($cookies.get("currentStudent") == undefined && $cookies.get("currentRepo") == undefined) {
+                        chooseStudent($scope.students[0].studentRepo);
+                    } else {
+                        getRepos();
+                    }
+                    
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
@@ -128,8 +133,6 @@ app.controller("overviewCtrl",
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
                 });*/
-
-
         }
 
         init();
