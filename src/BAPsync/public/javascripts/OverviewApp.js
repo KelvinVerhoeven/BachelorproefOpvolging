@@ -13,24 +13,49 @@ app.controller("overviewCtrl",
             $window.location.href = result;
         }
 
-        $scope.chooseStudent = function() {
+        $scope.chooseStudent = function(full) {
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
-            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), owner: $cookies.get("currentStudent") };
+            var dataToSend = {
+                "full": full
+        };
 
+            $http.post("/overview/get", dataToSend, config)
+                .success(function(data, status, header, config) {
+                    $scope.name = data.owner;
+                    $cookies.put("currentStudent", data.owner, ["secure", "true"]);
+                    $cookies.put("currentRepo", data.repo, ["secure", "true"]);
+                    getRepos();
+
+                })
+                .error(function(data, status, header, config) {
+                    console.log("Failed! " + data);
+                });
+
+            
+        }
+
+        var getRepos = function() {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            var dataToSend = {
+                username: $cookies.get("username"), password: $cookies.get("password"),
+                owner: $cookies.get("currentStudent"), repo:$cookies.get("currentRepo")
+            };
             $http.post("/repos/get", dataToSend, config)
                 .success(function(data, status, header, config) {
-                    $scope.name = data;
+                    $scope.repolink = data.html_url;
                 })
                 .error(function(data, status, header, config) {
                     console.log("Failed! " + data);
                 });
         }
-
-        
 
 
         var init = function () {
@@ -56,6 +81,19 @@ app.controller("overviewCtrl",
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
                 });
+
+            /*var dataToSend2 = {
+                username: $cookies.get("username"), password: $cookies.get("password"),
+                owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
+            };
+
+            $http.post("/repos/get", dataToSend2, config)
+                .success(function (data, status, header, config) {
+                    $scope.name = data;
+                })
+                .error(function (data, status, header, config) {
+                    console.log("Failed! " + data);
+                });*/
         }
 
         init();

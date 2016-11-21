@@ -102,8 +102,8 @@ app.post("/overview/get",
         if (debug) {
             console.log("got post /overview/get request");
         }
-        mongoDB.GetStudentRepos(function(students) {
-            res.json(students);
+        mongoDB.GetStudentRepoSpecific(req.body.full, function(call) {
+            res.json(call);
         });
     });
 
@@ -164,10 +164,9 @@ app.post("/repos/get",
             console.log("got get /repos/get request");
         }
         git.GetUserRepo(req.body.username,
-            req.body.password, req.body.owner,
-            req.body.repo,
+            req.body.password, req.body.owner, req.body.repo,
             function(call) {
-                res.json({ "done": call });
+                res.json( call );
             });
     });
 

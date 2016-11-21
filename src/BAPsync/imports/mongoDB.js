@@ -123,6 +123,16 @@ module.exports = { //needs testing
                 callback(res);
             }
         });
+    },
+    GetStudentRepoSpecific: function (full, callback) { 
+        StudentDB.findOne({ "full": full }, "repo owner", function (err, res) {
+            if (err) {
+                console.log("Database error in GetStudentRepos: " + err);
+            } else {
+
+                callback(res);
+            }
+        });
     }
     
 };

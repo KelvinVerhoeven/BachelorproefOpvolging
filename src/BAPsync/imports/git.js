@@ -111,7 +111,7 @@ module.exports = {
         //}); 
     },
     GetUserRepo: function(username, password, owner, repo, callback) {
-        var result = [];
+        var result;
 
         var g = new GitHubApi({
             debug: debug,
@@ -131,18 +131,15 @@ module.exports = {
             password: password
         });
 
-        g.repos.getForRepo({
-            owner: repo.owner,
-            repo: repo.repo
+        g.repos.get({
+            owner: owner,
+            repo: repo
         }, function(err, res) {
             if (err != null) {
                 console.log("err in getUserData: " + err);
                 callback("");
             } else {
-                result.user = res;
-                result.full = repo.full;
-                result.owner = repo.owner;
-                result.repo = repo.repo;
+                result = res;
                 callback(result);
             }
         });
@@ -162,6 +159,8 @@ module.exports = {
             followRedirects: false,
             timeout: 5000
         });
+
+       
 
         g.authenticate({
             type: "basic",
