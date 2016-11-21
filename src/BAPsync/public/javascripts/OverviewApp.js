@@ -5,6 +5,7 @@ app.controller("overviewCtrl",
     "$cookies", "$scope", "$http", "$window", function($cookies, $scope, $http, $window) {
 
         $scope.students = [];
+        $scope.docent;
 
         $scope.navigation = function(link) {
             var host = $window.location.host;
@@ -56,6 +57,10 @@ app.controller("overviewCtrl",
             
         }
 
+        $scope.openIssues = function () {
+            $window.location.href = "/issues";
+        }
+
         var chooseStudent = function (full) {
             var config = {
                 headers: {
@@ -81,9 +86,6 @@ app.controller("overviewCtrl",
 
         }
 
-        
-
-
         var init = function () {
             if ($cookies.get("username") == undefined) {
                 var host = $window.location.host;
@@ -108,9 +110,6 @@ app.controller("overviewCtrl",
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
                 });
-
-            
-            
 
             /*var dataToSend2 = {
                 "full": full

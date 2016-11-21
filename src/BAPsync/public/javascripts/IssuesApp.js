@@ -62,8 +62,8 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
     var init = function () {
 
         //temp
-        $cookies.put("currentStudent", "jonathan2266", ["secure", "true"]);
-        $cookies.put("currentRepo", "bachelorproef-test1", ["secure", "true"]);
+        //$cookies.put("currentStudent", "jonathan2266", ["secure", "true"]);
+        //$cookies.put("currentRepo", "bachelorproef-test1", ["secure", "true"]);
 
         if ($cookies.get("username") == undefined) {
             var host = $window.location.host;
