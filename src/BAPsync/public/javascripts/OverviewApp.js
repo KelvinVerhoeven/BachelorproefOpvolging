@@ -114,6 +114,10 @@ app.controller("overviewCtrl",
             $http.post("/subscriptionList", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.students = data;
+                    var count = Object.keys(data).length;
+                    if (count == 0) {
+                        $window.location.href = "/studentList"
+                    }
                     if ($cookies.get("currentStudent") == undefined && $cookies.get("currentRepo") == undefined) {
                         chooseStudent($scope.students[0].studentRepo);
                     } else {

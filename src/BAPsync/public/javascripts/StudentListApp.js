@@ -54,6 +54,10 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
     var init = function () {
         console.log("called init");
 
+        //clear cookies
+        $cookies.remove("currentStudent");
+        $cookies.remove("currentRepo");
+
         if ($cookies.get("username") == undefined) {
             var host = $window.location.host;
             var result = "https://" + host + "/login";
