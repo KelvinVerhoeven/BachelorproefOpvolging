@@ -26,6 +26,8 @@ app.controller("overviewCtrl",
             $http.post("/repos/get", dataToSend, config)
                 .success(function (data, status, header, config) {
                     $scope.repolink = data.html_url;
+                    $scope.laatsteCommit = data.updated_at;
+                    $scope.openIssues = data.open_issues_count;
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
