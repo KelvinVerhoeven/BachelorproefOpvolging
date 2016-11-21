@@ -59,7 +59,7 @@ app.controller("overviewCtrl",
             
         }
 
-        $scope.openIssues = function () {
+        $scope.open = function () {
             $window.location.href = "/issues";
         }
 
