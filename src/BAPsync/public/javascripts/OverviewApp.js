@@ -28,6 +28,13 @@ app.controller("overviewCtrl",
                     $scope.repolink = data.html_url;
                     $scope.laatsteCommit = data.pushed_at;
                     $scope.openIssues = data.open_issues_count;
+                    $scope.name = data.description;
+
+                    if ($scope.name == null) {
+                        $scope.problem = "De student heeft zijn echte naam niet in de repo gezet!";
+                    } else {
+                        $scope.problem = null;
+                    }
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -46,7 +53,7 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function(data, status, header, config) {
-                    $scope.name = data.owner;
+                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
