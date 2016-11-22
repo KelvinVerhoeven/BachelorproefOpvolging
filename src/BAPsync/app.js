@@ -178,16 +178,16 @@ app.get("/commit",
         res.sendFile(path.join(__dirname, "./html/commit.html"));
     });
 
-app.post("/commits/get",
+app.post("/commit/get",
     function(req, res) {
         if (debug) {
             console.log("got get /commits/get request");
         }
         git.GetCommits(req.body.username,
-            req.body.password,
+            req.body.password, req.body.owner,
             req.body.repo,
-            function(call) {
-                res.json(call);
+            function(commits) {
+                res.json(commits);
             });
     });
 

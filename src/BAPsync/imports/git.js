@@ -144,7 +144,7 @@ module.exports = {
             }
         });
     },
-    GetCommits: function (username, password, repo, callback) {
+    GetCommits: function (username, password, owner, repo, callback) {
 
         //get / repos /:owner /:repo / commits
         
@@ -169,8 +169,8 @@ module.exports = {
         });
 
         g.commits.getForRepo({
-                owner: repo.owner,
-                repo: repo.repo
+                owner: owner,
+                repo: repo
             },
             function(err, res) {
                 if (err != null) {

@@ -1,10 +1,11 @@
-﻿var app = angular.module('CommitApp', ['ngCookies']);
+﻿var app = angular.module('commitApp', ['ngCookies']);
 
-app.controller("CommitCtrl",
+app.controller("commitCtrl",
 [
     "$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
 
         $scope.docent;
+        $scope.commits;
 
         $scope.navigation = function (link) {
             var host = $window.location.host;
@@ -30,7 +31,15 @@ app.controller("CommitCtrl",
             var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
 
+
+            $http.post("/commit/get", dataToSend, config)
+                .success(function(data, status, headers, config) {
+                    $scope.commits = data;
+                })
+                .error(function(data, status, headers, config) {
+                    console.log("get commits failed: " + data);
+                });
         }
+
         init();
-    }
-]);
+}]);
