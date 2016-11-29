@@ -168,7 +168,7 @@ module.exports = {
             password: password
         });
 
-        g.commits.getForRepo({
+        g.repos.getCommits({
                 owner: owner,
                 repo: repo
             },
@@ -177,7 +177,7 @@ module.exports = {
                     console.log("err in getCommit: " + err);
                     callback("");
                 } else {
-                    result.commits = res;
+                    result = res;
                     callback(result);
                 }
 

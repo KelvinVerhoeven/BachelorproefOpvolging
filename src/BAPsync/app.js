@@ -184,7 +184,7 @@ app.post("/commit/get",
             console.log("got get /commits/get request");
         }
         git.GetCommits(req.body.username,
-            req.body.password, req.body.owner,
+            req.body.password, req.body.student,
             req.body.repo,
             function(commits) {
                 res.json(commits);

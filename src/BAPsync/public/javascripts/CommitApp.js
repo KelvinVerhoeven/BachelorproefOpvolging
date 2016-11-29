@@ -19,7 +19,7 @@ app.controller("commitCtrl",
                 var host = $window.location.host;
                 var result = "https://" + host + "/login";
                 $window.location.href = result;
-            }
+            };
 
             $scope.docent = $cookies.get("username");
 
@@ -27,11 +27,12 @@ app.controller("commitCtrl",
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
+
             var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
             $http.post("/commit/get", dataToSend, config)
-                .success(function(data, status, headers, config) {
+                .success(function (data, status, headers, config) {
                     $scope.commits = data;
                 })
                 .error(function(data, status, headers, config) {

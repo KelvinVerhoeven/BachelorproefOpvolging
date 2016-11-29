@@ -25,10 +25,21 @@
             </div>
         </nav>
     </div>
-<div>
-    <div class=""container-fluid">
-        <div class="alert alert-info">{{ commits }}</div>
+    <div>
+        <div class="container-fluid">
+            <ul>
+                <li ng-repeat="commits in commits">
+                    {{ commits.commit.message }} by
+                    {{ commits.commit.author.name }} on
+                    {{ commits.commit.author.date | date:'dd-MM-yyyy HH:mm:ss' }}
+                </li>
+            </ul>
+            
+
+
+
+
+        </div>
     </div>
-</div>
 </body>
 </html>
