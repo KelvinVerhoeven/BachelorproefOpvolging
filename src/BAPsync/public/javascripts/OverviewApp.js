@@ -120,7 +120,7 @@ app.controller("overviewCtrl",
                     $scope.students = data;
                     var count = Object.keys(data).length;
                     if (count == 0) {
-                        $window.location.href = "/studentList"
+                        $window.location.href = "/studentList";
                     }
                     if ($cookies.get("currentStudent") == undefined && $cookies.get("currentRepo") == undefined) {
                         chooseStudent($scope.students[0].studentRepo);

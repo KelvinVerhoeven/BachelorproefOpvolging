@@ -46,7 +46,7 @@
         <div class="span10">
             <span class="problemspan">{{ problem }}</span>
             <div class="alert alert-info">{{ name }}</div>
-            <div class="alert alert-warning">Last commit: {{laatsteCommit | date:'dd-MM-yyyy HH:mm:ss'}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
+            <div class="alert alert-warning">Last commit: {{laatsteCommit | date:'dd/MM/yyyy HH:mm'}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
             </div>
             <div class="alert alert-info">Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-success">View</button>
             </div>
