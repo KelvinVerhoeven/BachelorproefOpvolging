@@ -27,18 +27,11 @@
     </div>
     <div>
         <div class="container-fluid">
-            <ul>
-                <li ng-repeat="commits in commits">
-                    {{ commits.commit.message }} by
-                    {{ commits.commit.author.name }} on
-                    {{ commits.commit.author.date | date:'dd-MM-yyyy HH:mm:ss' }}
-                </li>
-            </ul>
-            
-
-
-
-
+            <div class="commitsDiv panel panel-primary" ng-repeat="commits in commits">
+                <div class="panel-heading"><h3 class="panel-title">{{commits.commit.message}}</h3></div>
+                By <p>{{ commits.commit.author.name }}</p>
+                On <p>{{commits.commit.author.date | date:'dd/MM/yyyy HH:mm'}}</p>
+            </div>
         </div>
     </div>
 </body>
