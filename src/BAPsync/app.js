@@ -170,6 +170,27 @@ app.post("/repos/get",
             });
     });
 
+app.get("/commit",
+    function(req, res) {
+        if (debug) {
+            console.log("got get /commits request");
+        }
+        res.sendFile(path.join(__dirname, "./html/commit.html"));
+    });
+
+app.post("/commit/get",
+    function(req, res) {
+        if (debug) {
+            console.log("got get /commits/get request");
+        }
+        git.GetCommits(req.body.username,
+            req.body.password, req.body.student,
+            req.body.repo,
+            function(commits) {
+                res.json(commits);
+            });
+    });
+
 app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");

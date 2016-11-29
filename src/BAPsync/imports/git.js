@@ -144,6 +144,45 @@ module.exports = {
             }
         });
     },
+    GetCommits: function (username, password, owner, repo, callback) {
+
+        //get / repos /:owner /:repo / commits
+        
+        var result;
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.repos.getCommits({
+                owner: owner,
+                repo: repo
+            },
+            function(err, res) {
+                if (err != null) {
+                    console.log("err in getCommit: " + err);
+                    callback("");
+                } else {
+                    result = res;
+                    callback(result);
+                }
+
+            });
+    },
     GetIssues: function (username, password, repo, callback) {
 
         var result = [];
