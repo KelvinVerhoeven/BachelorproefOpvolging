@@ -30,8 +30,6 @@ app.controller("commitCtrl",
             }
             var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
-
-
             $http.post("/commit/get", dataToSend, config)
                 .success(function(data, status, headers, config) {
                     $scope.commits = data;
