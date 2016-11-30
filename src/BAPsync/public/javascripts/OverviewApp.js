@@ -30,6 +30,8 @@ app.controller("overviewCtrl",
                     $scope.openIssues = data.open_issues_count;
                     $scope.name = data.description;
 
+                    
+
                     if ($scope.name == null) {
                         $scope.problem = "De student heeft zijn echte naam niet in de repo gezet!";
                     } else {
@@ -41,7 +43,25 @@ app.controller("overviewCtrl",
                 });
         }
 
-        $scope.chooseStudent = function(full) {
+        var numCommits = function() {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
+
+            $http.post("/commit/get", dataToSend, config)
+                .success(function (data, status, headers, config) {
+                    $scope.numCommits = data.length;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log("get commits failed: " + data);
+                });
+        }
+
+        $scope.chooseStudent = function (full) {
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,7 +77,7 @@ app.controller("overviewCtrl",
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
-
+                    numCommits();
                 })
                 .error(function(data, status, header, config) {
                     console.log("Failed! " + data);
@@ -86,7 +106,7 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function (data, status, header, config) {
-                    $scope.name = data.owner;
+                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
@@ -126,6 +146,7 @@ app.controller("overviewCtrl",
                         chooseStudent($scope.students[0].studentRepo);
                     } else {
                         getRepos();
+                        numCommits();
                     }
                     
                 })

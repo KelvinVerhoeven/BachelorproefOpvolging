@@ -3,13 +3,13 @@
 <head>
 	
 	<title>BapSync</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
 	<meta charset="utf-8">   
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+	<link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
 	<script type="text/javascript" src="/javascripts/loginApp.js"></script>
 	
 </head>
@@ -27,31 +27,25 @@
 						<hr />
 					</div>
 			</div> 
-			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="#">
-					<div class="form-group">
-						<label for="name" class="cols-sm-2 control-label">Username</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" ng-model="username" class="form-control" name="name" id="name"  placeholder="Enter your Username"/>
-								</div>
-							</div>
-					</div>
-					<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" ng-model="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-								</div>
-							</div>
-					</div>
-					<div class="form-group">
-						<button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-					</div>
-				</form>   
+			
+			<div class="well bs-component">
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label for="inputUsername" class="col-lg-2 control-label">Username</label>
+							<input type="text" ng-model="username" class="form-control" id="inputUsername" placeholder="Username"/>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="col-lg-2 control-label">Password</label>
+							<input type="password" ng-model="password" class="form-control" id="inputPassword" placeholder="Password"/>
+						</div>
+						<div class="form-group">
+							<button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
+						</div>
+					</fieldset>
+				</form>
 			</div>
+
 		</div>
 	</div>
 </body>

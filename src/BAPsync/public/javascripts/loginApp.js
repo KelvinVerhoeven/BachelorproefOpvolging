@@ -31,6 +31,7 @@ app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function 
                 }
             })
             .error(function (data, status, header, config) {
+
                 console.log("Failed " + data);
                 response = data;
             })

@@ -6,10 +6,10 @@
     <title>BapSync</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="/javascripts/OverviewApp.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
     <link rel="stylesheet" href="/stylesheets/Overview.css" />
 </head>
 <body ng-app="OverviewApp" ng-controller="overviewCtrl">
@@ -32,12 +32,12 @@
             
             <!-- dropdown begin -->
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <a href="#" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" role="button" area-expanded="false">
                     Choose a student
                     <span class="caret"></span>
-                </button>
+                </a>
                 <ul class="dropdown-menu">
-                    <li class="list-group-item" ng-click="chooseStudent(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</li>
+                    <a class="list-group-item" ng-click="chooseStudent(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</a>
                 </ul>
             </div>
             <!-- dropdown end -->
@@ -46,7 +46,7 @@
         <div class="span10">
             <span class="problemspan">{{ problem }}</span>
             <div class="alert alert-info">{{ name }}</div>
-            <div class="alert alert-warning">Last commit: {{laatsteCommit | date:'dd/MM/yyyy HH:mm'}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
+            <div class="alert alert-warning">Last commit: {{laatsteCommit | date:'dd/MM/yyyy HH:mm'}}, number of commits: {{numCommits}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
             </div>
             <div class="alert alert-info">Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-success">View</button>
             </div>

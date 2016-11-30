@@ -34,6 +34,12 @@ app.controller("commitCtrl",
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.commits = data;
+                    $scope.numCommits = data.length;
+                    if (data.length < 2) {
+                        $scope.s = "";
+                    } else {
+                        $scope.s = "s";
+                    }
                 })
                 .error(function(data, status, headers, config) {
                     console.log("get commits failed: " + data);

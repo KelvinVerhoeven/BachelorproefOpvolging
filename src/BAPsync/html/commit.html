@@ -6,10 +6,10 @@
     <title>BapSync</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="/javascripts/CommitApp.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
     <link rel="stylesheet" href="/stylesheets/Commit.css" />
 </head>
 <body ng-app="commitApp" ng-controller="commitCtrl">
@@ -27,8 +27,13 @@
     </div>
     <div>
         <div class="container-fluid">
+            <p class="num"> {{ numCommits }} commit{{s}} in this repository. </p>
+            <br/>
             <div class="commitsDiv panel panel-primary" ng-repeat="commits in commits">
-                <div class="panel-heading"><h3 class="panel-title">{{commits.commit.message}}</h3></div>
+                
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{commits.commit.message}}</h3>
+                </div>
                 <p class="authorName">By {{ commits.commit.author.name }}</p>
                 <p class="authorDate">On {{commits.commit.author.date | date:'dd/MM/yyyy HH:mm'}}</p>
             </div>
