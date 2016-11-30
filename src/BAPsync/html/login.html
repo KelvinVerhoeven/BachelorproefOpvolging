@@ -1,52 +1,51 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	
-	<title>BapSync</title>
-	<meta charset="utf-8">   
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-	<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
-	<link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
-	<script type="text/javascript" src="/javascripts/loginApp.js"></script>
-	
-</head>
-	
-<body ng-app="loginApp" ng-controller="loginCtrl">
-	<div class="container">
-		<div class="row main">
-			<div class="img-responsive">
-				<img src="/images/github.png" style="width: 150px; height: 150px;">
-			</div>
-			
-			<div class="panel-heading">
-				   <div class="panel-title text-center">
-						<h1 class="title">Login with your Github account</h1>
-						<hr />
-					</div>
-			</div> 
-			
-			<div class="well bs-component">
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-group">
-							<label for="inputUsername" class="col-lg-2 control-label">Username</label>
-							<input type="text" ng-model="username" class="form-control" id="inputUsername" placeholder="Username"/>
-						</div>
-						<div class="form-group">
-							<label for="inputPassword" class="col-lg-2 control-label">Password</label>
-							<input type="password" ng-model="password" class="form-control" id="inputPassword" placeholder="Password"/>
-						</div>
-						<div class="form-group">
-							<button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
 
-		</div>
-	</div>
+    <title>BapSync</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script type="text/javascript" src="/javascripts/loginApp.js"></script>
+
+</head>
+
+<body ng-app="loginApp" ng-controller="loginCtrl">
+    <div class="container">
+        <div class="row main">
+            <div class="img-responsive">
+                <img src="/images/github.png" style="width: 150px; height: 150px;">
+            </div>
+
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title">Login with your Github account</h1>
+                    <hr />
+                </div>
+            </div>
+
+            <div class="well bs-component">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+                            <input type="text" ng-model="username" class="form-control" id="inputUsername" placeholder="Username" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                            <input type="password" ng-model="password" class="form-control" id="inputPassword" placeholder="Password" />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
