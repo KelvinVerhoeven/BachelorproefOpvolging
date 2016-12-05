@@ -27,13 +27,5 @@ module.exports = {
             console.log("parsed " + results.length + " repositories");
         }
         callback(results);
-    },
-    MarkDown2HTML: function (mardown, callback) {
-        var result;
-        var showdown = require('showdown'),
-            converter = new showdown.Converter(),
-            result = converter.makeHtml(mardown);
-        callback(result);
-
     }
 };

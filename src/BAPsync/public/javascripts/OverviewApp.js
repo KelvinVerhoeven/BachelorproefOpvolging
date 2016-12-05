@@ -2,7 +2,7 @@
 
 app.controller("overviewCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", "$rootScope", function($cookies, $scope, $http, $window, $rootScope) {
+    "$cookies", "$scope", "$http", "$window", function($cookies, $scope, $http, $window) {
 
         $scope.students = [];
         $scope.docent;
@@ -11,14 +11,6 @@ app.controller("overviewCtrl",
             var host = $window.location.host;
             var result = "https://" + host + "/" + link;
             $window.location.href = result;
-        }
-
-        var eventFooter = function () {
-            //fire event
-            var args = [];
-            args.student = $cookies.get("currentStudent");
-            args.repo = $cookies.get("currentRepo");
-            $rootScope.$broadcast('chooseStudent', args);
         }
 
         var getRepos = function () {
@@ -81,7 +73,6 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function(data, status, header, config) {
-                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
@@ -118,7 +109,6 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function (data, status, header, config) {
-                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
@@ -164,7 +154,6 @@ app.controller("overviewCtrl",
                     }
                     if ($cookies.get("currentStudent") == undefined && $cookies.get("currentRepo") == undefined) {
                         localSelection($scope.students[0].studentRepo);
-                        
                     } else {
                         getRepos();
                         numCommits();
