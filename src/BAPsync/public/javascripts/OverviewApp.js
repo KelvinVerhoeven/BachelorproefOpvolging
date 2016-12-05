@@ -73,7 +73,6 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function(data, status, header, config) {
-                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
@@ -106,10 +105,10 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function (data, status, header, config) {
-                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
+                    numCommits();
 
                 })
                 .error(function (data, status, header, config) {
@@ -152,23 +151,8 @@ app.controller("overviewCtrl",
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
-                });
+                });   
 
-            /*var dataToSend2 = {
-                "full": full
-            };
-
-            $http.post("/overview/get", dataToSend2, config)
-                .success(function (data, status, header, config) {
-                    $scope.name = data.owner;
-                    $cookies.put("currentStudent", data.owner, ["secure", "true"]);
-                    $cookies.put("currentRepo", data.repo, ["secure", "true"]);
-                    getRepos();
-
-                })
-                .error(function (data, status, header, config) {
-                    console.log("Failed! " + data);
-                });*/
         }
 
         init();
