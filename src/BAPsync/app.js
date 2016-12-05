@@ -205,7 +205,7 @@ app.get("/issues/form", function (req, res) {
     res.sendFile(path.join(__dirname, "./html/issuesForm.html"));
 });
 
-app.post("/issues/get", function (req, res) { // needs testing only one at a time
+app.post("/issues/get", function (req, res) {
     if (debug) {
         console.log("got post /issues/get request");
     }
@@ -264,6 +264,22 @@ app.post("/comments/new", function (req, res) {
     }
     git.createComment(req.body.username, req.body.password, req.body.student, req.body.repo, req.body.number, req.body.body, function (call) {
         res.json({ "done": call });
+    });
+});
+
+app.post("/log/get", function (req, res) {
+    if (debug) {
+        console.log("got post /logs/get request");
+    } 
+    git.getLog(req.body.username, req.body.password, req.body.owner, req.body.repo, function (markdown) {
+        if (markdown == false) {
+            res.json("<p>This student does not have a Log<\p>");
+        } else {
+            JSONFilter.MarkDown2HTML(markdown, function (html) {
+                res.json(html);
+            });
+        }
+
     });
 });
 

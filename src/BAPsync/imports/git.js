@@ -7,6 +7,7 @@ var path = require('path');
 
 var debug = config.debug;
 var organisatie = config.BAP.organisatie;
+var logFile = config.BAP.logFile;
 
 var github = new GitHubApi({
     debug: debug,
@@ -199,8 +200,6 @@ module.exports = {
             timeout: 5000
         });
 
-       
-
         g.authenticate({
             type: "basic",
             username: username,
@@ -356,5 +355,72 @@ module.exports = {
                 callback(true);
             }
         });
+    },
+    getLog: function(username, password, owner, repo, callback) { //possible multiple user problem?
+
+        var tempResult;
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.repos.getContent({
+            owner: owner,
+            repo: repo,
+            path: logFile
+        }, function (err, res) {
+            if (err != null) {
+                console.log("error in getLog: " + err);
+                callback(false);
+            } else {
+                var b64 = res.content;
+                callback(Buffer.from(b64, res.encoding).toString('ascii'));
+            }
+        });
     }
 };
+
+//private
+var getTree = function (gitApi, owner, repo, sha, callback) {
+
+    gitApi.gitdata.getTree({
+        owner: owner,
+        repo: repo,
+        sha: sha
+    }, function (err, res) {
+        if (err != null) {
+            console.log("err in getTree: " + err);
+        } else {
+            callback(res);
+        }
+    });
+}
+
+var getBlob = function (gitApi, owner, repo, sha, callback) { //size download limit
+
+    gitApi.gitdata.getBlob({
+        owner: owner,
+        repo: repo,
+        sha: sha
+    }, function (err, res) {
+        if (err != null) {
+            console.log("error in getBlob: " + err);
+        } else {
+            callback(res.content);
+        }
+    });
+}

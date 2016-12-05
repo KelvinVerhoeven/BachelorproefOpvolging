@@ -2,7 +2,7 @@
 
 app.controller("overviewCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", function($cookies, $scope, $http, $window) {
+    "$cookies", "$scope", "$http", "$window", "$rootScope", function($cookies, $scope, $http, $window, $rootScope) {
 
         $scope.students = [];
         $scope.docent;
@@ -11,6 +11,14 @@ app.controller("overviewCtrl",
             var host = $window.location.host;
             var result = "https://" + host + "/" + link;
             $window.location.href = result;
+        }
+
+        var eventFooter = function () {
+            //fire event
+            var args = [];
+            args.student = $cookies.get("currentStudent");
+            args.repo = $cookies.get("currentRepo");
+            $rootScope.$broadcast('chooseStudent', args);
         }
 
         var getRepos = function () {
@@ -43,6 +51,7 @@ app.controller("overviewCtrl",
                 });
         }
 
+<<<<<<< HEAD
         var numCommits = function() {
             var config = {
                 headers: {
@@ -94,6 +103,10 @@ app.controller("overviewCtrl",
         }
 
         var chooseStudent = function (full) {
+=======
+        var localSelection = function (full) {
+
+>>>>>>> feature/latestLogs
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,14 +121,24 @@ app.controller("overviewCtrl",
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
+<<<<<<< HEAD
                     numCommits();
+=======
+                    eventFooter();
+>>>>>>> feature/latestLogs
 
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
                 });
+        }
 
+        $scope.open = function () {
+            $window.location.href = "/issues";
+        }
 
+        $scope.chooseStudent = function(full) {
+            localSelection(full);
         }
 
         var init = function () {
@@ -142,18 +165,66 @@ app.controller("overviewCtrl",
                         $window.location.href = "/studentList";
                     }
                     if ($cookies.get("currentStudent") == undefined && $cookies.get("currentRepo") == undefined) {
-                        chooseStudent($scope.students[0].studentRepo);
+                        localSelection($scope.students[0].studentRepo);
+                        
                     } else {
                         getRepos();
+<<<<<<< HEAD
                         numCommits();
+=======
+                        eventFooter();
+>>>>>>> feature/latestLogs
                     }
                     
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
+<<<<<<< HEAD
                 });   
 
+=======
+                });
         }
 
         init();
+    }]);
+
+app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$sce", function ($cookies, $scope, $http, $window, $sce) {
+
+    $scope.logs;
+
+    $scope.$on('chooseStudent', function (event, args) {
+        init(args);
+    });
+
+    var init = function (args) {
+        if ($cookies.get("username") == undefined) {
+            var host = $window.location.host;
+            var result = "https://" + host + "/login";
+            $window.location.href = result;
+>>>>>>> feature/latestLogs
+        }
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        var dataToSend = {
+            username: $cookies.get("username"), password: $cookies.get("password"),
+            //owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
+            owner: args.student, repo: args.repo
+        };
+
+        $http.post("/log/get", dataToSend, config)
+            .success(function (data, status, header, config) {
+                
+                $scope.logs = $sce.trustAsHtml(data); 
+            })
+            .error(function (data, status, header, config) {
+                console.log("Failed! " + data);
+            });
+    }
+
+    //init();
 }]);
