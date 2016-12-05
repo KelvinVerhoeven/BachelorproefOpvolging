@@ -93,9 +93,6 @@ app.controller("overviewCtrl",
             $window.location.href = "/commit";
         }
 
-        var chooseStudent = function (full) {
-
-        }
         var localSelection = function (full) {
 
             var config = {
@@ -205,5 +202,4 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             });
     }
 
-    //init();
 }]);
