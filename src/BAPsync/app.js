@@ -267,7 +267,21 @@ app.post("/comments/new", function (req, res) {
     });
 });
 
+app.post("/log/get", function (req, res) {
+    if (debug) {
+        console.log("got post /logs/get request");
+    }
+    git.getLog(req.body.username, req.body.password, req.body.owner, req.body.repo, function (markdown) {
+        if (markdown == false) {
+            res.json("<p>This student does not have a Log<\p>");
+        } else {
+            JSONFilter.MarkDown2HTML(markdown, function (html) {
+                res.json(html);
+            });
+        }
 
+    });
+});
 
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
