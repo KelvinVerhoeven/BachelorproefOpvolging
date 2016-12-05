@@ -7,6 +7,7 @@ var path = require('path');
 
 var debug = config.debug;
 var organisatie = config.BAP.organisatie;
+var logFile = config.BAP.logFile;
 
 var github = new GitHubApi({
     debug: debug,
