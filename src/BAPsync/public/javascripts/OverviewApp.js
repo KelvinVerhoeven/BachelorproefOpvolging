@@ -81,6 +81,7 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function(data, status, header, config) {
+                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
@@ -117,6 +118,7 @@ app.controller("overviewCtrl",
 
             $http.post("/overview/get", dataToSend, config)
                 .success(function (data, status, header, config) {
+                    //$scope.name = data.owner;
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
