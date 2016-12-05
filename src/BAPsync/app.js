@@ -267,6 +267,8 @@ app.post("/comments/new", function (req, res) {
     });
 });
 
+
+
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))

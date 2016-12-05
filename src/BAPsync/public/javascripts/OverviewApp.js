@@ -2,7 +2,7 @@
 
 app.controller("overviewCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", function($cookies, $scope, $http, $window) {
+    "$cookies", "$scope", "$http", "$window", "$rootScope", function ($cookies, $scope, $http, $window, $rootScope) {
 
         $scope.students = [];
         $scope.docent;
@@ -11,6 +11,14 @@ app.controller("overviewCtrl",
             var host = $window.location.host;
             var result = "https://" + host + "/" + link;
             $window.location.href = result;
+        }
+
+        var eventFooter = function () {
+            //fire event
+            var args = [];
+            args.student = $cookies.get("currentStudent");
+            args.repo = $cookies.get("currentRepo");
+            $rootScope.$broadcast('chooseStudent', args);
         }
 
         var getRepos = function () {
