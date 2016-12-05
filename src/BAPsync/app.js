@@ -191,6 +191,19 @@ app.post("/commit/get",
             });
     });
 
+app.post("/user/get",
+    function(req, res) {
+        if (debug) {
+            console.log("got get /user request");
+        }
+        git.GetUserMail(req.body.username,
+            req.body.password,
+            req.body.student,
+            function(call) {
+                res.json(call);
+            });
+    });
+
 app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");
