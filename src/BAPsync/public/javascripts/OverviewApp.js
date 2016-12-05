@@ -51,7 +51,6 @@ app.controller("overviewCtrl",
                 });
         }
 
-<<<<<<< HEAD
         var numCommits = function() {
             var config = {
                 headers: {
@@ -103,10 +102,10 @@ app.controller("overviewCtrl",
         }
 
         var chooseStudent = function (full) {
-=======
+
+        }
         var localSelection = function (full) {
 
->>>>>>> feature/latestLogs
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -121,11 +120,8 @@ app.controller("overviewCtrl",
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
-<<<<<<< HEAD
                     numCommits();
-=======
                     eventFooter();
->>>>>>> feature/latestLogs
 
                 })
                 .error(function (data, status, header, config) {
@@ -169,21 +165,14 @@ app.controller("overviewCtrl",
                         
                     } else {
                         getRepos();
-<<<<<<< HEAD
                         numCommits();
-=======
                         eventFooter();
->>>>>>> feature/latestLogs
                     }
                     
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed " + data);
-<<<<<<< HEAD
                 });   
-
-=======
-                });
         }
 
         init();
@@ -202,7 +191,6 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             var host = $window.location.host;
             var result = "https://" + host + "/login";
             $window.location.href = result;
->>>>>>> feature/latestLogs
         }
 
         var config = {
