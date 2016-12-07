@@ -33,7 +33,7 @@
                     <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
                     <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonClicked">Overview</button>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }}</p>
+                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ date | date:'dd/MM/yyyy HH:mm' }}</p>
                 </div>
             </div>
         </div>
@@ -58,13 +58,13 @@
 
         </div>
         <div class="span10">
-            <span class="problemspan">{{ problem }}</span>
-            <div class="alert alert-info">{{ name }}</div>
-            <div class="alert alert-warning">Last commit: {{laatsteCommit | date:'dd/MM/yyyy HH:mm'}}, number of commits: {{numCommits}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
-            </div>
+            <span class="problemspan">{{ problemName }}</span>
+            <div class="alert alert-info">{{ name }} <span>{{ mail }}</span></div>
+            <div class="alert alert-warning">Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
+                <span class="problemspan">{{ problemCommit }}</span></div>
             <div class="alert alert-info">Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-success">View</button>
             </div>
-            <div class="alert alert-warning" >Repo link: <a href="{{ repolink }}" class="alert-link">{{ repolink }}</a>
+            <div class="alert alert-warning">Repo link: <a href="{{ repolink }}" class="alert-link" target="_blank">{{ repolink }}</a>
             </div>
         </div>
     </div>

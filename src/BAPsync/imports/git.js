@@ -145,6 +145,39 @@ module.exports = {
             }
         });
     },
+    GetUserMail: function(username, password, owner, callback) {
+        var result;
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+        g.users.getForUser({
+            user: owner
+            },
+            function(err, res) {
+                if (err != null) {
+                    console.log("err in getUserMail: " + err);
+                    callback("");
+                } else {
+                    result = res;
+                    callback(result);
+                }
+            });
+    },
     GetCommits: function (username, password, owner, repo, callback) {
 
         //get / repos /:owner /:repo / commits

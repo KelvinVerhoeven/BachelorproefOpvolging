@@ -7,14 +7,13 @@
 .buttonNormal{
 }
 .page {
-    width: 75%;
+    width: 85%;
     margin: auto;
 }
 .span2 {
     width: 20%;
     display: inline-block;
-    margin-left: 20px;
-    
+    text-align: left;
 }
 .span10 {
     width: 65%;

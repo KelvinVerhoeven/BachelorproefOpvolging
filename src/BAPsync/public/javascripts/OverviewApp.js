@@ -2,10 +2,15 @@
 
 app.controller("overviewCtrl",
 [
+<<<<<<< HEAD
     "$cookies", "$scope", "$http", "$window", "$rootScope", function ($cookies, $scope, $http, $window, $rootScope) {
+
 
         $scope.students = [];
         $scope.docent;
+        var date = new Date();
+        $scope.date = date;
+        
 
         $scope.navigation = function(link) {
             var host = $window.location.host;
@@ -41,13 +46,32 @@ app.controller("overviewCtrl",
                     
 
                     if ($scope.name == null) {
-                        $scope.problem = "De student heeft zijn echte naam niet in de repo gezet!";
+                        $scope.problemName = "De student heeft zijn echte naam niet in de repo gezet!";
                     } else {
-                        $scope.problem = null;
+                        $scope.problemName = null;
                     }
+                    
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
+                });
+        }
+
+        var userMail = function() {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent") };
+
+            $http.post("/user/get", dataToSend, config)
+                .success(function (data, status, headers, config) {
+                    $scope.mail = data.email;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log("get user failed: " + data);
                 });
         }
 
@@ -85,12 +109,11 @@ app.controller("overviewCtrl",
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
                     numCommits();
+                    userMail();
                 })
                 .error(function(data, status, header, config) {
                     console.log("Failed! " + data);
                 });
-
-            
         }
 
         $scope.open = function () {
