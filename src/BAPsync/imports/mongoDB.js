@@ -42,9 +42,6 @@ module.exports = { //needs testing
             }
         });
     },
-
-   
-
     AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
         DocStudLinkDB.findOne({ "docent": username, "studentRepo": studentRepo }, "docent studentRepo", function (err, res) {
             if (err) {
@@ -74,7 +71,7 @@ module.exports = { //needs testing
             }
         });
     },
-    CheckSubscriptionList: function (docent, hadEntry, callback) { //needs tesing
+    CheckSubscriptionList: function (docent, hadEntry, callback) {
 
         DocStudLinkDB.findOne({ "docent": docent }, "docent studentRepo", function (err, res) {
             if (err) {

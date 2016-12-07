@@ -1,0 +1,20 @@
+﻿body {
+    width: 100%;
+}
+.log{
+    background-color: lightgrey;
+    float: left;
+    border-style: solid;
+    border-width: 1px;
+    margin: auto;
+
+}
+.scriptie {
+    background-color: lightgray;
+    float: right;
+    margin: auto;
+}
+.foot {
+    width: 80%;
+    margin: auto;
+}
