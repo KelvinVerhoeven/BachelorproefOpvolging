@@ -2,7 +2,6 @@
 
 app.controller("overviewCtrl",
 [
-<<<<<<< HEAD
     "$cookies", "$scope", "$http", "$window", "$rootScope", function ($cookies, $scope, $http, $window, $rootScope) {
 
 
