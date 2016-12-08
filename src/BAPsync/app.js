@@ -296,6 +296,20 @@ app.post("/log/get", function (req, res) {
     });
 });
 
+app.post("/scriptie/get", function (req, res) {
+    if (debug) {
+        console.log("got post /scriptie/get request");
+    }
+    git.getScriptie(req.body.username, req.body.password, req.body.owner, req.body.repo, function (pdf) {
+        if (pdf == false) {
+            res.json({ "ok": false });
+        } else {
+            res.setHeader('content-type', 'application/pdf');
+            res.send(new Buffer(pdf));
+        }
+    });
+});
+
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))

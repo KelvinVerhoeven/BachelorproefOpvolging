@@ -230,6 +230,22 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             .error(function (data, status, header, config) {
                 console.log("Failed! " + data);
             });
+
+        $http.post("/scriptie/get", dataToSend, { responseType: 'arraybuffer' })
+            .success(function (data, status, header, config) {
+
+                if (data.ok == undefined) {
+                    var file = new Blob([data], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    $scope.scriptie = $sce.trustAsResourceUrl(fileURL);
+                } else {
+                    $scope.scriptie = $sce.trustAsHtml("<p>Sciptie not found!</p>"); 
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("Failed! " + "lots of pdf data :p");
+            });
+
     }
 
 }]);

@@ -8,6 +8,8 @@ var path = require('path');
 var debug = config.debug;
 var organisatie = config.BAP.organisatie;
 var logFile = config.BAP.logFile;
+var scriptieFolder = config.BAP.sciptieFolder;
+var scriptieFile = config.BAP.sciptieFile;
 
 var github = new GitHubApi({
     debug: debug,
@@ -391,7 +393,7 @@ module.exports = {
             }
         });
     },
-    getLog: function (username, password, owner, repo, callback) { //possible multiple user problem?
+    getLog: function (username, password, owner, repo, callback) { //possible multiple user problem? //change what if the file is bigger then 1 meg rip m8 :)
 
         var tempResult;
 
@@ -424,6 +426,59 @@ module.exports = {
             } else {
                 var b64 = res.content;
                 callback(Buffer.from(b64, res.encoding).toString('ascii'));
+            }
+        });
+    },
+    getScriptie: function (username, password, owner, repo, callback) {
+
+        var tempResult;
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+
+        g.repos.getContent({
+            owner: owner,
+            repo: repo,
+            path: scriptieFolder
+        }, function (err, res) {
+            if (err != null) {
+                console.log("error in getScriptie: " + err);
+                callback(false);
+            } else {
+                for (var r in res) {
+                    if (res[r].name == scriptieFile) {
+
+                        g.gitdata.getBlob({
+                            owner: owner,
+                            repo: repo,
+                            sha: res[r].sha
+                        }, function (err, res) {
+                            if (err != null) {
+                                console.log("error in getScriptie/getBlob: " + err);
+                                callback(false);
+                            } else {
+                                callback(Buffer.from(res.content, res.encoding));
+                            }
+                        });
+
+
+                    }
+                }
             }
         });
     }
