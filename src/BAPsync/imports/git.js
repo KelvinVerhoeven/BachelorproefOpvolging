@@ -394,7 +394,7 @@ module.exports = {
             }
         });
     },
-    getLog: function (username, password, owner, repo, callback) { //possible multiple user problem? //change what if the file is bigger then 1 meg rip m8 :)
+    getLog: function (username, password, owner, repo, callback) {
 
         var tempResult;
 

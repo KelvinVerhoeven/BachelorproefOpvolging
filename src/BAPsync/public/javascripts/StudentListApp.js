@@ -5,7 +5,6 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
     //scopes var
     $scope.students = [];
     $scope.docent;
-    //$scope.currentSubList = [];
 
     //scope functions
     $scope.navigation = function (link) {
@@ -58,7 +57,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
         $cookies.remove("currentStudent");
         $cookies.remove("currentRepo");
 
-        if ($cookies.get("username") == undefined) {
+        if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
             var host = $window.location.host;
             var result = "https://" + host + "/login";
             $window.location.href = result;

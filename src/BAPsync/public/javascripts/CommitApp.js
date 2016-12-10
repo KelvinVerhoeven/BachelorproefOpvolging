@@ -15,7 +15,7 @@ app.controller("commitCtrl",
 
        
         var init = function() {
-            if ($cookies.get("username") == undefined) {
+            if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
                 var host = $window.location.host;
                 var result = "https://" + host + "/login";
                 $window.location.href = result;

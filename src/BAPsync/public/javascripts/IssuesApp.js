@@ -65,7 +65,7 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
         //$cookies.put("currentStudent", "jonathan2266", ["secure", "true"]);
         //$cookies.put("currentRepo", "bachelorproef-test1", ["secure", "true"]);
 
-        if ($cookies.get("username") == undefined) {
+        if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
             var host = $window.location.host;
             var result = "https://" + host + "/login";
             $window.location.href = result;
