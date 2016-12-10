@@ -108,9 +108,14 @@ app.controller("overviewCtrl",
                 .success(function (data, status, header, config) {
 
                     if (data.ok == undefined) {
-                        $scope.scriptieLink = $sce.trustAsHtml(data);
+                        var part1 = "<p>Scriptie: <a href=\"";
+                        var part2 = data;
+                        var part3 = "\" class=\"alert-link\" target=\"_blank\">";
+                        var part4 = data;
+                        var part5 = "</a></p>";
+                        $scope.scriptieLink = $sce.trustAsHtml(part1 + part2 + part3 + part4 + part5);
                     } else {
-                        $scope.scriptieLink = $sce.trustAsHtml("<p>Sciptie not found!</p>");
+                        $scope.scriptieLink = $sce.trustAsHtml("<p class=\"notFound\">Sciptie not found!</p>");
                     }
                 })
                 .error(function (data, status, header, config) {
