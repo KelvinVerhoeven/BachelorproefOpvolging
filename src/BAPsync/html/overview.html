@@ -70,16 +70,15 @@
                     <div class="alert alert-warning">
                         Repo link: <a href="{{ repolink }}" class="alert-link" target="_blank">{{ repolink }}</a>
                     </div>
+                    <div class="alert alert-info">
+                        Scriptie: <a href="{{scriptieLink}}" class="alert-link" target="_blank">{{scriptieLink}}</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div ng-controller="overviewFootCtrl" class="foot">
-        <div ng-bind-html="logs" class="log">
-        </div>
-        <div class="scriptie">
-            <object width="400" height="500" class="scriptieObject" data="{{scriptie}}" type="application/pdf"></object>
-        </div>
+        <div ng-bind-html="logs" class="log"></div>
     </div>
 </body>
 </html>

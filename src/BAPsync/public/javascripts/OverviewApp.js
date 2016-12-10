@@ -2,7 +2,7 @@
 
 app.controller("overviewCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", "$rootScope", function ($cookies, $scope, $http, $window, $rootScope) {
+    "$cookies", "$scope", "$http", "$window", "$rootScope", "$sce", function ($cookies, $scope, $http, $window, $rootScope, $sce) {
 
 
         $scope.students = [];
@@ -92,6 +92,32 @@ app.controller("overviewCtrl",
                 });
         }
 
+        var getScriptieLink = function () {
+
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            var dataToSend = {
+                username: $cookies.get("username"), password: $cookies.get("password"),
+                owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
+            };
+
+            $http.post("/scriptie/get", dataToSend, config)
+                .success(function (data, status, header, config) {
+
+                    if (data.ok == undefined) {
+                        $scope.scriptieLink = $sce.trustAsHtml(data);
+                    } else {
+                        $scope.scriptieLink = $sce.trustAsHtml("<p>Sciptie not found!</p>");
+                    }
+                })
+                .error(function (data, status, header, config) {
+                    console.log("Failed! " + "lots of pdf data :p");
+                });
+        }
+
         $scope.chooseStudent = function (full) {
             var config = {
                 headers: {
@@ -141,7 +167,7 @@ app.controller("overviewCtrl",
                     getRepos();
                     numCommits();
                     eventFooter();
-
+                    getScriptieLink();
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -185,6 +211,7 @@ app.controller("overviewCtrl",
                         getRepos();
                         numCommits();
                         eventFooter();
+                        getScriptieLink();
                     }
                     
                 })
@@ -218,7 +245,6 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
         }
         var dataToSend = {
             username: $cookies.get("username"), password: $cookies.get("password"),
-            //owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
             owner: args.student, repo: args.repo
         };
 
@@ -230,22 +256,6 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             .error(function (data, status, header, config) {
                 console.log("Failed! " + data);
             });
-
-        $http.post("/scriptie/get", dataToSend, { responseType: 'arraybuffer' })
-            .success(function (data, status, header, config) {
-
-                if (data.ok == undefined) {
-                    var file = new Blob([data], { type: 'application/pdf' });
-                    var fileURL = URL.createObjectURL(file);
-                    $scope.scriptie = $sce.trustAsResourceUrl(fileURL);
-                } else {
-                    $scope.scriptie = $sce.trustAsHtml("<p>Sciptie not found!</p>"); 
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("Failed! " + "lots of pdf data :p");
-            });
-
     }
 
 }]);

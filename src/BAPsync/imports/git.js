@@ -462,21 +462,7 @@ module.exports = {
             } else {
                 for (var r in res) {
                     if (res[r].name == scriptieFile) {
-
-                        g.gitdata.getBlob({
-                            owner: owner,
-                            repo: repo,
-                            sha: res[r].sha
-                        }, function (err, res) {
-                            if (err != null) {
-                                console.log("error in getScriptie/getBlob: " + err);
-                                callback(false);
-                            } else {
-                                callback(Buffer.from(res.content, res.encoding));
-                            }
-                        });
-
-
+                        callback(res[r]._links.html);
                     }
                 }
             }

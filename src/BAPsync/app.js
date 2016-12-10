@@ -304,8 +304,7 @@ app.post("/scriptie/get", function (req, res) {
         if (pdf == false) {
             res.json({ "ok": false });
         } else {
-            res.setHeader('content-type', 'application/pdf');
-            res.send(new Buffer(pdf));
+            res.json(pdf);
         }
     });
 });
