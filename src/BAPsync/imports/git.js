@@ -7,6 +7,7 @@ var path = require('path');
 
 var debug = config.debug;
 var organisatie = config.BAP.organisatie;
+var logFolder = config.BAP.logFolder;
 var logFile = config.BAP.logFile;
 var scriptieFolder = config.BAP.sciptieFolder;
 var scriptieFile = config.BAP.sciptieFile;
@@ -418,14 +419,31 @@ module.exports = {
         g.repos.getContent({
             owner: owner,
             repo: repo,
-            path: logFile
+            path: logFolder
         }, function (err, res) {
             if (err != null) {
                 console.log("error in getLog: " + err);
                 callback(false);
             } else {
-                var b64 = res.content;
-                callback(Buffer.from(b64, res.encoding).toString('ascii'));
+
+                for (r in res) {
+                    if (res[r].name == logFile) {
+
+                        g.gitdata.getBlob({
+                            owner: owner,
+                            repo: repo,
+                            sha: res[r].sha
+                        }, function (err, res) {
+                            if (err != null) {
+                                console.log("error in getLoge/getBlob: " + err);
+                                callback(false);
+                            } else {
+                                callback(Buffer.from(res.content, res.encoding).toString('ascii'));
+                            }
+                        });
+
+                    }
+                }
             }
         });
     },
