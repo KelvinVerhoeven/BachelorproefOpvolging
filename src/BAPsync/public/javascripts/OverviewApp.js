@@ -84,10 +84,12 @@ app.controller("overviewCtrl",
             
                 .success(function(data, status, headers, config) {
                     
-                    if (data == undefined) {
-                        $scope.info = null;
+                    if (data == false) {
+                        $scope.info = "";
+                        $scope.lol = "lol";
                     } else {
                         $scope.info = data;
+                        $scope.lol = "";
                     }
                     
                 })
@@ -145,7 +147,7 @@ app.controller("overviewCtrl",
                 });
         }
 
-        $scope.chooseStudent = function (full) {
+        /*$scope.chooseStudent = function (full) {
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -168,7 +170,7 @@ app.controller("overviewCtrl",
                 .error(function(data, status, header, config) {
                     console.log("Failed! " + data);
                 });
-        }
+        }*/
 
         $scope.open = function () {
             $window.location.href = "/issues";

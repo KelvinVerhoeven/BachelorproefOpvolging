@@ -175,6 +175,7 @@ module.exports = {
         }, function (err, res) {
             if (err != null) {
                 console.log("err in getContent: " + err);
+                callback(false);
             } else {
                 
                 callback(JSON.parse(Buffer.from(res.content, res.encoding).toString()));

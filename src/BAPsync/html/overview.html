@@ -59,7 +59,17 @@
                 </div>
                 <div class="span10">
                     <span class="problemspan">{{ problemName }}</span>
-                    <div class="alert alert-info" id="info"><p>Naam: <b>{{ info.name }}</b></p> <p>Email: <b>{{ info.email }}</b></p> <p>Bedrijf: <b>{{ info.company }}</b></p> <p>Promotor: <b>{{ info.promotor }}</b></p></div>
+                    <div class="alert alert-info" id="info">
+                        
+                        <p id="{{ lol }}">Naam: <b>{{ info.name }}</b>
+                        </p>
+                        <p id="{{ lol }}">Email: <b>{{ info.email }}</b>
+                        </p>
+                        <p id="{{ lol }}">Bedrijf: <b>{{ info.company }}</b>
+                        </p>
+                        <p id="{{ lol }}">Promotor: <b>{{ info.promotor }}</b>
+                        </p>
+                    </div>
                     <div class="alert alert-warning">
                         Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
                         <span class="problemspan">{{ problemCommit }}</span>
