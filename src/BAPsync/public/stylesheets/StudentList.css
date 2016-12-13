@@ -2,6 +2,21 @@
     width: 100%;
     padding-top: 5%;
 }
+.navbar {
+    margin-bottom: 1%;
+}
+#rldBtn {
+    margin-top: 1%;
+    margin-left: 2%;
+    width: 50%;
+}
+.reload {
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border: none;
+    float: right;
+}
 .buttonClicked {
     background-color: #2c3e50;
 }
@@ -37,14 +52,4 @@
 .unsubscriped {
     background-color: white;
 }
-.reload {
-    background-color: white;
-    width: 50px;
-    height: 50px;
-    border: none;
-    float: right;
-}
-#rldBtn {
-    margin-left: 2%;
-    width: 50%;
-}
+
