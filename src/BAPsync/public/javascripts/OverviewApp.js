@@ -68,10 +68,10 @@ app.controller("overviewCtrl",
                     
                     if (data == false) {
                         $scope.info = "";
-                        $scope.lol = "lol";
+                        $scope.errorInfo = "errorInfo";
                     } else {
                         $scope.info = data;
-                        $scope.lol = "";
+                        $scope.errorInfo = "";
                     }
                     
                 })

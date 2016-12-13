@@ -5,6 +5,8 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
     //scopes var
     $scope.students = [];
     $scope.docent;
+    var date = new Date();
+    $scope.date = date;
 
     //scope functions
     $scope.navigation = function (link) {

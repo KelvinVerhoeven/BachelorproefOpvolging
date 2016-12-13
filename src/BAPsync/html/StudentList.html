@@ -14,21 +14,32 @@
     
 </head>
 <body ng-app="studentListApp" ng-controller="studentListCtrl">
-<div>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
-                <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
-                <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">StudentList</button>
-                <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
-                <button ng-click=special("/studentList/refresh") type="button" class="btn btn-default navbar-btn buttonSpecial">studentList refresh</button>
-                <p class="navbar-text navbar-right">Signed in as {{ docent }}</p>
-            </div>
-        </div>
-    </nav>
+    <div class="nav">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging">BapSync</a>
+                </div>
 
-</div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div class="nav navbar-nav">
+                        <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
+                        <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">List</button>
+                        <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
+                        <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ date | date:'dd/MM/yyyy HH:mm' }}</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 <div class="studentsContainer">
+    <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" margin="auto" /></button></div>
     <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
         <h3 class="studentRepeatH3">{{student.full}}</h3>
         <ul class="studentRepeatUL">
