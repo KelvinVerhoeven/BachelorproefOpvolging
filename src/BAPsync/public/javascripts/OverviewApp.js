@@ -48,24 +48,6 @@ app.controller("overviewCtrl",
                 });
         }
 
-        var userMail = function() {
-            var config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
-
-            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent") };
-
-            $http.post("/user/get", dataToSend, config)
-                .success(function (data, status, headers, config) {
-                    $scope.mail = data.email;
-                })
-                .error(function (data, status, headers, config) {
-                    console.log("get user failed: " + data);
-                });
-        }
-
         var getInfo = function() {
             var config = {
                 headers: {
@@ -146,31 +128,6 @@ app.controller("overviewCtrl",
                     console.log("Failed! " + "lots of pdf data :p");
                 });
         }
-
-        /*$scope.chooseStudent = function (full) {
-            var config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            var dataToSend = {
-                "full": full
-        };
-
-            $http.post("/overview/get", dataToSend, config)
-                .success(function(data, status, header, config) {
-                    $cookies.put("currentStudent", data.owner, ["secure", "true"]);
-                    $cookies.put("currentRepo", data.repo, ["secure", "true"]);
-                    getRepos();
-                    getInfo();
-                    numCommits();
-                    //userMail();
-                    
-                })
-                .error(function(data, status, header, config) {
-                    console.log("Failed! " + data);
-                });
-        }*/
 
         $scope.open = function () {
             $window.location.href = "/issues";
