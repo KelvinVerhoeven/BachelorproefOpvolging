@@ -15,6 +15,7 @@ config.BAP.logFolder = "/Log";
 config.BAP.logFile = "LOG.md";
 config.BAP.sciptieFolder = "/Scriptie" //has to be the folder
 config.BAP.sciptieFile = "book.pdf";
+config.BAP.infoFile = "info.json";
 
 module.exports = config;
 

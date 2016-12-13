@@ -40,15 +40,7 @@ app.controller("overviewCtrl",
                     $scope.repolink = data.html_url;
                     $scope.laatsteCommit = data.pushed_at;
                     $scope.openIssues = data.open_issues_count;
-                    $scope.name = data.description;
-
-                    
-
-                    if ($scope.name == null) {
-                        $scope.problemName = "De student heeft zijn echte naam niet in de repo gezet!";
-                    } else {
-                        $scope.problemName = null;
-                    }
+                    //$scope.name = data.description;
                     
                 })
                 .error(function (data, status, header, config) {
@@ -71,6 +63,36 @@ app.controller("overviewCtrl",
                 })
                 .error(function (data, status, headers, config) {
                     console.log("get user failed: " + data);
+                });
+        }
+
+        var getInfo = function() {
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var dataToSend = {
+                username: $cookies.get("username"),
+                password: $cookies.get("password"),
+                owner: $cookies.get("currentStudent"),
+                repo: $cookies.get("currentRepo")
+            };
+
+            $http.post("/info/get", dataToSend, config)
+            
+                .success(function(data, status, headers, config) {
+                    
+                    if (data == undefined) {
+                        $scope.info = null;
+                    } else {
+                        $scope.info = data;
+                    }
+                    
+                })
+                .error(function(data, status, headers, config) {
+                    console.log("get info failed: " + data);
                 });
         }
 
@@ -138,8 +160,10 @@ app.controller("overviewCtrl",
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
+                    getInfo();
                     numCommits();
-                    userMail();
+                    //userMail();
+                    
                 })
                 .error(function(data, status, header, config) {
                     console.log("Failed! " + data);
@@ -170,9 +194,11 @@ app.controller("overviewCtrl",
                     $cookies.put("currentStudent", data.owner, ["secure", "true"]);
                     $cookies.put("currentRepo", data.repo, ["secure", "true"]);
                     getRepos();
+                    getInfo();
                     numCommits();
                     eventFooter();
                     getScriptieLink();
+                    
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -214,9 +240,11 @@ app.controller("overviewCtrl",
                         localSelection($scope.students[0].studentRepo);
                     } else {
                         getRepos();
+                        getInfo();
                         numCommits();
                         eventFooter();
                         getScriptieLink();
+                        
                     }
                     
                 })

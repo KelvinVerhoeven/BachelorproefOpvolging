@@ -11,6 +11,7 @@ var logFolder = config.BAP.logFolder;
 var logFile = config.BAP.logFile;
 var scriptieFolder = config.BAP.sciptieFolder;
 var scriptieFile = config.BAP.sciptieFile;
+var infoFile = config.BAP.infoFile;
 
 var github = new GitHubApi({
     debug: debug,
@@ -141,12 +142,44 @@ module.exports = {
         }, function(err, res) {
             if (err != null) {
                 console.log("err in getUserData: " + err);
-                callback("");
             } else {
                 result = res;
                 callback(result);
             }
         });
+    },
+    GetInfo: function(username, password, owner, repo, callback) {
+        var result;
+
+        var g = new GitHubApi({
+            debug: debug,
+            protocol: "https",
+            host: "api.github.com",
+            headers: {
+                "user-agent": "automat-BAP"
+            },
+            Promise: require('bluebird'),
+            followRedirects: false,
+            timeout: 5000
+        });
+
+        g.authenticate({
+            type: "basic",
+            username: username,
+            password: password
+        });
+        g.repos.getContent({
+            owner: owner,
+            repo: repo,
+            path: infoFile
+        }, function (err, res) {
+            if (err != null) {
+                console.log("err in getContent: " + err);
+            } else {
+                
+                callback(JSON.parse(Buffer.from(res.content, res.encoding).toString()));
+            }
+    });
     },
     GetUserMail: function(username, password, owner, callback) {
         var result;

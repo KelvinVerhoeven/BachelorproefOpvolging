@@ -309,6 +309,20 @@ app.post("/scriptie/get", function (req, res) {
     });
 });
 
+app.post("/info/get",
+    function(req, res) {
+        if (debug) {
+            console.log("got post /info/get request");
+        }
+        git.GetInfo(req.body.username,
+            req.body.password,
+            req.body.owner,
+            req.body.repo,
+            function(call) {
+                res.json(call);
+            });
+    });
+
 https.createServer({
     key: fs.readFileSync(path.join(__dirname, '/openSSL/key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/openSSL/cert.pem'))

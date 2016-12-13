@@ -20,7 +20,6 @@
     width: 65%;
     float: right;
     margin-right: 10%;
-    -webkit-transition:
 
 }
 .btn-success {
@@ -38,4 +37,7 @@ a:hover {
 
 .alert {
     height: 75px;
+}
+#info {
+    height: 140px;
 }
