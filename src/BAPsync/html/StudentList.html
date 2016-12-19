@@ -32,7 +32,7 @@
                     <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
                     <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">List</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ date | date:'dd/MM/yyyy HH:mm' }}</p>
+                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
                 </div>
             </div>
         </div>
@@ -41,6 +41,7 @@
 </br>
 <div class="studentsContainer">
     <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" margin="auto" /></button></div>
+    
     <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
         <h3 class="studentRepeatH3">{{student.full}}</h3>
         <ul class="studentRepeatUL">

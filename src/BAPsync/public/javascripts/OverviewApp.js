@@ -2,13 +2,20 @@
 
 app.controller("overviewCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", "$rootScope", "$sce", function ($cookies, $scope, $http, $window, $rootScope, $sce) {
+    "$cookies", "$scope", "$http", "$window", "$rootScope", "$timeout", "$sce", function ($cookies, $scope, $http, $window, $rootScope, $timeout, $sce) {
 
 
         $scope.students = [];
         $scope.docent;
-        var date = new Date();
-        $scope.date = date;
+        $scope.clock = "time...";
+        $scope.tickInterval = 1000;
+
+        var tick = function() {
+            $scope.clock = Date.now();
+            $timeout(tick, $scope.tickInterval);
+        }
+        $timeout(tick, $scope.tickInterval);
+
         
 
         $scope.navigation = function(link) {
@@ -40,7 +47,6 @@ app.controller("overviewCtrl",
                     $scope.repolink = data.html_url;
                     $scope.laatsteCommit = data.pushed_at;
                     $scope.openIssues = data.open_issues_count;
-                    //$scope.name = data.description;
                     
                 })
                 .error(function (data, status, header, config) {

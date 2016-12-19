@@ -2,11 +2,7 @@
     width: 100%;
 }
 .log{
-    background-color: lightgrey;
-    border-style: solid;
-    border-width: 1px;
     margin: auto;
-    padding: 1%;
 
 }
 .scriptie {
@@ -14,11 +10,6 @@
     float: right;
     margin: auto;
 }
-.foot {
-    width: 50%;
-    margin: auto;
-}
 .notFound{
-
     background-color: red;
 }

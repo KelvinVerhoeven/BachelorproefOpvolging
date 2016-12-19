@@ -1,9 +1,17 @@
 ﻿var app = angular.module('issuesApp', ['ngCookies']);
 
-app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", "$timeout", function ($cookies, $scope, $http, $window, $timeout) {
 
     $scope.docent;
     $scope.issues;
+    $scope.clock = "time...";
+    $scope.tickInterval = 1000;
+
+    var tick = function () {
+        $scope.clock = Date.now();
+        $timeout(tick, $scope.tickInterval);
+    }
+    $timeout(tick, $scope.tickInterval);
 
     $scope.navigation = function (link) {
         var host = $window.location.host;
@@ -21,16 +29,16 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
         var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number, body: commentText };
 
         $http.post("/comments/new", dataToSend, config)
-            .success(function (data, status, headers, config) {
+            .success(function(data, status, headers, config) {
                 if (data.done == true) {
                     init();
                 }
             })
-            .error(function (data, status, header, config) {
+            .error(function(data, status, header, config) {
                 console.log("Failed " + data);
                 confirm("update failed");
                 init();
-            })
+            });
 
     }
 
@@ -47,17 +55,46 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
             var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number, state: "closed" };
 
             $http.post("/issues/close", dataToSend, config)
-                .success(function (data, status, headers, config) {
+                .success(function(data, status, headers, config) {
                     if (data.done == true) {
                         init();
                     }
                 })
-                .error(function (data, status, header, config) {
+                .error(function(data, status, header, config) {
                     console.log("Failed " + data);
-                })
+                });
         }
 
     }
+
+    var postCommentURL = function (id, number) {
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number };
+
+        $http.post("/comments", dataToSend, config)
+            .success(function(data, status, headers, config) {
+                var temp; //to make it an array
+                temp = data;
+                $scope.issues[id].gotComments = temp;
+            })
+            .error(function(data, status, header, config) {
+                console.log("Failed " + data);
+            });
+    }
+
+    var getComments = function () {
+        for (issue in $scope.issues) {
+            postCommentURL(issue, $scope.issues[issue].number);
+        }
+    }
+
+    
 
     var init = function () {
 
@@ -86,33 +123,6 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
                 temp = data;
                 $scope.issues = temp;
                 getComments();
-            })
-            .error(function (data, status, header, config) {
-                console.log("Failed " + data);
-            })
-    }
-
-    var getComments = function () {
-        for (issue in $scope.issues) {
-            postCommentURL(issue, $scope.issues[issue].number);
-        }
-    }
-
-    var postCommentURL = function (id, number) {
-
-        var config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), number: number };
-
-        $http.post("/comments", dataToSend, config)
-            .success(function (data, status, headers, config) {
-                var temp; //to make it an array
-                temp = data;
-                $scope.issues[id].gotComments = temp;
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);

@@ -2,10 +2,18 @@
 
 app.controller("commitCtrl",
 [
-    "$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+    "$cookies", "$scope", "$http", "$window", "$timeout", function ($cookies, $scope, $http, $window, $timeout) {
 
         $scope.docent;
         $scope.commits;
+        $scope.clock = "time...";
+        $scope.tickInterval = 1000;
+
+        var tick = function () {
+            $scope.clock = Date.now();
+            $timeout(tick, $scope.tickInterval);
+        }
+        $timeout(tick, $scope.tickInterval);
 
         $scope.navigation = function (link) {
             var host = $window.location.host;
