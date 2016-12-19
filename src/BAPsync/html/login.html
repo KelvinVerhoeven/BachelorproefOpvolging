@@ -19,32 +19,33 @@
             <div class="img-responsive">
                 <img src="/images/github.png" style="width: 150px; height: 150px;">
             </div>
+            <div class="content">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1 class="title">Login with your Github account</h1>
+                        <br/><br/>
+                    </div>
+                </div>
 
-            <div class="panel-heading">
-                <div class="panel-title text-center">
-                    <h1 class="title">Login with your Github account</h1>
-                    <hr />
+                <div class="well bs-component">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="inputUsername" class="col-lg-2 control-label">Username</label>
+                                <input type="text" ng-model="username" class="form-control" id="inputUsername" placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                                <input type="password" ng-model="password" class="form-control" id="inputPassword" placeholder="Password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" style="position: absolute; left: -9999px" ng-click="login(username, password)"/>
+                                <button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
-
-            <div class="well bs-component">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <div class="form-group">
-                            <label for="inputUsername" class="col-lg-2 control-label">Username</label>
-                            <input type="text" ng-model="username" class="form-control" id="inputUsername" placeholder="Username"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                            <input type="password" ng-model="password" class="form-control" id="inputPassword" placeholder="Password"/>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" ng-click="login(username, password)" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-
         </div>
     </div>
 </body>

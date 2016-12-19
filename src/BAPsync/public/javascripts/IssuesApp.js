@@ -1,9 +1,17 @@
 ﻿var app = angular.module('issuesApp', ['ngCookies']);
 
-app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", "$timeout", function ($cookies, $scope, $http, $window, $timeout) {
 
     $scope.docent;
     $scope.issues;
+    $scope.clock = "time...";
+    $scope.tickInterval = 1000;
+
+    var tick = function () {
+        $scope.clock = Date.now();
+        $timeout(tick, $scope.tickInterval);
+    }
+    $timeout(tick, $scope.tickInterval);
 
     $scope.navigation = function (link) {
         var host = $window.location.host;
@@ -30,7 +38,7 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
                 console.log("Failed " + data);
                 confirm("update failed");
                 init();
-            })
+            });
 
     }
 
@@ -52,9 +60,9 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
                         init();
                     }
                 })
-                .error(function (data, status, header, config) {
+                .error(function(data, status, header, config) {
                     console.log("Failed " + data);
-                })
+                });
         }
 
     }
@@ -74,12 +82,12 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
             .success(function (data, status, headers, config) {
                 var temp; //to make it an array
                 temp = data;
-                $scope.issues = temp;
+                $scope.issues[id].gotComments = temp;
                 getComments();
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);
-            })
+            });
     }
 
     var getComments = function () {
@@ -87,6 +95,8 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
             postCommentURL(issue, $scope.issues[issue].number);
         }
     }
+
+    
 
     var postCommentURL = function (id, number) {
 
@@ -102,7 +112,8 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", function
             .success(function (data, status, headers, config) {
                 var temp; //to make it an array
                 temp = data;
-                $scope.issues[id].gotComments = temp;
+                $scope.issues = temp;
+                getComments();
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);

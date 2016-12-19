@@ -1,14 +1,20 @@
 ﻿var app = angular.module('studentListApp', ['ngCookies']);
 
-app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$timeout", "$window", function ($cookies, $scope, $http, $timeout, $window) {
 
     //scopes var
     $scope.students = [];
     $scope.docent;
-    var date = new Date();
-    $scope.date = date;
 
-    //scope functions
+    $scope.clock = "time...";
+    $scope.tickInterval = 1000;
+
+    var tick = function () {
+        $scope.clock = Date.now();
+        $timeout(tick, $scope.tickInterval);
+    }
+    $timeout(tick, $scope.tickInterval);
+
     $scope.navigation = function (link) {
         var host = $window.location.host;
         var result = "https://" + host + "/" + link;

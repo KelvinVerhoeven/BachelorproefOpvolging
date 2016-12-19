@@ -19,7 +19,7 @@
 .span10 {
     width: 65%;
     float: right;
-    margin-right: 10%;
+    margin-right: 5%;
 
 }
 .btn-success {
@@ -43,4 +43,23 @@ a:hover {
 }
 #errorInfo {
     background-color: red;
+}
+@media screen and (max-width: 1300px) {
+    body {
+        margin-top: 2%;
+    }
+    .span2 {
+        width: 28%;
+    }
+}
+@media screen and (max-width: 885px) {
+    body {
+        margin-top: 5%;
+    }
+    .page {
+        width: 100%;
+    }
+    .span10 {
+        margin-right: 0%;
+    }
 }

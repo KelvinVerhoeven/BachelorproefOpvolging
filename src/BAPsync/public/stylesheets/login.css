@@ -15,6 +15,7 @@ h1.title {
 	font-size: 50px;
 	font-family: 'Passion One', cursive; 
 	font-weight: 400; 
+	color: #2c3e50;
 }
 
 hr{
@@ -38,8 +39,7 @@ input::-webkit-input-placeholder {
 
 .well {
 	margin: auto;
-	width: 35%;
-	
+	width: 300px;
 }
 
 .form-horizontal {
@@ -53,4 +53,27 @@ input::-webkit-input-placeholder {
 .login-register{
 	font-size: 11px;
 	text-align: center;
+}
+.content:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  
+  background-image: url('/images/loginback.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
+  
+  filter: blur(12px);
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 0;
 }
