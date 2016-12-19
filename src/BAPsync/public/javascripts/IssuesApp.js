@@ -82,7 +82,7 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", "$timeou
             .success(function (data, status, headers, config) {
                 var temp; //to make it an array
                 temp = data;
-                $scope.issues[id].gotComments = temp;
+                $scope.issues = temp;
                 getComments();
             })
             .error(function (data, status, header, config) {
