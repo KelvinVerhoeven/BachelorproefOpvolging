@@ -6,16 +6,18 @@ install nodeJS https://nodejs.org/en/
 
 install packages with npm install <package_name>:
 
-*    "bluebird": "^3.4.6",
-*    "body-parser": "~1.8.1",
-*    "debug": "~2.0.0",
-*    "express": "~4.9.0",
-*    "github": "^5.3.3",
-*    "jade": "~1.6.0",
-*    "mongoose": "^4.6.5",
-*    "morgan": "~1.3.0",
-*    "serve-favicon": "~2.1.3",
-*    "stylus": "0.42.3"
+* "bluebird": "^3.4.6",
+* "body-parser": "^1.15.2",
+* "cookie-parser": "^1.4.3",
+* "debug": "^2.3.3",
+* "express": "^4.14.0",
+* "github": "^5.3.3",
+* "jade": "^1.11.0",
+* "mongoose": "^4.7.2",
+* "morgan": "^1.7.0",
+* "serve-favicon": "^2.3.2",
+* "showdown": "^1.5.1",
+* "stylus": "^0.54.5"
  
  If the package.json is in that directory that version will be installed. We are developing the application using visual studio.
  With the **nodeJS** extension provided by microsoft, **web essential 2015.3** and a **markdown** extension.
@@ -49,6 +51,11 @@ Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOp
 - config.db.link let you set the address of the database.
 - config.BAP.filter filters out the repositories we need. 
 - config.BAP.organisatie: Sets the organisation where too look for repositories.
+- config.BAP.logFolder: Folderlink that contains the logFile. These needs to be separate. Github has 1MB direct download limit. So asking data directly from a file thats over 1MB would result in an error. Ex. "/map"
+- config.BAP.logFile: Filename where the students pushes it logs. Ex."file.md"
+- config.BAP.sciptieFolder: Folder containing the scription. Same 1MB limit applies here. Ex. "/map"
+- config.BAP.sciptieFile: The book the student creates. Ex. "book.pdf"
+- config.BAP.infoFile: This a json files students fill in themself on there github. Ex. "/map/file.json"  OR "/file.json"
 
 # key.js
 
