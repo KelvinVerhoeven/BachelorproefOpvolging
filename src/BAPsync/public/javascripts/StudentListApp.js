@@ -59,13 +59,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
         $cookies.remove("currentStudent");
         $cookies.remove("currentRepo");
 
-        if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
-            var host = $window.location.host;
-            var result = "https://" + host + "/login";
-            $window.location.href = result;
-        }
-
-        $scope.docent = $cookies.get("username");
+        $scope.docent = $cookies.get("username"); //rip this too
 
         var config = {
             headers: {
@@ -93,13 +87,12 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username") };
+        var dataToSend = {};
 
         $http.post("/subscriptionList", dataToSend, config)
             .success(function (data, status, headers, config) {
                 var temp; //to make it an array
                 temp = data;
-                //temp.push(data);
                 checkSubs(studentsDB, temp);
             })
             .error(function (data, status, header, config) {
@@ -140,7 +133,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username"), studentRepo: studentRepo };
+        var dataToSend = {studentRepo: studentRepo };
 
         $http.post("/studentList/add", dataToSend, config)
             .success(function (data, status, headers, config) {
@@ -163,7 +156,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username"), studentRepo: studentRepo };
+        var dataToSend = {studentRepo: studentRepo };
 
         $http.post("/studentList/remove", dataToSend, config)
             .success(function (data, status, headers, config) {
@@ -171,8 +164,6 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$window", fun
                     $scope.students[student].subbed = "unsubscriped";
                 }
             });
-
     }
-
     init();
 }]);
