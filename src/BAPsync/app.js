@@ -109,7 +109,7 @@ app.get("/studentList", function (req, res) {
         if (!isValid) {
             res.redirect("/login");
         } else {
-     res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+            res.sendFile(path.join(__dirname, "./html/StudentList.html"));
         }
     });
 });
