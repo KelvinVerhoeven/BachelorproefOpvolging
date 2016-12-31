@@ -105,7 +105,13 @@ app.get("/studentList", function (req, res) {
     if (debug) {
         console.log("got get /studentList request");
     }
-     res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+    validateSession(req.session, function (isValid) {
+        if (!isValid) {
+            res.redirect("/login");
+        } else {
+            res.sendFile(path.join(__dirname, "./html/StudentList.html"));
+        }
+    });
 });
 
 app.get("/overview",
@@ -114,7 +120,13 @@ app.get("/overview",
             console.log("got get /overview request");
             console.log("lellele: " + req.session.username);
         }
-        res.sendFile(path.join(__dirname, "./html/overview.html"));
+        validateSession(req.session, function (isvalid) {
+            if (!isvalid) {
+                res.redirect("/login");
+            } else {
+                res.sendFile(path.join(__dirname, "./html/overview.html"));
+            }
+        });
 });
 
 app.post("/overview/get",
@@ -146,10 +158,11 @@ app.post("/studentList/add", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            mongoDB.AddToSubscriptionList(req.session.username, req.body.studentRepo, function (ok) {
+                res.json({ "done": ok });
+            }); //studentRepo needs to be like jonathan2266/myRepo
         }
-        mongoDB.AddToSubscriptionList(req.session.username, req.body.studentRepo, function (ok) {
-            res.json({ "done": ok });
-        }); //studentRepo needs to be like jonathan2266/myRepo
     });
 
 });
@@ -161,10 +174,11 @@ app.post("/studentList/remove", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            mongoDB.RemoveFromSubscriptionList(req.session.username, req.body.studentRepo, function (ok) {
+                res.json({ "done": ok });
+            });
         }
-        mongoDB.RemoveFromSubscriptionList(req.session.username, req.body.studentRepo, function (ok) {
-            res.json({ "done": ok });
-        });
     });
 });
 
@@ -187,10 +201,11 @@ app.post("/subscriptionList", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            mongoDB.GetSubscriptionList(req.session.username, function (list) {
+                res.json(list);
+            });
         }
-        mongoDB.GetSubscriptionList(req.session.username, function (list) {
-            res.json(list);
-        });
     });
 });
 
@@ -202,12 +217,13 @@ app.post("/repos/get",
         validateSession(req.session, function (isValid) {
             if (!isValid) {
                 res.redirect("/login");
+            } else {
+                git.GetUserRepo(req.session.username,
+                    req.session.password, req.body.owner, req.body.repo,
+                    function (call) {
+                        res.json(call);
+                    });
             }
-            git.GetUserRepo(req.session.username,
-                req.session.password, req.body.owner, req.body.repo,
-                function (call) {
-                    res.json(call);
-                });
         });
     });
 
@@ -227,13 +243,14 @@ app.post("/commit/get",
         validateSession(req.session, function (isValid) {
             if (!isValid) {
                 res.redirect("/login");
+            } else {
+                git.GetCommits(req.session.username,
+                    req.session.password, req.body.student,
+                    req.body.repo,
+                    function (commits) {
+                        res.json(commits);
+                    });
             }
-            git.GetCommits(req.session.username,
-                req.session.password, req.body.student,
-                req.body.repo,
-                function (commits) {
-                    res.json(commits);
-                });
         });
     });
 
@@ -241,14 +258,26 @@ app.get("/issues", function (req, res) { //issues webpage
     if (debug) {
         console.log("got get issues request");
     }
-    res.sendFile(path.join(__dirname, "./html/issues.html"));
+    validateSession(req.session, function (isValid) {
+        if (!isValid) {
+            res.redirect("/login");
+        } else {
+            res.sendFile(path.join(__dirname, "./html/issues.html"));
+        }
+    });
 });
 
 app.get("/issues/form", function (req, res) {
     if (debug) {
         console.log("got get issues/form request");
     }
-    res.sendFile(path.join(__dirname, "./html/issuesForm.html"));
+    validateSession(req.session, function (isValid) {
+        if (!isValid) {
+            res.redirect("/login");
+        } else {
+            res.sendFile(path.join(__dirname, "./html/issuesForm.html"));
+        }
+    });
 });
 
 app.post("/issues/get", function (req, res) { // needs testing only one at a time
@@ -258,23 +287,24 @@ app.post("/issues/get", function (req, res) { // needs testing only one at a tim
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
-        }
-        mongoDB.GetSubscriptionList(req.session.username, function (list) {
-            mongoDB.GetStudentRepos(function (fullStudRepos) {
-                for (var fullStudRepo in fullStudRepos) {
-                    for (var repo in list) {
-                        if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == req.body.repo) { // ye 
-                            git.GetIssues(req.session.username, req.session.password, fullStudRepos[fullStudRepo], function (issues) {
-                                if (debug) {
-                                    fs.writeFile("./debug/issues.txt", JSON.stringify(issues.issues, null, "\n"));
-                                }
-                                res.json(issues.issues);
-                            });
+        } else {
+            mongoDB.GetSubscriptionList(req.session.username, function (list) {
+                mongoDB.GetStudentRepos(function (fullStudRepos) {
+                    for (var fullStudRepo in fullStudRepos) {
+                        for (var repo in list) {
+                            if (list[repo].studentRepo == fullStudRepos[fullStudRepo].full && fullStudRepos[fullStudRepo].repo == req.body.repo) { // ye 
+                                git.GetIssues(req.session.username, req.session.password, fullStudRepos[fullStudRepo], function (issues) {
+                                    if (debug) {
+                                        fs.writeFile("./debug/issues.txt", JSON.stringify(issues.issues, null, "\n"));
+                                    }
+                                    res.json(issues.issues);
+                                });
+                            }
                         }
                     }
-                }
+                });
             });
-        });
+        }
     });
 });
 
@@ -285,10 +315,11 @@ app.post("/issues/close", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.CloseIssue(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, req.body.state, function (ok) {
+                res.json({ "done": ok });
+            });
         }
-        git.CloseIssue(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, req.body.state, function (ok) {
-            res.json({ "done": ok });
-        });
     });
 });
 
@@ -299,10 +330,11 @@ app.post("/issues/create", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.CreateIssue(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.title, req.body.body, function (call) {
+                res.json({ "done": call });
+            });
         }
-        git.CreateIssue(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.title, req.body.body, function (call) {
-            res.json({ "done": call });
-        });
     });
 });
 
@@ -313,13 +345,14 @@ app.post("/comments", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.getComments(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, function (call) {
+                if (debug) {
+                    fs.writeFile("./debug/comments.txt", JSON.stringify(call, null, "\n"));
+                }
+                res.json(call);
+            });
         }
-        git.getComments(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, function (call) {
-            if (debug) {
-                fs.writeFile("./debug/comments.txt", JSON.stringify(call, null, "\n"));
-            }
-            res.json(call);
-        });
     });
 });
 
@@ -330,10 +363,11 @@ app.post("/comments/new", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.createComment(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, req.body.body, function (call) {
+                res.json({ "done": call });
+            });
         }
-        git.createComment(req.session.username, req.session.password, req.body.student, req.body.repo, req.body.number, req.body.body, function (call) {
-            res.json({ "done": call });
-        });
     });
 });
 
@@ -344,16 +378,17 @@ app.post("/log/get", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.getLog(req.session.username, req.session.password, req.body.owner, req.body.repo, function (markdown) {
+                if (markdown == false) {
+                    res.json("<p>This student does not have a Log<\p>");
+                } else {
+                    JSONFilter.MarkDown2HTML(markdown, function (html) {
+                        res.json(html);
+                    });
+                }
+            });
         }
-        git.getLog(req.session.username, req.session.password, req.body.owner, req.body.repo, function (markdown) {
-            if (markdown == false) {
-                res.json("<p>This student does not have a Log<\p>");
-            } else {
-                JSONFilter.MarkDown2HTML(markdown, function (html) {
-                    res.json(html);
-                });
-            }
-        });
     });
 });
 
@@ -364,14 +399,15 @@ app.post("/scriptie/get", function (req, res) {
     validateSession(req.session, function (isValid) {
         if (!isValid) {
             res.redirect("/login");
+        } else {
+            git.getScriptie(req.session.username, req.session.password, req.body.owner, req.body.repo, function (pdf) {
+                if (pdf == false) {
+                    res.json({ "ok": false });
+                } else {
+                    res.json(pdf);
+                }
+            });
         }
-        git.getScriptie(req.session.username, req.session.password, req.body.owner, req.body.repo, function (pdf) {
-            if (pdf == false) {
-                res.json({ "ok": false });
-            } else {
-                res.json(pdf);
-            }
-        });
     });
 });
 
@@ -383,14 +419,15 @@ app.post("/info/get",
         validateSession(req.session, function (isValid) {
             if (!isValid) {
                 res.redirect("/login");
+            } else {
+                git.GetInfo(req.session.username,
+                    req.session.password,
+                    req.body.owner,
+                    req.body.repo,
+                    function (call) {
+                        res.json(call);
+                    });
             }
-            git.GetInfo(req.session.username,
-                req.session.password,
-                req.body.owner,
-                req.body.repo,
-                function (call) {
-                    res.json(call);
-                });
         });
     });
 
