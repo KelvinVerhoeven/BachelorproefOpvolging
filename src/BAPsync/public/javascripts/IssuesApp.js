@@ -113,7 +113,6 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", "$timeou
                 var temp; //to make it an array
                 temp = data;
                 $scope.issues[id].gotComments = temp;
-                getComments();
             })
             .error(function (data, status, header, config) {
                 console.log("Failed " + data);

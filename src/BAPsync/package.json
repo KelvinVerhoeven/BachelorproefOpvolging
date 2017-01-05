@@ -7,13 +7,13 @@
     "name": "jonathan"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
+    "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
-    "debug": "^2.3.3",
+    "debug": "^2.6.0",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "github": "^5.3.3",
-    "mongoose": "^4.7.2",
+    "mongoose": "^4.7.6",
     "showdown": "^1.5.5"
   }
 }
