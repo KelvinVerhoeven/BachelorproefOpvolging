@@ -23,11 +23,6 @@ app.controller("commitCtrl",
 
        
         var init = function() {
-            if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
-                var host = $window.location.host;
-                var result = "https://" + host + "/login";
-                $window.location.href = result;
-            };
 
             $scope.docent = $cookies.get("username");
 
@@ -37,7 +32,7 @@ app.controller("commitCtrl",
                 }
             };
 
-            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
+            var dataToSend = {student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
@@ -53,6 +48,5 @@ app.controller("commitCtrl",
                     console.log("get commits failed: " + data);
                 });
         }
-
         init();
 }]);

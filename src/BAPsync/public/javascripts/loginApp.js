@@ -20,9 +20,8 @@ app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function 
             .success(function (data, status, headers, config) {
 
                 if (data.auth == true) {
-                    //cookie
+                    //cookies
                     $cookies.put("username", username, ["secure", "true"]);
-                    $cookies.put("password", password, ["secure", "true"]);
 
                     //redirect
                     var host = $window.location.host;
