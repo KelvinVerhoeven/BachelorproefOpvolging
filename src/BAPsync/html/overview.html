@@ -54,17 +54,20 @@
                                 <a data-toggle="collapse" href="#collapse1" id="toggle">Studenten</a>
                             </h3>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
+                        <div id="collapse1" class="panel-collapse collapse-in">
                             <ul class="list-group">
-                                <a class="list-group-item" ng-click="chooseStudent(student.studentRepo)" ng-repeat="student in students">{{student.studentRepo}}</a>
+                                <a class="list-group-item" href="" ng-repeat="student in students" ng-click="setSelected(student.id); chooseStudent(student.studentRepo)" ng-class="{selected : student.id === idSelectedStudent}">{{student.studentRepo}}</a>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="span10">
+                <div class="well">
+                    <p style="font-weight: bold; font-size: 12px;">{{fullName}}</p>
+                </div>
                 <div class="{{ alertInfo }}" id="info">
-                        
+
                     <p id="{{ errorInfo }}">Naam: <b>{{ info.name }}</b>
                     </p>
                     <p id="{{ errorInfo }}">Email: <b>{{ info.email }}</b>

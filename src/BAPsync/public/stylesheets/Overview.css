@@ -41,9 +41,9 @@
     float: right;
 }
 
-a:hover {
-    color: white;
-    background-color: #2c3e50;
+.selected {
+    background-color: gray;
+    
 }
 
 .alert {
@@ -53,8 +53,6 @@ a:hover {
     height: 140px;
 }
 @media screen and (max-width: 1300px) {
-    body {
-    }
     .span2 {
         width: 28%;
     }
@@ -62,7 +60,7 @@ a:hover {
 @media screen and (max-width: 885px) {
     body {
     }
-    .page {
+    .content {
         width: 100%;
     }
     .span10 {

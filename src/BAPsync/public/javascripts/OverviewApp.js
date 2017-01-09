@@ -46,7 +46,8 @@ app.controller("overviewCtrl",
                     $scope.repolink = data.html_url;
                     $scope.laatsteCommit = data.pushed_at;
                     $scope.openIssues = data.open_issues_count;
-                    
+                    $scope.fullName = data.full_name;
+
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -170,6 +171,7 @@ app.controller("overviewCtrl",
                     eventFooter();
                     getScriptieLink();
                     
+                    
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -180,8 +182,14 @@ app.controller("overviewCtrl",
             $window.location.href = "/issues";
         }
 
+        $scope.idSelectedStudent = null;
+        $scope.setSelected = function (idSelectedStudent) {
+            $scope.idSelectedStudent = idSelectedStudent;
+        }
+
         $scope.chooseStudent = function(full) {
             localSelection(full);
+            
         }
 
         var init = function () {

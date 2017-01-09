@@ -3,6 +3,7 @@ var app = angular.module('loginApp', ['ngCookies']);
 
 
 app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", "$sce", function ($cookies, $scope, $http, $window, $sce) {
+    $scope.hasError = null;
 
     $scope.login = function (username, password) {
         var dataToSend = JSON.stringify({
@@ -28,7 +29,7 @@ app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", "$sce", f
                     var result = "https://" + host + data.redirect;
                     $window.location.href = result;
                 } else {
-                    $scope.loginError = $sce.trustAsHtml("Login incorrect");
+                    $scope.hasError = "has-error";
                 }
             })
             .error(function (data, status, header, config) {
