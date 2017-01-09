@@ -10,7 +10,7 @@ app.controller("IssuesFormCtrl", ["$cookies", "$scope", "$http", "$window", func
                 'Content-Type': 'application/json'
             }
         }
-        var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), title: title, body: text };
+        var dataToSend = {student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo"), title: title, body: text };
 
         $http.post("/issues/create", dataToSend, config)
             .success(function (data, status, headers, config) {
@@ -29,12 +29,6 @@ app.controller("IssuesFormCtrl", ["$cookies", "$scope", "$http", "$window", func
         if ($cookies.get("currentStudent") == undefined || $cookies.get("currentRepo") == undefined) {
             $window.location.href = "/overview";
         }
-        if ($cookies.get("username") == undefined || $cookies.get("password") == undefined) {
-            $window.location.href = "/login";
-        }
-
-
     }
-
     init();
 }]);

@@ -39,7 +39,6 @@ app.controller("overviewCtrl",
                 }
             }
             var dataToSend = {
-                username: $cookies.get("username"), password: $cookies.get("password"),
                 owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
             };
             $http.post("/repos/get", dataToSend, config)
@@ -62,8 +61,6 @@ app.controller("overviewCtrl",
             };
 
             var dataToSend = {
-                username: $cookies.get("username"),
-                password: $cookies.get("password"),
                 owner: $cookies.get("currentStudent"),
                 repo: $cookies.get("currentRepo")
             };
@@ -100,7 +97,7 @@ app.controller("overviewCtrl",
                 }
             };
 
-            var dataToSend = { username: $cookies.get("username"), password: $cookies.get("password"), student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
+            var dataToSend = { student: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo") };
 
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
@@ -120,7 +117,6 @@ app.controller("overviewCtrl",
                 }
             }
             var dataToSend = {
-                username: $cookies.get("username"), password: $cookies.get("password"),
                 owner: $cookies.get("currentStudent"), repo: $cookies.get("currentRepo")
             };
 
@@ -189,20 +185,15 @@ app.controller("overviewCtrl",
         }
 
         var init = function () {
-            if ($cookies.get("username") == undefined) {
-                var host = $window.location.host;
-                var result = "https://" + host + "/login";
-                $window.location.href = result;
-            }
 
-            $scope.docent = $cookies.get("username");
+            $scope.docent = $cookies.get("username"); //rip
 
             var config = {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
-            var dataToSend = { username: $cookies.get("username") };
+            var dataToSend = {};
 
             $http.post("/subscriptionList", dataToSend, config)
                 .success(function (data, status, headers, config) {
@@ -240,11 +231,6 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
     });
 
     var init = function (args) {
-        if ($cookies.get("username") == undefined) {
-            var host = $window.location.host;
-            var result = "https://" + host + "/login";
-            $window.location.href = result;
-        }
 
         var config = {
             headers: {
@@ -252,7 +238,6 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             }
         }
         var dataToSend = {
-            username: $cookies.get("username"), password: $cookies.get("password"),
             owner: args.student, repo: args.repo
         };
 
@@ -265,5 +250,4 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
                 console.log("Failed! " + data);
             });
     }
-
 }]);
