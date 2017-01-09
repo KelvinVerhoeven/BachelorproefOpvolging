@@ -1,30 +1,38 @@
 ﻿body{
     width: 100%;
 }
-.navbar {
-    margin-bottom: 1%;
-}
 #rldBtn {
     margin-top: 1%;
     margin-left: 2%;
     width: 50%;
 }
+.content:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  
+  background-image: url('/images/ap_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 100%;
+  
+  filter: blur(8px);
+}
+.content {
+    width: 50%;
+    margin: auto;
+    z-index: 0;
+}
 .reload {
     background-color: transparent;
-    width: 50px;
-    height: 50px;
     border: none;
     float: right;
+    outline: none;
 }
-.buttonClicked {
-    background-color: #2c3e50;
-}
-.buttonNormal{
-}
-.buttonSpecial {
-    background-color: red;
-}
-/*ng-repeat studentsList*/
 .studentRepeatUL{
     list-style-type: none;
     margin-left: 2%;
@@ -32,19 +40,13 @@
 }
 .studentRepeatH3{
     margin-left: 2%;
+    color: gray;
 }
 .studentRepeatDIV {
     margin-left: 2%;
-    width: 50%;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
 }
 .subscriped {
-    background-color: #2c3e50;
+    background-color: #91170a;
     color: white;
 
 }

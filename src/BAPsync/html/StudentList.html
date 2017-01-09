@@ -42,9 +42,9 @@
     </div>
 </nav>
 
-<div class="studentsContainer">
-    <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" margin="auto" /></button></div>
-    
+<div class="content">
+    <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" /></button></div>
+    <br /><br /><br />
     <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
         <h3 class="studentRepeatH3">{{student.full}}</h3>
         <ul class="studentRepeatUL">
