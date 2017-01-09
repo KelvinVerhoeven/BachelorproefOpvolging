@@ -2,7 +2,7 @@ var app = angular.module('loginApp', ['ngCookies']);
 
 
 
-app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
+app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", "$sce", function ($cookies, $scope, $http, $window, $sce) {
 
     $scope.login = function (username, password) {
         var dataToSend = JSON.stringify({
@@ -27,6 +27,8 @@ app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function 
                     var host = $window.location.host;
                     var result = "https://" + host + data.redirect;
                     $window.location.href = result;
+                } else {
+                    $scope.loginError = $sce.trustAsHtml("Login incorrect");
                 }
             })
             .error(function (data, status, header, config) {
@@ -35,4 +37,14 @@ app.controller("loginCtrl", ["$cookies", "$scope", "$http", "$window", function 
                 response = data;
             })
     }
+
+    var init = function () {
+
+        $cookies.remove("connect.sid");
+        $cookies.remove("currentRepo");
+        $cookies.remove("currentStudent");
+        $cookies.remove("username");
+    }
+
+    init();
 }]);

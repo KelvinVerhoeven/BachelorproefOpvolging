@@ -18,7 +18,8 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
-                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
+                    <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging">BapSync</a>
+                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Logout</button>
                     <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
                     <p class="navbar-text navbar-right">Signed in as {{docent}} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>

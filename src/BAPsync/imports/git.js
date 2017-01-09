@@ -12,6 +12,7 @@ var logFile = config.BAP.logFile;
 var scriptieFolder = config.BAP.sciptieFolder;
 var scriptieFile = config.BAP.sciptieFile;
 var infoFile = config.BAP.infoFile;
+var repoDebug = config.repoDebug;
 
 var github = new GitHubApi({
     debug: debug,
@@ -77,16 +78,18 @@ module.exports = {
             }
             });
 
-        g.repos.getForUser({
-            user: "jonathan2266"
-        }, function (err, res) {
-            if (err) {
-                console.log("err in GetBachelorRepos: " + err);
-            } else {
-                callback(res);
-            }
+        if (repoDebug) {
+            g.repos.getForUser({
+                user: "jonathan2266"
+            }, function (err, res) {
+                if (err) {
+                    console.log("err in GetBachelorRepos: " + err);
+                } else {
+                    callback(res);
+                }
             });
-        //g.users.getTeams({ //finding my team id
+        }
+        //g.users.getTeams({ //finding my team id //testcode to find some id's
         //}, function (err, res) {
         //    fs.writeFile("././debug/getTeams.txt", JSON.stringify(res, null, "\n"));
         //    })
@@ -106,14 +109,20 @@ module.exports = {
         //    callback(res);
         //});
 
-        //g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
-        //    org: organisatie
-        //}, function (err, res) {
-        //    if (debug) {
-        //        fs.writeFile("././debug/orgList.txt", JSON.stringify(res, null, "\n"));
-        //    }
-        //    callback(res);
-        //}); 
+        if (!repoDebug) { //false
+            g.repos.getForOrg({ //normally you scan here. But the test repo has to be found elsewhere
+                org: organisatie
+            }, function (err, res) {
+                if (debug) {
+                    fs.writeFile("././debug/orgList.txt", JSON.stringify(res, null, "\n"));
+                }
+                if (err) {
+                    console.log("err in GetBachelorRepos: " + err);
+                } else {
+                    callback(res);
+                }
+            }); 
+        }
     },
     GetUserRepo: function(username, password, owner, repo, callback) {
         var result;

@@ -96,6 +96,7 @@ app.post("/login", function (req, res) {
                 });
             } else {
                 console.log("login with username: " + req.body.username + " failed");
+                res.json({ auth: false });
             }
         });
     }

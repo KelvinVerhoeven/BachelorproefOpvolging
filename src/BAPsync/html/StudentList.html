@@ -29,7 +29,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <div class="nav navbar-nav">
-                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Login</button>
+                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Logout</button>
                     <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonClicked">List</button>
                     <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
                     <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
@@ -38,7 +38,6 @@
         </div>
     </nav>
 </div>
-</br>
 <div class="studentsContainer">
     <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" margin="auto" /></button></div>
     
