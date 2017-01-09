@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>BapSync</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-simplex.min.css">
     <link rel="stylesheet" href="/stylesheets/issuesForm.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -14,17 +14,42 @@
     
 </head>
 <body ng-app="issuesFormApp" ng-controller="IssuesFormCtrl">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Issue Creater</div>
-        <div class="panel-body">
-            <div class="input-group">
-                <p>Title:</p>
-                <textarea ng-model="commentTitle" rows="1" type="text" class="form-control"></textarea>
-                <p>Text:</p>
-                <textarea ng-model="commentText" rows="3" type="text" class="form-control"></textarea>
-            </div><!-- /input-group -->
-            <button ng-click="submitIssue(commentTitle, commentText)" type="button" class="btn btn-default closeButtonRepeat">Submit</button>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
         </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                <li ng-click="navigation('StudentList')"><a href="">List</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-click="navigation('login')"><a href="">Logout</a></li>
+            </ul>
+        </div>
+
     </div>
+</nav>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Issue Creater</div>
+    <div class="panel-body">
+        <div class="input-group">
+            <p>Title:</p>
+            <textarea ng-model="commentTitle" rows="1" type="text" class="form-control"></textarea>
+            <p>Text:</p>
+            <textarea ng-model="commentText" rows="3" type="text" class="form-control"></textarea>
+        </div><!-- /input-group -->
+        <button ng-click="submitIssue(commentTitle, commentText)" type="button" class="btn btn-default closeButtonRepeat">Submit</button>
+    </div>
+</div>
 </body>
 </html>

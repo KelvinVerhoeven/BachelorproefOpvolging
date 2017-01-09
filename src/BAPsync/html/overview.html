@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>BapSync</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-simplex.min.css">
     <link rel="stylesheet" href="/stylesheets/Overview.css" />
     <link rel="stylesheet" href="/stylesheets/overviewFoot.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -15,31 +15,35 @@
     
 </head>
 <body ng-app="OverviewApp" ng-controller="overviewCtrl">
-<div class="nav">
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging">BapSync</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="nav navbar-nav">
-                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Logout</button>
-                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">List</button>
-                    <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonClicked">Overview</button>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-                </div>
-            </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
         </div>
-    </nav>
-</div>
-<div class="page">
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active" ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                <li ng-click="navigation('StudentList')"><a href="">List</a></li>
+                <li>
+                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-click="navigation('login')"><a href="">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<div class="content">
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span2">
@@ -71,11 +75,11 @@
                     </p>
                 </div>
                 <div class="{{ alertCommit }}">
-                    Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<button type="button" class="btn btn-success" ng-click="opencommits()">View</button>
+                    Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<button type="button" class="btn btn-default" ng-click="opencommits()">View</button>
                     <span class="problemspan">{{ problemCommit }}</span>
                 </div>
                 <div class="alert alert-info">
-                    Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-success">View</button>
+                    Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-default">View</button>
                 </div>
                 <div class="alert alert-info">
                     Repo link: <a href="{{ repolink }}" class="alert-link" target="_blank">{{ repolink }}</a>

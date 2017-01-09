@@ -2,6 +2,11 @@
 
 app.controller("IssuesFormCtrl", ["$cookies", "$scope", "$http", "$window", function ($cookies, $scope, $http, $window) {
 
+    $scope.navigation = function (link) {
+        var host = $window.location.host;
+        var result = "https://" + host + "/" + link;
+        $window.location.href = result;
+    }
 
     $scope.submitIssue = function (title, text) {
 

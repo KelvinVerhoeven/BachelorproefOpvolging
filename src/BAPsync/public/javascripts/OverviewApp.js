@@ -80,7 +80,7 @@ app.controller("overviewCtrl",
                         $scope.info = data;
                     } else {
                         $scope.info = data;
-                        $scope.alertInfo = "alert alert-info";
+                        $scope.alertInfo = "alert alert-success";
                         $scope.errorInfo = "";
                     }
                     
@@ -124,7 +124,7 @@ app.controller("overviewCtrl",
                 .success(function (data, status, header, config) {
 
                     if (data.ok == undefined) {
-                        $scope.alertScriptie = "alert alert-info";
+                        $scope.alertScriptie = "alert alert-success";
                         var part1 = "<p>Scriptie: <a href=\"";
                         var part2 = data;
                         var part3 = "\" class=\"alert-link\" target=\"_blank\">";

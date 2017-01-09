@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>BapSync</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap-flatly.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-simplex.min.css">
     <link rel="stylesheet" href="/stylesheets/issues.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -14,20 +14,34 @@
     
 </head>
 <body ng-app="issuesApp" ng-controller="IssuesCtrl">
-    <div>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header" ng-init="buttonBackgroundL='buttonNormal';buttonBackgroundO='buttonClicked'">
-                    <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging">BapSync</a>
-                    <button ng-click=navigation("login") type="button" class="btn btn-default navbar-btn buttonNormal">Logout</button>
-                    <button ng-click=navigation("StudentList") type="button" class="btn btn-default navbar-btn buttonNormal">StudentList</button>
-                    <button ng-click=navigation("Overview") type="button" class="btn btn-default navbar-btn buttonNormal">Overview</button>
-                    <p class="navbar-text navbar-right">Signed in as {{docent}} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-                    <button ng-click=navigation("issues/form") type="button" class="btn btn-default navbar-btn buttonSpecial">Create issue</button>
-                </div>
-            </div>
-        </nav>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                <li ng-click="navigation('StudentList')"><a href="">List</a></li>
+                <li ng-click="navigation('issues/form')"><a href="">Create issue</a></li>
+                <li>
+                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-click="navigation('login')"><a href="">Logout</a></li>
+            </ul>
+        </div>
+
     </div>
+</nav>
     <div>
         <div class="issueRepeatDiv panel panel-primary" ng-repeat="issue in issues">
             <div class="panel-heading"><h3 class="titleRepeat panel-title">{{issue.title}}</h3></div>
