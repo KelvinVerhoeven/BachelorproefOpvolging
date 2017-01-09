@@ -25,10 +25,6 @@
 .btn-success {
     float: right;
 }
-.problemspan {
-    color: red;
-    font-weight: bold;
-}
 
 a:hover {
     color: white;
@@ -40,9 +36,6 @@ a:hover {
 }
 #info {
     height: 140px;
-}
-#errorInfo {
-    background-color: red;
 }
 @media screen and (max-width: 1300px) {
     body {

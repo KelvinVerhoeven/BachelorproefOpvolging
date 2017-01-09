@@ -71,9 +71,16 @@ app.controller("overviewCtrl",
                     
                     if (data == false) {
                         $scope.info = "";
-                        $scope.errorInfo = "errorInfo";
+                        $scope.alertInfo = "alert alert-danger";
+                    } else if (data.name == null ||
+                        data.promotor == null ||
+                        data.email == null ||
+                        data.company == null) {
+                        $scope.alertInfo = "alert alert-warning";
+                        $scope.info = data;
                     } else {
                         $scope.info = data;
+                        $scope.alertInfo = "alert alert-info";
                         $scope.errorInfo = "";
                     }
                     
@@ -95,6 +102,7 @@ app.controller("overviewCtrl",
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.numCommits = data.length;
+                    $scope.alertCommit = "alert alert-danger";
                 })
                 .error(function (data, status, headers, config) {
                     console.log("get commits failed: " + data);
@@ -116,6 +124,7 @@ app.controller("overviewCtrl",
                 .success(function (data, status, header, config) {
 
                     if (data.ok == undefined) {
+                        $scope.alertScriptie = "alert alert-info";
                         var part1 = "<p>Scriptie: <a href=\"";
                         var part2 = data;
                         var part3 = "\" class=\"alert-link\" target=\"_blank\">";
@@ -123,6 +132,7 @@ app.controller("overviewCtrl",
                         var part5 = "</a></p>";
                         $scope.scriptieLink = $sce.trustAsHtml(part1 + part2 + part3 + part4 + part5);
                     } else {
+                        $scope.alertScriptie = "alert alert-danger";
                         $scope.scriptieLink = $sce.trustAsHtml("<p class=\"notFound\">Sciptie not found!</p>");
                     }
                 })
