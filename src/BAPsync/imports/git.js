@@ -439,6 +439,17 @@ module.exports = {
                 callback(false);
             } else {
 
+                var isFound = false;
+                for (var r in res) {
+                    if (res[r].name == logFile) {
+                        isFound = true
+                    }
+                }
+
+                if (!isFound) {
+                    callback(false);
+                }
+
                 for (r in res) {
                     if (res[r].name == logFile) {
 
@@ -454,7 +465,6 @@ module.exports = {
                                 callback(Buffer.from(res.content, res.encoding).toString('ascii'));
                             }
                         });
-
                     }
                 }
             }
