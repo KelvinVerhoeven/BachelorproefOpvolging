@@ -1,4 +1,20 @@
-﻿var app = angular.module('OverviewApp', ['ngCookies']);
+﻿var app = angular.module('OverviewApp', ['ngCookies', 'chart.js']);
+
+app.config(['ChartJsProvider', function (ChartJsProvider) {
+    // Configure all charts
+    ChartJsProvider.setOptions({
+        chartColors: ['#FF5252', '#FF8A80'],
+        responsive: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 5
+                }
+            }]
+        }
+    });
+}]);
 
 app.controller("overviewCtrl",
 [
@@ -18,6 +34,8 @@ app.controller("overviewCtrl",
         $scope.docent;
         $scope.clock;
         $scope.tickInterval = 1000;
+        $scope.labelI = ["Issues"];
+        $scope.labelC = ["Commits"];
 
         var tick = function() {
             $scope.clock = Date.now();
@@ -81,6 +99,8 @@ app.controller("overviewCtrl",
                     str += date.getUTCMinutes() + " minutes ";
                     $scope.timeAgo = str + " ago";
                     $scope.timeAgo = str;
+
+                    $scope.dataI = [data.open_issues_count];
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -136,6 +156,7 @@ app.controller("overviewCtrl",
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.numCommits = data.length;
+                    $scope.dataC = [data.length];
                 })
                 .error(function (data, status, headers, config) {
                     console.log("get commits failed: " + data);
@@ -224,9 +245,15 @@ app.controller("overviewCtrl",
             
         }
 
+        
+        
+
         var init = function () {
 
             $scope.docent = $cookies.get("username"); //rip
+
+            
+            
 
             var config = {
                 headers: {
@@ -258,6 +285,8 @@ app.controller("overviewCtrl",
                     console.log("Failed " + data);
                 });   
         }
+
+        
 
         init();
     }]);
@@ -291,3 +320,4 @@ app.controller("overviewFootCtrl", ["$cookies", "$scope", "$http", "$window", "$
             });
     }
 }]);
+
