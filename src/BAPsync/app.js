@@ -1,4 +1,5 @@
 var express = require('express');
+var compression = require('compression');
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -27,6 +28,7 @@ app.use(session({
     resave: false,
     cookie: { path: '/', httpOnly: false, secure: true, maxAge: null }
 }));
+app.use(compression());
 
 var updateStudentList = setInterval(function () {
 
