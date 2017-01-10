@@ -16,6 +16,8 @@ app.controller("overviewCtrl",
         }
         $timeout(tick, $scope.tickInterval);
 
+        var timeNow = new Date();
+
         
 
         $scope.navigation = function(link) {
@@ -47,7 +49,25 @@ app.controller("overviewCtrl",
                     $scope.laatsteCommit = data.pushed_at;
                     $scope.openIssues = data.open_issues_count;
                     $scope.fullName = data.full_name;
+                    //calculate if last commit is older than a given time
+                    var timeString = timeNow.toString();
+                    var diff = Date.parse(timeString) - Date.parse(data.pushed_at);
+                    var timeDiff = diff / (1000 * 60 * 60 * 24);
 
+                    if (timeDiff <= 7) {
+                        $scope.alertCommit = "";
+                        $scope.alertCommit = "alert alert-success";
+                        console.log("success");
+                    } else if (timeDiff > 7 && timeDiff <= 14) {
+                        $scope.alertCommit = "";
+                        $scope.alertCommit = "alert alert- warning";
+                        console.log("warning");
+                    } else if (timeDiff > 14) {
+                        $scope.alertCommit = "";
+                        $scope.alertCommit = "alert alert-danger";
+                        console.log("danger");
+                    }
+                    console.log("time since last commit: " + timeDiff + " days");
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
@@ -103,7 +123,6 @@ app.controller("overviewCtrl",
             $http.post("/commit/get", dataToSend, config)
                 .success(function (data, status, headers, config) {
                     $scope.numCommits = data.length;
-                    $scope.alertCommit = "alert alert-danger";
                 })
                 .error(function (data, status, headers, config) {
                     console.log("get commits failed: " + data);

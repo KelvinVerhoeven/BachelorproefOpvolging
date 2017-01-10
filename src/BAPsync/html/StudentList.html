@@ -14,48 +14,49 @@
     
 </head>
 <body ng-app="studentListApp" ng-controller="studentListCtrl">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
-        </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
+            </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
-                <li class="active" ng-click="navigation('StudentList')"><a href="">List</a></li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                    <li class="active" ng-click="navigation('StudentList')"><a href="">List</a></li>
+                    <li ng-click="special('/studentList/refresh')"><a href="">Reload list</a></li>
+                    <li>
+                        <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-click="navigation('login')"><a href="">Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <div class="content">
+
+        <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
+            <h3 class="studentRepeatH3">{{student.full}}</h3>
+            <ul class="studentRepeatUL">
                 <li>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                    <p>Owner: {{student.owner}}</p>
+                </li>
+                <li>
+                    <p>Repository: {{student.repo}}</p>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="navigation('login')"><a href="">Logout</a></li>
-            </ul>
         </div>
-
     </div>
-</nav>
-
-<div class="content">
-    <div id="rldBtn"><button class="reload" type="button" ng-click=special("/studentList/refresh")><img src="/images/reload.png" height="30px" width="30px" /></button></div>
-    <br /><br /><br />
-    <div class="panel panel-info studentRepeatDIV {{student.subbed}}" ng-repeat="student in students" ng-click=selectStudent(student.full)>
-        <h3 class="studentRepeatH3">{{student.full}}</h3>
-        <ul class="studentRepeatUL">
-            <li>
-                <p>Owner: {{student.owner}}</p>
-            </li>
-            <li>
-                <p>Repository: {{student.repo}}</p>
-            </li>
-        </ul>
-    </div>
-</div>
 </body>
 </html>

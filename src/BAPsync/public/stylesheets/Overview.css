@@ -20,9 +20,8 @@
   
   filter: blur(8px);
 }
-
 .content {
-    width: 85%;
+    width: 100%;
     margin: auto;
     z-index: 0;
 }
@@ -32,20 +31,18 @@
     text-align: left;
 }
 .span10 {
-    width: 65%;
+    width: 50%;
     float: right;
-    margin-right: 5%;
+    margin-right: 25%;
 
 }
 .btn-default {
     float: right;
 }
-
 .selected {
     background-color: gray;
     
 }
-
 .alert {
     height: 75px;
 }
@@ -54,7 +51,7 @@
 }
 @media screen and (max-width: 1300px) {
     .span2 {
-        width: 28%;
+        width: 20%;
     }
 }
 @media screen and (max-width: 885px) {
