@@ -57,17 +57,13 @@ app.controller("overviewCtrl",
                     if (timeDiff <= 7) {
                         $scope.alertCommit = "";
                         $scope.alertCommit = "alert alert-success";
-                        console.log("success");
                     } else if (timeDiff > 7 && timeDiff <= 14) {
                         $scope.alertCommit = "";
                         $scope.alertCommit = "alert alert- warning";
-                        console.log("warning");
                     } else if (timeDiff > 14) {
                         $scope.alertCommit = "";
                         $scope.alertCommit = "alert alert-danger";
-                        console.log("danger");
                     }
-                    console.log("time since last commit: " + timeDiff + " days");
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
