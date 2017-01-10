@@ -14,43 +14,51 @@
     
 </head>
 <body ng-app="issuesApp" ng-controller="IssuesCtrl">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
-        </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
+            </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
-                <li ng-click="navigation('StudentList')"><a href="">List</a></li>
-                <li ng-click="navigation('issues/form')"><a href="">Create issue</a></li>
-                <li>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="navigation('login')"><a href="">Logout</a></li>
-            </ul>
-        </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                    <li ng-click="navigation('StudentList')"><a href="">List</a></li>
+                    <li ng-click="navigation('issues/form')"><a href="">Create issue</a></li>
+                    <li>
+                        <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-click="navigation('login')"><a href="">Logout</a></li>
+                </ul>
+            </div>
 
-    </div>
-</nav>
-    <div>
-        <div class="issueRepeatDiv panel panel-primary" ng-repeat="issue in issues">
-            <div class="panel-heading"><h3 class="titleRepeat panel-title">{{issue.title}}</h3></div>
-            <div class="panel-body">
-                <p class="issueBody">{{issue.body}}</p>
-                <div ng-repeat="comment in issue.gotComments" class="panel-default commentRepeat">
-                    <div class="panel-heading"><p class="commentUserRepeat">{{comment.user.login}}</p></div>
-                    <div class="panel-body">
-                        <p class="commentBodyRepeat">{{comment.body}}</p>
+        </div>
+    </nav>
+
+    <div class="issueRepeatDiv panel panel-info" ng-repeat="issue in issues">
+        <div class="panel-heading">
+            <a ng-click="element.isCollapsed = !element.isCollapsed" href="">
+                {{issue.title}}
+            </a>
+            <button ng-click=closeIssue(issue.number) type="button" class="btn btn-danger closeButtonRepeat">Close</button>
+        </div>
+        <div collapse="element.isCollapsed">
+            <div ng-show="!element.isCollapsed" class="panel-body ">
+                <div class="panel-body">
+                    <h4 class="issueBody">{{issue.body}}</h4>
+                    <div ng-repeat="comment in issue.gotComments" class="panel-default commentRepeat">
+                        <div class="panel-heading"><p class="commentUserRepeat">{{comment.user.login}}</p></div>
+                        <div class="panel-body">
+                            <p class="commentBodyRepeat">{{comment.body}}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -60,12 +68,14 @@
                             <span class="input-group-btn">
                                 <button ng-click="newComment(issue.number, commentText)" class="btn btn-default" type="button">Comment</button>
                             </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                </div><!-- /.row -->
-                <button ng-click=closeIssue(issue.number) type="button" class="btn btn-default closeButtonRepeat">Close issue</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+
+
 </body>
 </html>
