@@ -4,10 +4,19 @@ app.controller("overviewCtrl",
 [
     "$cookies", "$scope", "$http", "$window", "$rootScope", "$timeout", "$sce", function ($cookies, $scope, $http, $window, $rootScope, $timeout, $sce) {
 
-
+        $scope.fullName;
+        $scope.info;
+        $scope.laatsteCommit;
+        $scope.openIssues;
+        $scope.timeAgo;
+        $scope.numCommits;
+        $scope.repolink;
+        $scope.alertScriptie;
+        $scope.alertInfo;
+        $scope.errorInfo;
         $scope.students = [];
         $scope.docent;
-        $scope.clock = "time...";
+        $scope.clock;
         $scope.tickInterval = 1000;
 
         var tick = function() {

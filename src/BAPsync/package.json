@@ -7,6 +7,7 @@
     "name": "jonathan"
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",

@@ -43,6 +43,7 @@
     <Compile Include="public\javascripts\loginApp.js" />
     <Compile Include="public\javascripts\OverviewApp.js" />
     <Compile Include="public\javascripts\StudentListApp.js" />
+    <None Include="bundleconfig.json" />
     <Content Include="html\commit.html" />
     <Content Include="html\issues.html" />
     <Content Include="html\issuesForm.html" />
@@ -53,6 +54,10 @@
     <Content Include="openSSL\key.pem" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\Commit.css" />
+    <Content Include="public\stylesheets\Commit.min.css">
+      <SubType>Content</SubType>
+      <DependentUpon>public\stylesheets\Commit.css</DependentUpon>
+    </Content>
     <Content Include="public\stylesheets\issues.css" />
     <Content Include="public\stylesheets\issuesForm.css" />
     <Content Include="public\stylesheets\Overview.css" />

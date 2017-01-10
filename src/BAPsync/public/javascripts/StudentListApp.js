@@ -5,6 +5,7 @@ app.controller("studentListCtrl", ["$cookies", "$scope", "$http", "$timeout", "$
     //scopes var
     $scope.students = [];
     $scope.docent;
+    $scope.student;
 
     $scope.clock = "time...";
     $scope.tickInterval = 1000;

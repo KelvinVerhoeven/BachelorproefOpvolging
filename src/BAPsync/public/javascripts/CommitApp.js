@@ -4,6 +4,7 @@ app.controller("commitCtrl",
 [
     "$cookies", "$scope", "$http", "$window", "$timeout", function ($cookies, $scope, $http, $window, $timeout) {
 
+        $scope.numCommits;
         $scope.docent;
         $scope.commits;
         $scope.clock = "time...";

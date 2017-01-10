@@ -4,6 +4,7 @@ app.controller("IssuesCtrl", ["$cookies", "$scope", "$http", "$window", "$timeou
 
     $scope.docent;
     $scope.issues;
+    $scope.comment;
     $scope.clock = "time...";
     $scope.tickInterval = 1000;
 
