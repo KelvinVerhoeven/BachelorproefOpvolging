@@ -64,6 +64,14 @@ app.controller("overviewCtrl",
                         $scope.alertCommit = "";
                         $scope.alertCommit = "alert alert-danger";
                     }
+
+                    var date = new Date(diff);
+                    var str = '';
+                    str += date.getUTCDate() - 1 + " days, ";
+                    str += date.getUTCHours() + " hours, ";
+                    str += date.getUTCMinutes() + " minutes ";
+                    $scope.timeAgo = str + " ago";
+                    $scope.timeAgo = str;
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);

@@ -15,85 +15,92 @@
     
 </head>
 <body ng-app="OverviewApp" ng-controller="overviewCtrl">
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-            <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="https://github.com/KelvinVerhoeven/BachelorproefOpvolging" target="_blank"><img src="/images/github.png" style="width: 22px; height: 22px; float: left; margin-top: -2px;">BapSync</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active" ng-click="navigation('Overview')"><a href="">Overview</a></li>
+                    <li ng-click="navigation('StudentList')"><a href="">List</a></li>
+                    <li ng-click="navigation('issues/form')"><a href="">Create issue</a></li>
+                    <li>
+                        <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-click="navigation('login')"><a href="">Logout</a></li>
+                </ul>
+            </div>
+
         </div>
+    </nav>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active" ng-click="navigation('Overview')"><a href="">Overview</a></li>
-                <li ng-click="navigation('StudentList')"><a href="">List</a></li>
-                <li ng-click="navigation('issues/form')"><a href="">Create issue</a></li>
-                <li>
-                    <p class="navbar-text navbar-right">Signed in as {{ docent }} on {{ clock | date:'dd/MM/yyyy HH:mm:ss' }}</p></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="navigation('login')"><a href="">Logout</a></li>
-            </ul>
-        </div>
-
-    </div>
-</nav>
-
-<div class="content">
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse1" id="toggle">Studenten</a>
-                            </h3>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse-in">
-                            <ul class="list-group">
-                                <a class="list-group-item" href="" ng-repeat="student in students" ng-click="setSelected(student.id); chooseStudent(student.studentRepo)" ng-class="{selected : student.id === idSelectedStudent}">{{student.studentRepo}}</a>
-                            </ul>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapse1" id="toggle">Studenten</a>
+                                </h3>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse-in">
+                                <ul class="list-group">
+                                    <a class="list-group-item" href="" ng-repeat="student in students" ng-click="setSelected(student.id); chooseStudent(student.studentRepo)" ng-class="{selected : student.id === idSelectedStudent}">{{student.studentRepo}}</a>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="span10">
-                <div class="well">
-                    <p style="font-weight: bold; font-size: 12px;">{{fullName}}</p>
-                </div>
-                <div class="{{ alertInfo }}" id="info">
+                <div class="span10">
+                    <div class="well">
+                        <p style="font-weight: bold; font-size: 12px;">{{fullName}}</p>
+                    </div>
+                    <div class="{{ alertInfo }}" id="info">
 
-                    <p id="{{ errorInfo }}">Naam: <b>{{ info.name }}</b>
-                    </p>
-                    <p id="{{ errorInfo }}">Email: <b>{{ info.email }}</b>
-                    </p>
-                    <p id="{{ errorInfo }}">Bedrijf: <b>{{ info.company }}</b>
-                    </p>
-                    <p id="{{ errorInfo }}">Promotor: <b>{{ info.promotor }}</b>
-                    </p>
+                        <p id="{{ errorInfo }}">
+                            Naam: <b>{{ info.name }}</b>
+                        </p>
+                        <p id="{{ errorInfo }}">
+                            Email: <b>{{ info.email }}</b>
+                        </p>
+                        <p id="{{ errorInfo }}">
+                            Bedrijf: <b>{{ info.company }}</b>
+                        </p>
+                        <p id="{{ errorInfo }}">
+                            Promotor: <b>{{ info.promotor }}</b>
+                        </p>
+                    </div>
+                    <div class="{{ alertCommit }}">
+                        Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<br />
+                        <span class="label label-default">{{timeAgo}} ago</span>
+                        <button type="button" class="btn btn-default" ng-click="opencommits()">View</button>
+                    </div>
+                    <div class="alert alert-info">
+                        Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-default">View</button>
+                    </div>
+                    <div class="alert alert-info">
+                        Repo link: <a href="{{ repolink }}" class="alert-link" target="_blank">{{ repolink }}</a>
+                    </div>
+                    <div ng-bind-html="scriptieLink" class="{{ alertScriptie }}"></div>
+                    <div ng-controller="overviewFootCtrl" class="jumbotron">
+                        <div ng-bind-html="logs" class="log"></div>
+                    </div>
                 </div>
-                <div class="{{ alertCommit }}">
-                    Last commit: {{ laatsteCommit | date:'dd/MM/yyyy HH:mm' }}, number of commits: {{numCommits}}<button type="button" class="btn btn-default" ng-click="opencommits()">View</button>
-                </div>
-                <div class="alert alert-info">
-                    Open issues: {{openIssues}}<button ng-click="open()" type="button" class="btn btn-default">View</button>
-                </div>
-                <div class="alert alert-info">
-                    Repo link: <a href="{{ repolink }}" class="alert-link" target="_blank">{{ repolink }}</a>
-                </div>
-                <div ng-bind-html="scriptieLink" class="{{ alertScriptie }}"></div>
-                <div ng-controller="overviewFootCtrl" class="jumbotron">
-                    <div ng-bind-html="logs" class="log"></div>
+                <div>
                 </div>
             </div>
-            <div>
-        </div>
-    </div>
 </body>
 </html>
