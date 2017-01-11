@@ -6,18 +6,16 @@ install nodeJS https://nodejs.org/en/
 
 install packages with npm install <package_name>:
 
-* "bluebird": "^3.4.6",
-* "body-parser": "^1.15.2",
-* "cookie-parser": "^1.4.3",
-* "debug": "^2.3.3",
-* "express": "^4.14.0",
-* "github": "^5.3.3",
-* "jade": "^1.11.0",
-* "mongoose": "^4.7.2",
-* "morgan": "^1.7.0",
-* "serve-favicon": "^2.3.2",
-* "showdown": "^1.5.1",
-* "stylus": "^0.54.5"
+*    "angular-chart.js": "^1.1.1",
+*    "bluebird": "^3.4.7",
+*    "body-parser": "^1.15.2",
+*    "compression": "^1.6.2",
+*    "debug": "^2.6.0",
+*    "express": "^4.14.0",
+*    "express-session": "^1.14.2",
+*    "github": "^5.3.3",
+*    "mongoose": "^4.7.6",
+*    "showdown": "^1.6.0"
  
  If the package.json is in that directory that version will be installed. We are developing the application using visual studio.
  With the **nodeJS** extension provided by microsoft, **web essential 2015.3** and a **markdown** extension.
@@ -41,7 +39,8 @@ install packages with npm install <package_name>:
 
  Install and use mongoDB [here](https://docs.mongodb.com/manual/installation/)
 
- If you have the server running on a different computer you can change the config.db.link value [here](https://github.com/KelvinVerhoeven/BachelorproefOpvolging/blob/master/src/BAPsync/imports/config.js)
+ If you have the server running on a different computer you can change the config.db.link value [here](https://github.com/KelvinVerhoeven/BachelorproefOpvolging/blob/master/src/BAPsync/imports/config.js).
+ We where running version 3.2.10
 
 # config
 
@@ -59,4 +58,4 @@ Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOp
 
 # key.js
 
-Exports the github token.
+Exports the github token. This one needs to be filled in by the organization itself. 
