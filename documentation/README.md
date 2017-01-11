@@ -20,7 +20,7 @@ install packages with npm install <package_name>:
 *    "showdown": "^1.6.0"
  
  If the package.json is in that directory that version will be installed. We are developing the application using Microsoft Visual Studio Enterprise 2015.
- With the **nodeJS** extension provided by microsoft, **web essentials 2015.3** and a **markdown** extension.
+ With the **Node.JS Tools 1.2** extension provided by microsoft, **web essentials 2015.3** and a **markdown** extension.
 
  ## openSSL
 
