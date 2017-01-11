@@ -8,7 +8,6 @@ We used versions 6.9.4, 7.2.1 and 7.4.0.
 
 install packages with npm install <package_name>:
 
-*    "angular-chart.js": "^1.1.1",
 *    "bluebird": "^3.4.7",
 *    "body-parser": "^1.15.2",
 *    "compression": "^1.6.2",
