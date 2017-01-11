@@ -4,6 +4,8 @@
 
 install nodeJS https://nodejs.org/en/
 
+We used versions 6.9.4, 7.2.1 and 7.4.0.
+
 install packages with npm install <package_name>:
 
 *    "angular-chart.js": "^1.1.1",
@@ -17,12 +19,12 @@ install packages with npm install <package_name>:
 *    "mongoose": "^4.7.6",
 *    "showdown": "^1.6.0"
  
- If the package.json is in that directory that version will be installed. We are developing the application using visual studio.
- With the **nodeJS** extension provided by microsoft, **web essential 2015.3** and a **markdown** extension.
+ If the package.json is in that directory that version will be installed. We are developing the application using Microsoft Visual Studio Enterprise 2015.
+ With the **nodeJS** extension provided by microsoft, **web essentials 2015.3** and a **markdown** extension.
 
  ## openSSL
 
- This application also uses https for safer communication between client and server. This requires that you make a key and a certification file.
+ This application also uses https for safer communication between client and server. This requires that you make a key and a certification file. Don't worry when your browser says the connection is not safe.
  Using linux or any other means.
 
  openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
@@ -59,3 +61,4 @@ Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOp
 # key.js
 
 Exports the github token. This one needs to be filled in by the organization itself. 
+Place the key.js file in /imports.
