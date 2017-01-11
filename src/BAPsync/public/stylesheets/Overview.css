@@ -28,13 +28,18 @@
 .span2 {
     width: 20%;
     display: inline-block;
-    text-align: left;
+    float: left;
 }
 .span10 {
     width: 50%;
+    display: inline-block;
+    margin: auto;
+    padding-left: 10%;
+}
+.span1 {
     float: right;
-    margin-right: 25%;
-
+    display: inline-block;
+    padding-right: 5%;
 }
 .btn-default {
     float: right;

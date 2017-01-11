@@ -9,7 +9,7 @@ app.config(['ChartJsProvider', function (ChartJsProvider) {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    max: 5
+                    max: 6
                 }
             }]
         }
