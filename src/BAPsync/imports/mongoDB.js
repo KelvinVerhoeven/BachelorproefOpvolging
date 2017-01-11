@@ -45,7 +45,7 @@ module.exports = { //needs testing
 
    
 
-    AddToSubscriptionList: function (username, studentRepo, callback) { //needs testing
+    AddToSubscriptionList: function (username, studentRepo, callback) {
         DocStudLinkDB.findOne({ "docent": username, "studentRepo": studentRepo }, "docent studentRepo", function (err, res) {
             if (err) {
                 console.log("err in retrieving subscription list from databese: " + err);

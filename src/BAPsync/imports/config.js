@@ -4,7 +4,7 @@ var config = {};
 config.db = {};
 config.BAP = {};
 
-config.debug = true;
+config.debug = false;
 config.repoDebug = true; //when true it scans a diffrent profile then AP when false it scans the set organisatie. 
 
 config.db.link = "mongodb://localhost/BAPSync";
