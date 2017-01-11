@@ -16,8 +16,16 @@ app.config(['ChartJsProvider', function (ChartJsProvider) {
     });
     ChartJsProvider.setOptions('doughnut', {
         chartColors: ['#4D5360', '#DCDCDC'],
-
-
+        cutoutPercentage: 0,
+        animation: {
+            animateScale: true
+        },
+        scales: {
+            gridLines: {
+            display: false
+            }
+        }
+        
     });
 }]);
 
