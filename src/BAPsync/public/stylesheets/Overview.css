@@ -56,16 +56,25 @@
 }
 @media screen and (max-width: 766px) {
     .span2 {
-        width: 20%;
-    }
-}
-@media screen and (max-width: 885px) {
-    body {
-    }
-    .content {
-        width: 100%;
+        width: 30%;
     }
     .span10 {
-        margin-right: 0%;
+        float: right;
+        width: 70%;
+    }
+    .span1 {
+        float: left;
+    }
+}
+@media screen and (max-width: 950px) {
+    .span1 {
+        float: left;
+    }
+    .span10 {
+        float: right;
+        width: 70%;
+    }
+    .span2 {
+        width: 30%;
     }
 }
