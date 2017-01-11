@@ -31,10 +31,10 @@
     float: left;
 }
 .span10 {
-    width: 50%;
+    width: 60%;
     display: inline-block;
     margin: auto;
-    padding-left: 10%;
+    padding-left: 5%;
 }
 .span1 {
     float: right;
