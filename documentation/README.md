@@ -40,7 +40,7 @@ install packages with npm install <package_name>:
  Install and use mongoDB [here](https://docs.mongodb.com/manual/installation/)
 
  If you have the server running on a different computer you can change the config.db.link value [here](https://github.com/KelvinVerhoeven/BachelorproefOpvolging/blob/master/src/BAPsync/imports/config.js).
- We where running version 3.2.10
+ We were running version 3.2.10
 
 # config
 
