@@ -14,6 +14,11 @@ app.config(['ChartJsProvider', function (ChartJsProvider) {
             }]
         }
     });
+    ChartJsProvider.setOptions('doughnut', {
+        chartColors: ['#4D5360', '#DCDCDC'],
+
+
+    });
 }]);
 
 app.controller("overviewCtrl",
@@ -36,6 +41,7 @@ app.controller("overviewCtrl",
         $scope.tickInterval = 1000;
         $scope.labelI = ["Issues"];
         $scope.labelC = ["Commits"];
+        $scope.labelD = ["TimeAgo", "Left"];
 
         var tick = function() {
             $scope.clock = Date.now();
@@ -99,8 +105,13 @@ app.controller("overviewCtrl",
                     str += date.getUTCMinutes() + " minutes ";
                     $scope.timeAgo = str + " ago";
                     $scope.timeAgo = str;
+                    var chartDiff = Math.round(timeDiff * 100) / 100;
+                    var weekChartDiff = 7 - chartDiff;
+                    var roundDiff = Math.round(weekChartDiff * 100) / 100;
+                    
 
                     $scope.dataI = [data.open_issues_count];
+                    $scope.dataD = [chartDiff, (roundDiff)];
                 })
                 .error(function (data, status, header, config) {
                     console.log("Failed! " + data);
