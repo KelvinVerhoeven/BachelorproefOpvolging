@@ -62,3 +62,9 @@ Config.js can be found [here](https://github.com/KelvinVerhoeven/BachelorproefOp
 
 Exports the github token. This one needs to be filled in by the organization itself. 
 Place the key.js file in /imports.
+
+template:
+
+var key = ""
+
+module.exports = key;
